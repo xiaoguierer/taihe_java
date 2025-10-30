@@ -1,0 +1,70 @@
+新项目上传
+
+1 本地安装git客户端
+2 项目根目录下执行:
+
+    1  git init 命令 。在本地项目根目录初始化 Git 仓库，项目根目录下创建一个名为 .git的隐藏文件夹，这是 Git 用来跟踪管理所有版本历史的地方。
+
+    2  git add . 命令。将项目文件添加到暂存区（Staging Area）。
+    git add filename.js可以只添加特定文件。
+    git add .是最常用的方式，表示添加所有更改。
+    (此时会提示CRLF和LF转换问题) 解决方案：
+    在项目根目录建个 .gitattributes 文件，写一行：
+     * text=auto eol=lf
+    然后重新提交一次，永绝后患。
+
+    3 git commit -m "Initial commit"  命令
+    将暂存区的内容提交到本地仓库
+    提交（Commit）就是为“已暂存”的更改创建一个永久的快照，并附上说明。
+    执行命令。-m参数后面跟的是提交信息（Commit Message）。
+    务必写清楚、有意义的提交信息，例如 "添加用户登录功能"、"修复首页样式错误" 等。
+    "Initial commit"是首次提交的惯例写法。
+
+    4 在 GitHub 上创建远程仓库
+      登录你的 GitHub 账户。点击右上角的 +号，选择New repository。
+      填写仓库名称（如 my-awesome-project），以及描述（可选）。
+      非常重要：不要勾选 “Initialize this repository with a README.md”。因为我们是要推送一个已存在的本地项目，如果勾选，需要先执行一次拉取合并操作，对新手来说会增加复杂度。
+      其他设置保持默认，点击 Create repository 按钮。
+      创建成功后，你会看到一个快速设置页面，里面包含仓库的 URL。
+      创建完毕会给出提示命令：
+        git init
+        git add README.md
+        git commit -m "first commit"
+        git branch -M main
+        git remote add origin https://github.com/xiaoguierer/taihe-front-dasboard.git
+
+        git remote add origin https://github.com/xiaoguierer/taihe_java.git
+
+        git push -u origin main
+
+
+     5 将本地仓库与远程仓库关联
+     git remote add origin https://github.com/xiaoguierer/taihe-front-dasboard.git  命令
+     # 添加一个远程仓库地址，并为其命名为 origin
+     git remote add是添加远程仓库的命令。
+     origin是给这个远程仓库起的一个别名，方便后续使用。
+     最后的 URL 请替换为你在第4步中创建的仓库的 HTTPS 地址（推荐新手使用）或 SSH 地址。
+
+
+
+     6 将本地代码推送到 GitHub
+     git push -u origin main   命令
+     这是最后一步，将你本地仓库的所有内容（提交历史）上传到 GitHub。
+     git push是推送命令。
+     -u是 --set-upstream的简写，它表示将本地的 main分支与远程的 main分支关联起来。你只需要在第一次推送时使用这个参数，之后在这个分支上直接使用 git push即可。
+     origin main：推送到名为 origin的远程仓库的 main分支。
+     注意：旧项目默认分支可能是 master，请根据你的实际情况（执行 git branch查看当前分支名）将 main替换为 master。目前 GitHub 新建仓库的默认分支是 main。
+        注意
+            本地分支：你的本地仓库使用的是 master分支（旧版 Git 默认分支）
+             远程仓库：GitHub 默认创建的是 main分支（新版默认）
+          解决办法：将本地分支重命名为 main（推荐，符合现代实践）
+          git branch -M main
+
+
+     7后续日常开发流程，只需要重复一个简单的三步循环：
+     # 1. 添加更改到暂存区
+     git add .
+     # 2. 提交到本地仓库
+     git commit -m "描述你这次做了什么修改"
+     # 3. 推送到远程仓库（因为第一次用了 -u，现在只需）
+     git push

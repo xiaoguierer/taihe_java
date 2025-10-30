@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.product.mapper.ProductMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="ProductResultMap" type="com.cn.taihe.back.product.entity.Product">
+        <id property="id" column="id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="name" column="name"/>
+        <result property="subTitle" column="sub_title"/>
+        <result property="mainImage" column="main_image"/>
+        <result property="detail" column="detail"/>
+        <result property="specs" column="specs"/>
+        <result property="priceRange" column="price_range"/>
+        <result property="sales" column="sales"/>
+        <result property="status" column="status"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="defaultSupplierId" column="default_supplier_id"/>
+    </resultMap>
+
+    <!-- 复杂查询示例：多条件动态查询 -->
+    <select id="selectByCondition"  resultMap="ProductResultMap">
+        SELECT
+        *
+        FROM product
+        WHERE is_deleted = 0
+        <!-- 动态条件 -->
+        <if test="params.categoryId != null">
+            AND category_id = #{params.categoryId}
+        </if>
+        <if test="params.brandId != null">
+            AND brand_id = #{params.brandId}
+        </if>
+        <if test="params.name != null and params.name != ''">
+            AND name LIKE CONCAT('%', #{params.name}, '%')
+        </if>
+        <if test="params.status != null">
+            AND status = #{params.status}
+        </if>
+        <!-- 排序 -->
+        <choose>
+            <when test="params.orderBy != null and params.orderBy != ''">
+                ORDER BY ${params.orderBy}
+            </when>
+            <otherwise>
+                ORDER BY create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 批量插入 -->
+   <!-- <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO product (id, category_id, brand_id, name, sub_title, main_image,
+        detail, specs, price_range, sales, status, is_deleted,
+        create_time, update_time, default_supplier_id)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.categoryId}, #{item.brandId}, #{item.name},
+            #{item.subTitle}, #{item.mainImage}, #{item.detail}, #{item.specs},
+            #{item.priceRange}, #{item.sales}, #{item.status}, #{item.isDeleted},
+            #{item.createTime}, #{item.updateTime}, #{item.defaultSupplierId})
+        </foreach>
+    </insert>-->
+</mapper>

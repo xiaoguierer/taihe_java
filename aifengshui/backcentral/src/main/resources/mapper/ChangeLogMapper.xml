@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.suppliers.mapper.ChangeLogMapper">
+
+    <!-- 基本条件查询变更日志 -->
+    <select id="selectChangeLogsByCondition" resultType="com.cn.taihe.back.suppliers.entity.SupplierChangeLog">
+        SELECT * FROM supplier_change_logs
+        <where>
+            <if test="supplierId != null and supplierId != ''">
+                AND supplier_id = #{supplierId}
+            </if>
+            <if test="changeType != null and changeType != ''">
+                AND change_type = #{changeType}
+            </if>
+            <if test="startDate != null">
+                AND changed_at >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND changed_at &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY changed_at DESC
+    </select>
+
+    <!-- 复杂条件查询变更日志 -->
+    <select id="selectChangeLogsByMapCondition" resultType="com.cn.taihe.back.suppliers.entity.SupplierChangeLog">
+        SELECT * FROM supplier_change_logs
+        <where>
+            <if test="condition.supplierId != null and condition.supplierId != ''">
+                AND supplier_id = #{condition.supplierId}
+            </if>
+            <if test="condition.changeType != null and condition.changeType != ''">
+                AND change_type = #{condition.changeType}
+            </if>
+            <if test="condition.changeField != null and condition.changeField != ''">
+                AND change_field = #{condition.changeField}
+            </if>
+            <if test="condition.changedBy != null and condition.changedBy != ''">
+                AND changed_by LIKE CONCAT('%', #{condition.changedBy}, '%')
+            </if>
+            <if test="condition.startDate != null">
+                AND changed_at >= #{condition.startDate}
+            </if>
+            <if test="condition.endDate != null">
+                AND changed_at &lt;= #{condition.endDate}
+            </if>
+        </where>
+        <if test="condition.orderBy != null and condition.orderBy != ''">
+            ORDER BY ${condition.orderBy}
+            <if test="condition.asc != null and condition.asc">
+                ASC
+            </if>
+            <if test="condition.asc != null and !condition.asc">
+                DESC
+            </if>
+        </if>
+    </select>
+
+    <!-- 批量插入变更日志 -->
+    <insert id="batchInsertChangeLogs" parameterType="list">
+        INSERT INTO supplier_change_logs (
+        id, supplier_id, change_type, change_field,
+        old_value, new_value, changed_by,
+        changed_at, remark
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id}, #{item.supplierId}, #{item.changeType},
+            #{item.changeField}, #{item.oldValue}, #{item.newValue},
+            #{item.changedBy}, #{item.changedAt}, #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 根据供应商ID批量删除变更日志 -->
+    <delete id="batchDeleteBySupplierIds">
+        DELETE FROM supplier_change_logs WHERE supplier_id IN
+        <foreach collection="supplierIds" item="supplierId" open="(" separator="," close=")">
+            #{supplierId}
+        </foreach>
+    </delete>
+
+    <!-- 获取最近变更记录 -->
+    <select id="selectRecentChangeLogs" resultType="com.cn.taihe.back.suppliers.entity.SupplierChangeLog">
+        SELECT * FROM supplier_change_logs
+        WHERE supplier_id = #{supplierId}
+        ORDER BY changed_at DESC
+        LIMIT #{limit}
+    </select>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.suppliers.mapper.EvaluationMapper">
+
+    <!-- 基本条件查询评价记录 -->
+    <select id="selectEvaluationsByCondition" resultType="com.cn.taihe.back.suppliers.entity.SupplierEvaluation">
+        SELECT * FROM supplier_evaluations
+        <where>
+            <if test="supplierId != null and supplierId != ''">
+                AND supplier_id = #{supplierId}
+            </if>
+            <if test="startDate != null">
+                AND evaluation_date >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND evaluation_date &lt;= #{endDate}
+            </if>
+            <if test="minScore != null">
+                AND overall_score >= #{minScore}
+            </if>
+            <if test="maxScore != null">
+                AND overall_score &lt;= #{maxScore}
+            </if>
+        </where>
+        ORDER BY evaluation_date DESC
+    </select>
+
+    <!-- 复杂条件查询评价记录 -->
+    <select id="selectEvaluationsByMapCondition" resultType="com.cn.taihe.back.suppliers.entity.SupplierEvaluation">
+        SELECT * FROM supplier_evaluations
+        <where>
+            <if test="condition.supplierId != null and condition.supplierId != ''">
+                AND supplier_id = #{condition.supplierId}
+            </if>
+            <if test="condition.evaluator != null and condition.evaluator != ''">
+                AND evaluator LIKE CONCAT('%', #{condition.evaluator}, '%')
+            </if>
+            <if test="condition.startDate != null">
+                AND evaluation_date >= #{condition.startDate}
+            </if>
+            <if test="condition.endDate != null">
+                AND evaluation_date &lt;= #{condition.endDate}
+            </if>
+            <if test="condition.minQualityScore != null">
+                AND quality_score >= #{condition.minQualityScore}
+            </if>
+            <if test="condition.minDeliveryScore != null">
+                AND delivery_score >= #{condition.minDeliveryScore}
+            </if>
+            <if test="condition.minServiceScore != null">
+                AND service_score >= #{condition.minServiceScore}
+            </if>
+        </where>
+        <if test="condition.orderBy != null and condition.orderBy != ''">
+            ORDER BY ${condition.orderBy}
+            <if test="condition.asc != null and condition.asc">
+                ASC
+            </if>
+            <if test="condition.asc != null and !condition.asc">
+                DESC
+            </if>
+        </if>
+    </select>
+
+    <!-- 批量插入评价记录 -->
+    <insert id="batchInsertEvaluations" parameterType="list">
+        INSERT INTO supplier_evaluations (
+        id, supplier_id, evaluation_date, evaluator,
+        quality_score, delivery_score, price_score,
+        service_score, overall_score, strengths,
+        weaknesses, improvement_suggestions, created_at,
+        updated_at
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id}, #{item.supplierId}, #{item.evaluationDate},
+            #{item.evaluator}, #{item.qualityScore}, #{item.deliveryScore},
+            #{item.priceScore}, #{item.serviceScore}, #{item.overallScore},
+            #{item.strengths}, #{item.weaknesses}, #{item.improvementSuggestions},
+            #{item.createdAt}, #{item.updatedAt}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 批量删除评价记录 -->
+    <delete id="batchDeleteEvaluations">
+        DELETE FROM supplier_evaluations WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 根据供应商ID批量删除评价记录 -->
+    <delete id="batchDeleteBySupplierIds">
+        DELETE FROM supplier_evaluations WHERE supplier_id IN
+        <foreach collection="supplierIds" item="supplierId" open="(" separator="," close=")">
+            #{supplierId}
+        </foreach>
+    </delete>
+
+    <!-- 计算供应商平均评分 -->
+    <select id="calculateAverageScore" resultType="java.math.BigDecimal">
+        SELECT AVG(overall_score) FROM supplier_evaluations
+        WHERE supplier_id = #{supplierId}
+    </select>
+</mapper>

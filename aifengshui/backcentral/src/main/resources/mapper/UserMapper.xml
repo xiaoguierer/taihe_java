@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.user.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="com.cn.taihe.back.user.entity.User">
+        <id property="id" column="id"/>
+        <result property="email" column="email"/>
+        <result property="salt" column="salt"/>
+        <result property="passwordHash" column="password_hash"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <result property="status" column="status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <!-- 分页查询用户 -->
+    <select id="selectUsersByPage" parameterType="map" resultMap="UserResultMap">
+        SELECT * FROM user
+        WHERE 1=1
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (email LIKE CONCAT('%', #{keyword}, '%') OR nickname LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY created_at DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- 统计用户数量 -->
+    <select id="countUsers" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM user
+        WHERE 1=1
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (email LIKE CONCAT('%', #{keyword}, '%') OR nickname LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+    </select>
+    <!-- 即使使用注解也建议保留XML映射 -->
+    <select id="selectAll" resultMap="UserResultMap">
+        SELECT * FROM user ORDER BY created_at DESC
+    </select>
+
+</mapper>

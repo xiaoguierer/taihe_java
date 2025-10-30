@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper">
+
+    <!-- 动态查询资质文件 -->
+    <select id="selectCertificatesByCondition" resultType="com.cn.taihe.back.suppliers.entity.SupplierCertificate">
+        SELECT * FROM supplier_certificates
+        <where>
+            <if test="supplierId != null and supplierId != ''">
+                AND supplier_id = #{supplierId}
+            </if>
+            <if test="certificateType != null and certificateType != ''">
+                AND certificate_type = #{certificateType}
+            </if>
+            <if test="isValid != null">
+                AND is_valid = #{isValid}
+            </if>
+            <if test="aboutToExpire != null and aboutToExpire">
+                AND expiry_date BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 30 DAY)
+            </if>
+            <if test="expired != null and expired">
+                AND expiry_date &lt; NOW()
+            </if>
+        </where>
+        ORDER BY expiry_date ASC
+    </select>
+
+    <!-- 批量插入资质文件 -->
+    <insert id="batchInsertCertificates" parameterType="list">
+        INSERT INTO supplier_certificates (
+        id, supplier_id, certificate_type, certificate_name,
+        certificate_number, issuing_authority, issue_date,
+        expiry_date, file_url, file_name, file_size,
+        is_valid, verified_by, verified_at, created_at,
+        updated_at, remark
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id}, #{item.supplierId}, #{item.certificateType},
+            #{item.certificateName}, #{item.certificateNumber},
+            #{item.issuingAuthority}, #{item.issueDate},
+            #{item.expiryDate}, #{item.fileUrl}, #{item.fileName},
+            #{item.fileSize}, #{item.isValid}, #{item.verifiedBy},
+            #{item.verifiedAt}, #{item.createdAt}, #{item.updatedAt},
+            #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 根据供应商ID批量删除资质文件 -->
+    <delete id="batchDeleteBySupplierIds">
+        DELETE FROM supplier_certificates WHERE supplier_id IN
+        <foreach collection="supplierIds" item="supplierId" open="(" separator="," close=")">
+            #{supplierId}
+        </foreach>
+    </delete>
+
+    <!-- 更新资质文件有效性 -->
+    <update id="updateCertificateValidity">
+        UPDATE supplier_certificates
+        SET is_valid = #{isValid}, updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+</mapper>

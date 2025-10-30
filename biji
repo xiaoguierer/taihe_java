@@ -1,0 +1,11 @@
+Mapper接口注册机制
+1 使用@Mapper注解（显式声明）
+2使用@MapperScan（包扫描）
+3  XML映射文件自动注册
+4  MyBatis-Plus自动注册 // 继承BaseMapper时会自动注册
+
+2 所有的mapper 要使用@Repository注解
+
+@RequestBody：从请求体（JSON/XML）获取数据
+@RequestParam：从URL查询参数获取数据
+@PathVariable 提取 URL 路径 中的模板变量。

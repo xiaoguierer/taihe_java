@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.category.mapper.CategoryMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, parent_id, name, level, sort, icon, image, description, keywords,
+        is_display, is_deleted, create_time, update_time
+    </sql>
+
+    <!-- 基础条件 -->
+    <sql id="Base_Where_Clause">
+        WHERE is_deleted = 0
+    </sql>
+
+    <!-- 分页查询分类列表 -->
+    <select id="selectPageList" resultType="com.cn.taihe.back.category.entity.Category">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM product_category
+        <include refid="Base_Where_Clause"/>
+        <if test="ew != null">
+            <if test="ew.sqlSegment != null and ew.sqlSegment != ''">
+                AND ${ew.sqlSegment}
+            </if>
+        </if>
+        ORDER BY sort ASC, create_time DESC
+    </select>
+
+    <!-- 根据父ID查询子分类 -->
+    <select id="selectByParentId" resultType="com.cn.taihe.back.category.entity.Category">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM product_category
+        <include refid="Base_Where_Clause"/>
+        AND parent_id = #{parentId}
+        ORDER BY sort ASC, id ASC
+    </select>
+
+    <!-- 查询显示状态的分类树 -->
+    <select id="selectDisplayTree" resultType="com.cn.taihe.back.category.entity.Category">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM product_category
+        <include refid="Base_Where_Clause"/>
+        AND is_display = 1
+        ORDER BY level ASC, sort ASC, id ASC
+    </select>
+
+    <!-- 查询分类路径（从根到当前分类） -->
+    <select id="selectCategoryPath" resultType="com.cn.taihe.back.category.entity.Category">
+        WITH RECURSIVE category_path AS (
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM product_category
+        WHERE id = #{id} AND is_deleted = 0
+        UNION ALL
+        SELECT
+        c.<include refid="Base_Column_List"/>
+        FROM product_category c
+        INNER JOIN category_path cp ON c.id = cp.parent_id
+        WHERE c.is_deleted = 0
+        )
+        SELECT * FROM category_path ORDER BY level ASC
+    </select>
+
+    <!-- 更新显示状态 -->
+    <update id="updateDisplayStatus">
+        UPDATE product_category
+        SET is_display = #{isDisplay}, update_time = NOW()
+        WHERE id = #{id} AND is_deleted = 0
+    </update>
+
+    <!-- 逻辑删除 -->
+    <update id="logicDelete">
+        UPDATE product_category
+        SET is_deleted = 1, update_time = NOW()
+        WHERE id = #{id} AND is_deleted = 0
+    </update>
+
+    <!-- 批量更新排序 -->
+    <update id="batchUpdateSort">
+        UPDATE product_category
+        SET sort = CASE id
+        <foreach collection="sortMap" item="sort" index="id">
+            WHEN #{id} THEN #{sort}
+        </foreach>
+        END,
+        update_time = NOW()
+        WHERE id IN
+        <foreach collection="sortMap.keys" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND is_deleted = 0
+    </update>
+
+    <!-- 统计各层级分类数量 -->
+    <select id="countByLevel" resultType="java.util.HashMap">
+        SELECT
+        level,
+        COUNT(*) as count
+        FROM product_category
+        <include refid="Base_Where_Clause"/>
+        GROUP BY level
+        ORDER BY level ASC
+    </select>
+
+    <!-- 检查名称唯一性 -->
+    <select id="checkNameExists" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM product_category
+        <include refid="Base_Where_Clause"/>
+        AND parent_id = #{parentId}
+        AND name = #{name}
+        <if test="excludeId != null">
+            AND id != #{excludeId}
+        </if>
+    </select>
+
+    <!-- 查询子分类数量 -->
+    <select id="selectChildrenCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM product_category
+        <include refid="Base_Where_Clause"/>
+        AND parent_id = #{parentId}
+    </select>
+
+</mapper>
