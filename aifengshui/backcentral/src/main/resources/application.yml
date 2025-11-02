@@ -13,15 +13,39 @@
 #敏感信息不硬编码：生产环境的密码等敏感信息使用环境变量或配置中心
 #合理命名环境：除了dev/prod，还可以有test/stage等环境
 #使用profile-specific文件：对于大量环境特定配置，使用单独文件更清晰
+app:
+  upload:
+    # 存储路径：开发环境用相对路径，生产环境用绝对路径
+    base-dir: ./src/main/resources/static/upload
+    # 外部访问路径
+    access-base-url: http://localhost:8080/images
+    # 文件大小限制
+    max-size: 10MB
+    max-request-size: 10MB
+    # 允许的文件类型
+    allowed-types: jpg,jpeg,png,gif,webp,bmp
+    allowed-mime-types: image/jpeg,image/png,image/gif,image/webp,image/bmp
+    # 图片压缩配置
+    compression:
+      enabled: true
+      quality: 0.8
+      max-width: 1920
+      max-height: 1080
+
 
 spring:
+  web:
+    resources:
+      static-locations:
+        - classpath:/static/
+        - file:${app.upload.base-dir}
+    mvc:
+      static-path-pattern: /images/**
   application:
     name: backcentralmicroserviceapp
-
   profiles:
     active: dev
     # 通过该文件激活
-
     # 通过maven profile激活不同环境配置
     #<profiles>
     #    <!-- 开发环境 -->
@@ -50,12 +74,13 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-
+  main:
+    allow-bean-definition-overriding: true
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-
+      enabled: true
   # Swagger  启动时通过参数控制： 配置 java -jar your-app.jar --swagger.enabled=true
   #Swagger 原生界面: http://localhost:8080/api/swagger-ui/index.html
   #Swagger JSON: http://localhost:8080/api/v3/api-docs
@@ -67,14 +92,12 @@ spring:
         path: /swagger-ui.html
       api-docs:
         path: /v3/api-docs
-
-
-  # 数据库配置
+  # 数据库配置   macbook mariadb968 / win mariadb
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/taihe?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
     username: root
-    password: mariadb
+    password: mariadb968
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
       initial-size: 5
@@ -97,7 +120,6 @@ spring:
         enabled: false
         url-pattern: /*
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
-
 # 服务配置
 server:
   port: 8080
@@ -126,3 +148,4 @@ logging:
     name: logs/microservice.log
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
