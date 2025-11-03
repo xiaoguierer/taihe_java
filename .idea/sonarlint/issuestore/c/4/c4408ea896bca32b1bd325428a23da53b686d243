@@ -1,0 +1,26 @@
+
+t	java:S135ê"YReduce the total number of break and continue statements in this loop to use at most one.(Á¯¸ğûÿÿÿÿ
+j
+java:S32520"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(çø¤ÿÿÿÿÿ
+B
+java:S2153g"'Remove the unboxing of "childrenCount".(›† üÿÿÿÿ
+o
+java:S2139"XEither log this exception and handle it, or rethrow it with some contextual information.(ñÄÑ•
+W	java:S125"<This block of commented-out lines of code should be removed.(ŞèÜäıÿÿÿÿ
+W	java:S125“"<This block of commented-out lines of code should be removed.(Ä†ôÈúÿÿÿÿ
+W	java:S125š"<This block of commented-out lines of code should be removed.(Íóÿíÿÿÿÿÿ
+S
+java:S1854•"<Remove this useless assignment to local variable "category".(¬¿½Ò
+D
+java:S1481•"-Remove this unused "category" local variable.(¬¿½Ò
+W	java:S125š"<This block of commented-out lines of code should be removed.(Ã¹ğ¿ûÿÿÿÿ
+]
+java:S2175Æ"AA "Map<String, List>" cannot contain a "long" in a "String" type.(šèš¹ûÿÿÿÿ
+C
+java:S2153"'Remove the unboxing of "childrenCount".(›† üÿÿÿÿ
+M
+java:S1144‚"6Remove this unused private "validateForUpdate" method.(àÕÒ¾
+O
+java:S1144â"8Remove this unused private "isCircularReference" method.(Üäöù
+R
+java:S1144€"6Remove this unused private "enrichCategoryDTO" method.(İŸ¯·øÿÿÿÿ

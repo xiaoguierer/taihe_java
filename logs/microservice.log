@@ -15027,3 +15027,319 @@ Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is 
 2025-11-03 19:21:21.525  INFO 5705 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-11-03 19:21:21.529  INFO 5705 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
 2025-11-03 19:21:21.544  INFO 5705 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2025-11-03 19:33:26.459  INFO 6361 --- [main] com.cn.taihe.BackcentralMicroserviceApp  : Starting BackcentralMicroserviceApp on yangcheweideMBP.lan with PID 6361 (/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes started by yangyang in /Users/yangyang/Desktop/pro/taihe/taihe_java)
+2025-11-03 19:33:26.467 DEBUG 6361 --- [main] com.cn.taihe.BackcentralMicroserviceApp  : Running with Spring Boot v2.2.12.RELEASE, Spring v5.2.12.RELEASE
+2025-11-03 19:33:26.468  INFO 6361 --- [main] com.cn.taihe.BackcentralMicroserviceApp  : The following profiles are active: dev
+2025-11-03 19:33:28.310  INFO 6361 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-03 19:33:28.356  INFO 6361 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31ms. Found 0 JPA repository interfaces.
+2025-11-03 19:33:28.520 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/user/mapper/UserMapper.class]
+2025-11-03 19:33:28.521 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/user/mapper/UserPasswordResetMapper.class]
+2025-11-03 19:33:28.523 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'userMapper' and 'com.cn.taihe.back.user.mapper.UserMapper' mapperInterface
+2025-11-03 19:33:28.528 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'userMapper'.
+2025-11-03 19:33:28.528 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'userPasswordResetMapper' and 'com.cn.taihe.back.user.mapper.UserPasswordResetMapper' mapperInterface
+2025-11-03 19:33:28.528 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'userPasswordResetMapper'.
+2025-11-03 19:33:28.532 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/category/mapper/CategoryMapper.class]
+2025-11-03 19:33:28.533 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/category/mapper/DateMapper.class]
+2025-11-03 19:33:28.533 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Ignored because not a concrete top-level class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/category/mapper/DateMapperImpl.class]
+2025-11-03 19:33:28.533 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Ignored because not a concrete top-level class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/product/mapper/ProductMapper$ProductSqlBuilder$1.class]
+2025-11-03 19:33:28.533 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Ignored because not a concrete top-level class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/product/mapper/ProductMapper$ProductSqlBuilder$2.class]
+2025-11-03 19:33:28.533 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Ignored because not a concrete top-level class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/product/mapper/ProductMapper$ProductSqlBuilder$3.class]
+2025-11-03 19:33:28.534 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Ignored because not a concrete top-level class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/product/mapper/ProductMapper$ProductSqlBuilder.class]
+2025-11-03 19:33:28.534 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/product/mapper/ProductMapper.class]
+2025-11-03 19:33:28.534 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/suppliers/mapper/ChangeLogMapper.class]
+2025-11-03 19:33:28.534 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/suppliers/mapper/ContactMapper.class]
+2025-11-03 19:33:28.535 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/suppliers/mapper/EvaluationMapper.class]
+2025-11-03 19:33:28.535 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/suppliers/mapper/SupplierCertificateMapper.class]
+2025-11-03 19:33:28.535 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/suppliers/mapper/SupplierMapper.class]
+2025-11-03 19:33:28.535 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/user/mapper/UserMapper.class]
+2025-11-03 19:33:28.535 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Identified candidate component class: file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/com/cn/taihe/back/user/mapper/UserPasswordResetMapper.class]
+2025-11-03 19:33:28.536  WARN 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.cn.taihe.back.user.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2025-11-03 19:33:28.536  WARN 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userPasswordResetMapper' and 'com.cn.taihe.back.user.mapper.UserPasswordResetMapper' mapperInterface. Bean already defined with the same name!
+2025-11-03 19:33:28.536 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'categoryMapper' and 'com.cn.taihe.back.category.mapper.CategoryMapper' mapperInterface
+2025-11-03 19:33:28.537 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'categoryMapper'.
+2025-11-03 19:33:28.537 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'dateMapper' and 'com.cn.taihe.back.category.mapper.DateMapper' mapperInterface
+2025-11-03 19:33:28.537 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'dateMapper'.
+2025-11-03 19:33:28.537 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'productMapper' and 'com.cn.taihe.back.product.mapper.ProductMapper' mapperInterface
+2025-11-03 19:33:28.538 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'productMapper'.
+2025-11-03 19:33:28.538 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'changeLogMapper' and 'com.cn.taihe.back.suppliers.mapper.ChangeLogMapper' mapperInterface
+2025-11-03 19:33:28.539 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'changeLogMapper'.
+2025-11-03 19:33:28.539 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'contactMapper' and 'com.cn.taihe.back.suppliers.mapper.ContactMapper' mapperInterface
+2025-11-03 19:33:28.540 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'contactMapper'.
+2025-11-03 19:33:28.540 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'evaluationMapper' and 'com.cn.taihe.back.suppliers.mapper.EvaluationMapper' mapperInterface
+2025-11-03 19:33:28.541 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'evaluationMapper'.
+2025-11-03 19:33:28.541 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'supplierCertificateMapper' and 'com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper' mapperInterface
+2025-11-03 19:33:28.542 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'supplierCertificateMapper'.
+2025-11-03 19:33:28.542 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Creating MapperFactoryBean with name 'supplierMapper' and 'com.cn.taihe.back.suppliers.mapper.SupplierMapper' mapperInterface
+2025-11-03 19:33:28.543 DEBUG 6361 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Enabling autowire by type for MapperFactoryBean with name 'supplierMapper'.
+2025-11-03 19:33:28.845  INFO 6361 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-11-03 19:33:28.849  INFO 6361 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$1e3c0b52] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-11-03 19:33:28.870  INFO 6361 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-11-03 19:33:28.880  INFO 6361 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-11-03 19:33:29.342  INFO 6361 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2025-11-03 19:33:29.360  INFO 6361 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-03 19:33:29.361  INFO 6361 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2025-11-03 19:33:29.502  INFO 6361 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2025-11-03 19:33:29.502  INFO 6361 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2901 ms
+2025-11-03 19:33:29.583  INFO 6361 --- [main] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2025-11-03 19:33:30.318  INFO 6361 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2025-11-03 19:33:30.490  INFO 6361 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-03 19:33:30.583  INFO 6361 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.25.Final
+2025-11-03 19:33:30.822  INFO 6361 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-11-03 19:33:31.035  INFO 6361 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-11-03 19:33:32.374  INFO 6361 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-11-03 19:33:32.391  INFO 6361 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-03 19:33:32.648 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectPageList
+2025-11-03 19:33:32.680 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectByParentId
+2025-11-03 19:33:32.681 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectDisplayTree
+2025-11-03 19:33:32.682 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectCategoryPath
+2025-11-03 19:33:32.683 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.updateDisplayStatus
+2025-11-03 19:33:32.683 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.logicDelete
+2025-11-03 19:33:32.684 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.batchUpdateSort
+2025-11-03 19:33:32.685 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.countByLevel
+2025-11-03 19:33:32.686 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.checkNameExists
+2025-11-03 19:33:32.686 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectChildrenCount
+2025-11-03 19:33:32.704 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.updateById
+2025-11-03 19:33:32.708 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectChildrenByParentId
+2025-11-03 19:33:32.708 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.logicalDeleteById
+2025-11-03 19:33:32.708 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.countByNameAndParentId
+2025-11-03 19:33:32.709 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.countByNameAndNullParent
+2025-11-03 19:33:32.709 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.countByNameAndParentIdExcludeSelf
+2025-11-03 19:33:32.709 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.countByNameAndNullParentExcludeSelf
+2025-11-03 19:33:32.749 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.insert
+2025-11-03 19:33:32.755 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.delete
+2025-11-03 19:33:32.757 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.deleteByMap
+2025-11-03 19:33:32.759 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.deleteById
+2025-11-03 19:33:32.761 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.deleteBatchIds
+2025-11-03 19:33:32.767 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.update
+2025-11-03 19:33:32.770  WARN 6361 --- [main] c.b.m.core.injector.AbstractMethod       : [com.cn.taihe.back.category.mapper.CategoryMapper.updateById] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.UpdateById]
+2025-11-03 19:33:32.771 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectById
+2025-11-03 19:33:32.773 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectBatchIds
+2025-11-03 19:33:32.775 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectByMap
+2025-11-03 19:33:32.778 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectOne
+2025-11-03 19:33:32.782 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectCount
+2025-11-03 19:33:32.785 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectMaps
+2025-11-03 19:33:32.788 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectMapsPage
+2025-11-03 19:33:32.791 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectObjs
+2025-11-03 19:33:32.795 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectList
+2025-11-03 19:33:32.798 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.category.mapper.CategoryMapper.selectPage
+2025-11-03 19:33:32.798 DEBUG 6361 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Parsed mapper file: 'file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/mapper/CategoryMapper.xml]'
+2025-11-03 19:33:32.808 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectChangeLogsByCondition
+2025-11-03 19:33:32.809 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectChangeLogsByMapCondition
+2025-11-03 19:33:32.809 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.batchInsertChangeLogs
+2025-11-03 19:33:32.809 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.batchDeleteBySupplierIds
+2025-11-03 19:33:32.810 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectRecentChangeLogs
+2025-11-03 19:33:32.814 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.insert
+2025-11-03 19:33:32.816 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.delete
+2025-11-03 19:33:32.818 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.deleteByMap
+2025-11-03 19:33:32.819 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.deleteById
+2025-11-03 19:33:32.821 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.deleteBatchIds
+2025-11-03 19:33:32.823 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.update
+2025-11-03 19:33:32.824 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.updateById
+2025-11-03 19:33:32.825 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectById
+2025-11-03 19:33:32.826 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectBatchIds
+2025-11-03 19:33:32.827 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectByMap
+2025-11-03 19:33:32.829 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectOne
+2025-11-03 19:33:32.832 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectCount
+2025-11-03 19:33:32.834 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectMaps
+2025-11-03 19:33:32.836 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectMapsPage
+2025-11-03 19:33:32.838 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectObjs
+2025-11-03 19:33:32.841 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectList
+2025-11-03 19:33:32.843 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ChangeLogMapper.selectPage
+2025-11-03 19:33:32.843 DEBUG 6361 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Parsed mapper file: 'file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/mapper/ChangeLogMapper.xml]'
+2025-11-03 19:33:32.853 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectContactsByCondition
+2025-11-03 19:33:32.853 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectContactsByMapCondition
+2025-11-03 19:33:32.854 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.batchInsertContacts
+2025-11-03 19:33:32.854 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.batchDeleteContacts
+2025-11-03 19:33:32.855 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.batchDeleteBySupplierIds
+2025-11-03 19:33:32.855 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.updatePrimaryStatus
+2025-11-03 19:33:32.860 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.insert
+2025-11-03 19:33:32.862 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.delete
+2025-11-03 19:33:32.865 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.deleteByMap
+2025-11-03 19:33:32.868 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.deleteById
+2025-11-03 19:33:32.871 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.deleteBatchIds
+2025-11-03 19:33:32.874 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.update
+2025-11-03 19:33:32.878 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.updateById
+2025-11-03 19:33:32.879 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectById
+2025-11-03 19:33:32.881 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectBatchIds
+2025-11-03 19:33:32.883 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectByMap
+2025-11-03 19:33:32.886 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectOne
+2025-11-03 19:33:32.889 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectCount
+2025-11-03 19:33:32.892 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectMaps
+2025-11-03 19:33:32.895 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectMapsPage
+2025-11-03 19:33:32.897 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectObjs
+2025-11-03 19:33:32.901 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectList
+2025-11-03 19:33:32.903 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.ContactMapper.selectPage
+2025-11-03 19:33:32.903 DEBUG 6361 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Parsed mapper file: 'file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/mapper/ContactMapper.xml]'
+2025-11-03 19:33:32.912 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectEvaluationsByCondition
+2025-11-03 19:33:32.914 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectEvaluationsByMapCondition
+2025-11-03 19:33:32.915 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.batchInsertEvaluations
+2025-11-03 19:33:32.915 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.batchDeleteEvaluations
+2025-11-03 19:33:32.916 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.batchDeleteBySupplierIds
+2025-11-03 19:33:32.917 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.calculateAverageScore
+2025-11-03 19:33:32.922 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.insert
+2025-11-03 19:33:32.924 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.delete
+2025-11-03 19:33:32.926 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.deleteByMap
+2025-11-03 19:33:32.929 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.deleteById
+2025-11-03 19:33:32.931 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.deleteBatchIds
+2025-11-03 19:33:32.933 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.update
+2025-11-03 19:33:32.936 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.updateById
+2025-11-03 19:33:32.937 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectById
+2025-11-03 19:33:32.941 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectBatchIds
+2025-11-03 19:33:32.943 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectByMap
+2025-11-03 19:33:32.944 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectOne
+2025-11-03 19:33:32.947 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectCount
+2025-11-03 19:33:32.950 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectMaps
+2025-11-03 19:33:32.952 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectMapsPage
+2025-11-03 19:33:32.955 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectObjs
+2025-11-03 19:33:32.958 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectList
+2025-11-03 19:33:32.960 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.EvaluationMapper.selectPage
+2025-11-03 19:33:32.961 DEBUG 6361 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Parsed mapper file: 'file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/mapper/EvaluationMapper.xml]'
+2025-11-03 19:33:32.975 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectByCondition
+2025-11-03 19:33:32.984 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.updateByIdSelective
+2025-11-03 19:33:32.984 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectByStatus
+2025-11-03 19:33:32.984 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.updateStatus
+2025-11-03 19:33:32.987 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.insertBatch
+2025-11-03 19:33:32.989 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.deleteBatchByIds
+2025-11-03 19:33:32.989 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectByCategoryId
+2025-11-03 19:33:32.990 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectByBrandId
+2025-11-03 19:33:32.990 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.updateSales
+2025-11-03 19:33:32.991 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.countByCondition
+2025-11-03 19:33:32.994 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.insert
+2025-11-03 19:33:32.998 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.delete
+2025-11-03 19:33:33.000 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.deleteByMap
+2025-11-03 19:33:33.002 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.deleteById
+2025-11-03 19:33:33.004 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.deleteBatchIds
+2025-11-03 19:33:33.007 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.update
+2025-11-03 19:33:33.008 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.updateById
+2025-11-03 19:33:33.009 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectById
+2025-11-03 19:33:33.010 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectBatchIds
+2025-11-03 19:33:33.012 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectByMap
+2025-11-03 19:33:33.015 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectOne
+2025-11-03 19:33:33.017 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectCount
+2025-11-03 19:33:33.019 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectMaps
+2025-11-03 19:33:33.022 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectMapsPage
+2025-11-03 19:33:33.025 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectObjs
+2025-11-03 19:33:33.028 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectList
+2025-11-03 19:33:33.031 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.product.mapper.ProductMapper.selectPage
+2025-11-03 19:33:33.031 DEBUG 6361 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Parsed mapper file: 'file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/mapper/ProductMapper.xml]'
+2025-11-03 19:33:33.038 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectCertificatesByCondition
+2025-11-03 19:33:33.039 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.batchInsertCertificates
+2025-11-03 19:33:33.039 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.batchDeleteBySupplierIds
+2025-11-03 19:33:33.039 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.updateCertificateValidity
+2025-11-03 19:33:33.042 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.updateById
+2025-11-03 19:33:33.042 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectById
+2025-11-03 19:33:33.043 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectByCondition
+2025-11-03 19:33:33.044 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.updateBatchStatus
+2025-11-03 19:33:33.044 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectAll
+2025-11-03 19:33:33.046 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.deleteBatchIds
+2025-11-03 19:33:33.046 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.updateStatusById
+2025-11-03 19:33:33.047 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectBySupplierId
+2025-11-03 19:33:33.047 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.deleteById
+2025-11-03 19:33:33.047 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectBySupplierIdAndType
+2025-11-03 19:33:33.048 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.insert
+2025-11-03 19:33:33.051  WARN 6361 --- [main] c.b.m.core.injector.AbstractMethod       : [com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2025-11-03 19:33:33.052 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.delete
+2025-11-03 19:33:33.053 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.deleteByMap
+2025-11-03 19:33:33.054  WARN 6361 --- [main] c.b.m.core.injector.AbstractMethod       : [com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.deleteById] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.DeleteById]
+2025-11-03 19:33:33.055  WARN 6361 --- [main] c.b.m.core.injector.AbstractMethod       : [com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.deleteBatchIds] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.DeleteBatchByIds]
+2025-11-03 19:33:33.057 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.update
+2025-11-03 19:33:33.058  WARN 6361 --- [main] c.b.m.core.injector.AbstractMethod       : [com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.updateById] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.UpdateById]
+2025-11-03 19:33:33.058  WARN 6361 --- [main] c.b.m.core.injector.AbstractMethod       : [com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectById] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.SelectById]
+2025-11-03 19:33:33.059 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectBatchIds
+2025-11-03 19:33:33.060 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectByMap
+2025-11-03 19:33:33.062 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectOne
+2025-11-03 19:33:33.064 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectCount
+2025-11-03 19:33:33.066 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectMaps
+2025-11-03 19:33:33.069 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectMapsPage
+2025-11-03 19:33:33.071 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectObjs
+2025-11-03 19:33:33.075 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectList
+2025-11-03 19:33:33.078 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierCertificateMapper.selectPage
+2025-11-03 19:33:33.079 DEBUG 6361 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Parsed mapper file: 'file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/mapper/SupplierCertificateMapper.xml]'
+2025-11-03 19:33:33.088 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectById
+2025-11-03 19:33:33.092 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectByCondition
+2025-11-03 19:33:33.094 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.batchUpdateStatus
+2025-11-03 19:33:33.095 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectAll
+2025-11-03 19:33:33.098 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.insertSupplier
+2025-11-03 19:33:33.100 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.updateSupplierSelective
+2025-11-03 19:33:33.102 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.batchDeleteByIds
+2025-11-03 19:33:33.103 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.deleteById
+2025-11-03 19:33:33.113 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.insert
+2025-11-03 19:33:33.117 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.delete
+2025-11-03 19:33:33.119 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.deleteByMap
+2025-11-03 19:33:33.122  WARN 6361 --- [main] c.b.m.core.injector.AbstractMethod       : [com.cn.taihe.back.suppliers.mapper.SupplierMapper.deleteById] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.DeleteById]
+2025-11-03 19:33:33.124 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.deleteBatchIds
+2025-11-03 19:33:33.130 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.update
+2025-11-03 19:33:33.135 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.updateById
+2025-11-03 19:33:33.135  WARN 6361 --- [main] c.b.m.core.injector.AbstractMethod       : [com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectById] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.SelectById]
+2025-11-03 19:33:33.138 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectBatchIds
+2025-11-03 19:33:33.140 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectByMap
+2025-11-03 19:33:33.145 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectOne
+2025-11-03 19:33:33.151 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectCount
+2025-11-03 19:33:33.154 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectMaps
+2025-11-03 19:33:33.159 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectMapsPage
+2025-11-03 19:33:33.163 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectObjs
+2025-11-03 19:33:33.167 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectList
+2025-11-03 19:33:33.171 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.suppliers.mapper.SupplierMapper.selectPage
+2025-11-03 19:33:33.172 DEBUG 6361 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Parsed mapper file: 'file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/mapper/SupplierMapper.xml]'
+2025-11-03 19:33:33.184 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.selectUsersByPage
+2025-11-03 19:33:33.185 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.countUsers
+2025-11-03 19:33:33.186 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.selectAll
+2025-11-03 19:33:33.187 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.updateAvatarInfo
+2025-11-03 19:33:33.187 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.updateLastLoginTime
+2025-11-03 19:33:33.188 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.selectAllAvatarPaths
+2025-11-03 19:33:33.188 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.selectUsersWithAvatar
+2025-11-03 19:33:33.188 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.updateStatus
+2025-11-03 19:33:33.188 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.selectById
+2025-11-03 19:33:33.190 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.selectByCondition
+2025-11-03 19:33:33.190 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.selectAll
+2025-11-03 19:33:33.190 ERROR 6361 --- [main] c.b.m.core.MybatisConfiguration          : mapper[com.cn.taihe.back.user.mapper.UserMapper.selectAll] is ignored, because it exists, maybe from xml file
+2025-11-03 19:33:33.191 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.existsByEmail
+2025-11-03 19:33:33.191 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.clearAvatarInfo
+2025-11-03 19:33:33.191 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.selectByEmail
+2025-11-03 19:33:33.191 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.updatePassword
+2025-11-03 19:33:33.191 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.deleteById
+2025-11-03 19:33:33.193 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.update
+2025-11-03 19:33:33.196 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserMapper.insert
+2025-11-03 19:33:33.196 DEBUG 6361 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Parsed mapper file: 'file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/mapper/UserMapper.xml]'
+2025-11-03 19:33:33.204 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.insert
+2025-11-03 19:33:33.204 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.findValidByToken
+2025-11-03 19:33:33.205 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.markAsUsed
+2025-11-03 19:33:33.205 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.deleteExpiredTokens
+2025-11-03 19:33:33.206 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.findLatestByUserId
+2025-11-03 19:33:33.206 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.countUnusedTokensByUser
+2025-11-03 19:33:33.207 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.deleteExpiredTokens
+2025-11-03 19:33:33.207 ERROR 6361 --- [main] c.b.m.core.MybatisConfiguration          : mapper[com.cn.taihe.back.user.mapper.UserPasswordResetMapper.deleteExpiredTokens] is ignored, because it exists, maybe from xml file
+2025-11-03 19:33:33.207 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.selectValidByToken
+2025-11-03 19:33:33.207 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.markAsUsed
+2025-11-03 19:33:33.207 ERROR 6361 --- [main] c.b.m.core.MybatisConfiguration          : mapper[com.cn.taihe.back.user.mapper.UserPasswordResetMapper.markAsUsed] is ignored, because it exists, maybe from xml file
+2025-11-03 19:33:33.207 DEBUG 6361 --- [main] c.b.m.core.MybatisConfiguration          : addMappedStatement: com.cn.taihe.back.user.mapper.UserPasswordResetMapper.insert
+2025-11-03 19:33:33.207 ERROR 6361 --- [main] c.b.m.core.MybatisConfiguration          : mapper[com.cn.taihe.back.user.mapper.UserPasswordResetMapper.insert] is ignored, because it exists, maybe from xml file
+2025-11-03 19:33:33.207 DEBUG 6361 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Parsed mapper file: 'file [/Users/yangyang/Desktop/pro/taihe/taihe_java/aifengshui/backcentral/target/classes/mapper/UserPasswordResetMapper.xml]'
+2025-11-03 19:33:33.285  INFO 6361 --- [main] .c.t.b.i.s.i.LocalFileStorageServiceImpl : 配置的存储目录: /app/backcentral/uploads
+2025-11-03 19:33:33.285  INFO 6361 --- [main] .c.t.b.i.s.i.LocalFileStorageServiceImpl : 解析后的存储路径: /app/backcentral/uploads
+2025-11-03 19:33:33.285  INFO 6361 --- [main] .c.t.b.i.s.i.LocalFileStorageServiceImpl : 尝试使用目录: /app/backcentral/uploads
+2025-11-03 19:33:33.288  WARN 6361 --- [main] .c.t.b.i.s.i.LocalFileStorageServiceImpl : 目录处理失败 /app/backcentral/uploads: /app: Read-only file system
+2025-11-03 19:33:33.289  INFO 6361 --- [main] .c.t.b.i.s.i.LocalFileStorageServiceImpl : 尝试使用目录: /Users/yangyang/Desktop/pro/taihe/taihe_java/data/uploads
+2025-11-03 19:33:33.293  INFO 6361 --- [main] .c.t.b.i.s.i.LocalFileStorageServiceImpl : ✅ 使用现有可写目录: /Users/yangyang/Desktop/pro/taihe/taihe_java/data/uploads
+2025-11-03 19:33:33.294  INFO 6361 --- [main] .c.t.b.i.s.i.LocalFileStorageServiceImpl : ✅ 文件存储服务初始化完成，基础路径: /Users/yangyang/Desktop/pro/taihe/taihe_java/data/uploads
+2025-11-03 19:33:33.413  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : === 开始初始化文件存储目录 ===
+2025-11-03 19:33:33.414  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : 尝试 首选方案: 创建目录 /app/backcentral/uploads
+2025-11-03 19:33:33.414  WARN 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : ⚠️ 首选方案: 目录创建失败
+2025-11-03 19:33:33.414  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : 尝试 备用方案: 创建目录 ./data/uploads
+2025-11-03 19:33:33.414  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : ✅ 备用方案: 目录已存在且可写
+2025-11-03 19:33:33.415  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : ✅ 文件存储目录初始化成功: ./data/uploads
+2025-11-03 19:33:33.415  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : === 文件存储配置详情 ===
+2025-11-03 19:33:33.415  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : 配置的存储目录: ./data/uploads
+2025-11-03 19:33:33.415  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : 实际使用的目录: ./data/uploads
+2025-11-03 19:33:33.415  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : 单文件最大大小: 100MB
+2025-11-03 19:33:33.415  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : 允许的文件类型: [image/jpeg, image/png, image/gif, image/webp, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document]
+2025-11-03 19:33:33.415  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : 磁盘空间: {:.2f}GB 可用 / {:.2f}GB 总量
+2025-11-03 19:33:33.415  INFO 6361 --- [main] c.c.t.c.FileStorageAutoConfiguration     : === 配置验证完成 ===
+2025-11-03 19:33:33.956  WARN 6361 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-03 19:33:34.354  INFO 6361 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2025-11-03 19:33:34.813  INFO 6361 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path '/api'
+2025-11-03 19:33:34.817  INFO 6361 --- [main] com.cn.taihe.BackcentralMicroserviceApp  : Started BackcentralMicroserviceApp in 9.727 seconds (JVM running for 12.905)
+2025-11-03 19:33:37.911  INFO 6361 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2025-11-03 19:33:37.916  INFO 6361 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-03 19:33:37.919  INFO 6361 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2025-11-03 19:33:37.936  INFO 6361 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed

@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
     <name>aifengshui</name>
     <modules>
-        <module>front</module>
         <module>backcentral</module>
     </modules>
     <dependencies>
