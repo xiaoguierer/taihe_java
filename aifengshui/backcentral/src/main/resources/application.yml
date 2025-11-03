@@ -1,76 +1,8 @@
-# 公共配置  主配置文件 包含所有环境的公共配置 定义激活哪个环境配置（通过spring.profiles.active）
-# 无论运行哪个环境都会加载  环境特定的配置会被环境配置文件覆盖
-
-# 配置文件的加载顺序
-#Spring Boot会按照以下顺序加载配置，后加载的会覆盖前面的相同配置：
-#主配置文件 (application.yml)
-#激活的环境配置文件 (如application-dev.yml)
-#命令行参数
-#环境变量
-#3. 最佳实践
-#公共配置放主文件：所有环境共享的配置放在application.yml中
-#环境差异放环境文件：环境特有的配置放在各自的配置文件中
-#敏感信息不硬编码：生产环境的密码等敏感信息使用环境变量或配置中心
-#合理命名环境：除了dev/prod，还可以有test/stage等环境
-#使用profile-specific文件：对于大量环境特定配置，使用单独文件更清晰
-app:
-  upload:
-    # 存储路径：开发环境用相对路径，生产环境用绝对路径
-    base-dir: ./src/main/resources/static/upload
-    # 外部访问路径
-    access-base-url: http://localhost:8080/images
-    # 文件大小限制
-    max-size: 10MB
-    max-request-size: 10MB
-    # 允许的文件类型
-    allowed-types: jpg,jpeg,png,gif,webp,bmp
-    allowed-mime-types: image/jpeg,image/png,image/gif,image/webp,image/bmp
-    # 图片压缩配置
-    compression:
-      enabled: true
-      quality: 0.8
-      max-width: 1920
-      max-height: 1080
-
-
 spring:
-  web:
-    resources:
-      static-locations:
-        - classpath:/static/
-        - file:${app.upload.base-dir}
-    mvc:
-      static-path-pattern: /images/**
   application:
     name: backcentralmicroserviceapp
   profiles:
     active: dev
-    # 通过该文件激活
-    # 通过maven profile激活不同环境配置
-    #<profiles>
-    #    <!-- 开发环境 -->
-    #    <profile>
-    #        <id>dev</id>
-    #        <activation>
-    #            <!-- 默认激活开发环境 -->
-    #            <activeByDefault>true</activeByDefault>
-    #        </activation>
-    #        <properties>
-    #            <spring.profiles.active>dev</spring.profiles.active>
-    #        </properties>
-    #    </profile>
-    #
-    #    <!-- 测试环境 -->  其他环境
-    # 。。。 active: @spring.profiles.active@ 这里会被Maven替换为实际值
-
-    #命令激活 java -jar your-app.jar --spring.profiles.active=prod
-
-    # 环境变量激活 export SPRING_PROFILES_ACTIVE=prod
-    #java -jar your-app.jar
-
-    # JVM参数激活  java -Dspring.profiles.active=prod -jar your-app.jar
-
-
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -78,24 +10,26 @@ spring:
     allow-bean-definition-overriding: true
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
+      max-file-size: 50MB
+      max-request-size: 100MB
       enabled: true
-  # Swagger  启动时通过参数控制： 配置 java -jar your-app.jar --swagger.enabled=true
-  #Swagger 原生界面: http://localhost:8080/api/swagger-ui/index.html
-  #Swagger JSON: http://localhost:8080/api/v3/api-docs
-  springfox:
-    documentation:
-      enabled: true # 默认关闭，通过启动参数开启
-      swagger-ui:
-        enabled: true
-        path: /swagger-ui.html
-      api-docs:
-        path: /v3/api-docs
-  # 数据库配置   macbook mariadb968 / win mariadb
+  # 🆕 新增：文件存储配置
+  file-storage:
+    base-dir: ./data/uploads  # 首选目录
+    fallback-dir: ./data/uploads        # 备用目录（相对路径）
+    allowed-types:
+      - image/jpeg
+      - image/png
+      - image/gif
+      - image/webp
+      - application/pdf
+      - application/msword
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    max-size: 100MB
+    enabled: true
+  # 数据库配置
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3306/taihe?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/taihe?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: root
     password: mariadb968
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -106,13 +40,16 @@ spring:
       max-wait: 60000
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
-      validation-query: SELECT 1
+      validation-query: SELECT 1 FROM DUAL
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false
-      filters: stat,wall
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,log4j2
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       stat-view-servlet:
-        enabled: false
+        enabled: true
         url-pattern: /druid/*
         login-username: admin
         login-password: admin
@@ -120,7 +57,16 @@ spring:
         enabled: false
         url-pattern: /*
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
-# 服务配置
+
+springfox:
+  documentation:
+    enabled: true
+    swagger-ui:
+      enabled: true
+      path: /swagger-ui.html
+    api-docs:
+      path: /v3/api-docs
+
 server:
   port: 8080
   servlet:
@@ -130,22 +76,38 @@ server:
     min-spare-threads: 10
 
 mybatis-plus:
-  mapper-locations: classpath*:mapper/*.xml  # 修改1：使用更全面的路径匹配
+  mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.cn.taihe.back.user.entity
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl  # 修改2：使用SLF4J实现
-    cache-enabled: true  # 建议添加：启用二级缓存
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    cache-enabled: true
 
-# 优化后的日志配置
 logging:
   level:
-    com.cn.taihe: DEBUG  # 精确到mapper包级别
+    com.cn.taihe: DEBUG
     org.mybatis: DEBUG
-    com.baomidou.mybatisplus: DEBUG  # MyBatis-Plus 相关日志
-    com.cn.taihe.backcentral.user.mapper: DEBUG  # ✅ 重点：您的 Mapper 接口包
+    com.baomidou.mybatisplus: DEBUG
+    com.cn.taihe.backcentral.user.mapper: DEBUG
   file:
     name: logs/microservice.log
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
+# 🆕 新增：开发环境配置
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  file-storage:
+    base-dir: uploads
+
+# 🆕 新增：生产环境配置
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  file-storage:
+    base-dir: /app/backcentral/uploads
