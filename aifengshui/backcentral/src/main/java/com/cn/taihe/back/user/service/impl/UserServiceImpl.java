@@ -8,6 +8,7 @@ import com.cn.taihe.back.user.entity.UserPasswordReset;
 import com.cn.taihe.back.user.mapper.UserMapper;
 import com.cn.taihe.back.user.mapper.UserPasswordResetMapper;
 import com.cn.taihe.back.user.service.UserService;
+import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -81,7 +82,7 @@ public class UserServiceImpl implements UserService {
     // 处理文件上传的头像
     if (avatarFile != null && !avatarFile.isEmpty()) {
       try {
-        String avatarPath = fileStorageService.upload(avatarFile, "avatar");
+        String avatarPath = fileStorageService.upload(avatarFile, AppCommonConstants.IMAGE_USER_File_PATH);
         setAvatarInfoFromFile(user, avatarPath, avatarFile);
       } catch (Exception e) {
         log.warn("头像上传失败，继续注册用户: email={}", email, e);

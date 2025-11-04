@@ -27,7 +27,7 @@ public class MultipartProperties {
   /**
    * 整个请求最大大小（可包含多个文件）
    */
-  private String maxRequestSize = "20MB";
+  private String maxRequestSize = "50MB";
 
   /**
    * 文件大小阈值，超过此值将写入磁盘

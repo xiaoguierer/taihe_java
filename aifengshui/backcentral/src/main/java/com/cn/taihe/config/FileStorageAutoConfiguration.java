@@ -1,4 +1,5 @@
 package com.cn.taihe.config;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -41,8 +42,6 @@ public class FileStorageAutoConfiguration {
       if (tryCreateDirectory(dirPath, i)) {
         actualStoragePath = dirPath;
         fileStorageProperties.setBaseDir(dirPath);
-
-
         createSubDirectories(Paths.get(dirPath));
         log.info("✅ 文件存储目录初始化成功: {}", dirPath);
         return;
@@ -138,11 +137,16 @@ public class FileStorageAutoConfiguration {
    */
   private String getAttemptName(int attempt) {
     switch (attempt) {
-      case 0: return "首选方案";
-      case 1: return "备用方案";
-      case 2: return "临时目录方案";
-      case 3: return "当前目录方案";
-      default: return "方案" + attempt;
+      case 0:
+        return "首选方案";
+      case 1:
+        return "备用方案";
+      case 2:
+        return "临时目录方案";
+      case 3:
+        return "当前目录方案";
+      default:
+        return "方案" + attempt;
     }
   }
 

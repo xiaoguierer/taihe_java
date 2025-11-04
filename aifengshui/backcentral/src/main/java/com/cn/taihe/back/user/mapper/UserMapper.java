@@ -108,7 +108,7 @@ public interface UserMapper extends BaseMapper {
   // 条件查询用户 - 保持不变（不包含新增字段）
   // ===== 未修改 =====
   @Select("<script>" +
-    "SELECT id, email, nickname, avatar, status, created_at as createdAt, updated_at as updatedAt " +
+    "SELECT id, email, nickname, avatar, status, created_at as createdAt, updated_at as updatedAt,avatar_path as avatarPath, avatar_original_name as avatarOriginalName, avatar_size as avatarSize, avatar_content_type as avatarContentType " +
     "FROM user WHERE 1=1 " +
     "<if test='email != null'>AND email LIKE CONCAT('%',#{email},'%')</if>" +
     "<if test='nickname != null'>AND nickname LIKE CONCAT('%',#{nickname},'%')</if>" +
@@ -143,5 +143,5 @@ public interface UserMapper extends BaseMapper {
     "avatar_original_name = NULL, avatar_size = NULL, avatar_content_type = NULL " +
     "WHERE id = #{id}")
   int clearAvatarInfo(String id);
-  
+
 }

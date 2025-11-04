@@ -55,13 +55,10 @@ public class UserController {
       if(userService.existsByEmail(request.getEmail())) {
         return ResponseEntity.badRequest().body(buildErrorResponse("邮箱已被注册"));
       }
-
       // 2. 生成盐值和加密密码
       String salt = PasswordUtil.generateSalt();
       String passwordHash = PasswordUtil.hashPassword(request.getPassword(), salt);
-
       User user;
-
       // 优先使用文件上传方式
       if (avatarFile != null && !avatarFile.isEmpty()) {
         user = userService.registerWithAvatar(

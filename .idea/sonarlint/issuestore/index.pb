@@ -3,16 +3,8 @@ A
 doc/gitÊèê‰∫§.txt,4/2/422f82f282426062c24dd297253f95ca19c210ab
 {
 Kaifengshui/backcentral/src/main/java/com/cn/taihe/config/MyBatisConfig.java,e/e/ee55ddbad35ddd4a2b66e78be940efcbebaaec60
-Å
-Qaifengshui/backcentral/src/main/java/com/cn/taihe/config/MultipartProperties.java,8/f/8f03e02f2e367105f8658292abaf599ae713d0f9
-
-Oaifengshui/backcentral/src/main/java/com/cn/taihe/config/FileTypeValidator.java,a/6/a64e3649e05cc6f8ca2fcfdaf8081ae15aec33b1
-É
-Saifengshui/backcentral/src/main/java/com/cn/taihe/config/FileStorageProperties.java,3/2/324bab780318c1025254bda2795ad1ee715d6462
 q
 Acommon/src/main/java/com/cn/taihe/common/fileutils/ApiResult.java,e/c/ec08566c2edd39562967ab2de646c4d0cedc560d
-ä
-Zaifengshui/backcentral/src/main/java/com/cn/taihe/config/FileStorageAutoConfiguration.java,3/9/39eb21c06de39d274c6482ccb750aec08edfcf44
 Ä
 Pcommon/src/main/java/com/cn/taihe/common/mainexception/FileStorageException.java,d/3/d36d68c7a26b0fc6b05cac8f6fba23ee9a7d7a4e
 Å
@@ -21,8 +13,6 @@ Qcommon/src/main/java/com/cn/taihe/common/mainexception/FileNotFoundException.ja
 Scommon/src/main/java/com/cn/taihe/common/mainexception/FileValidationException.java,a/4/a44c917be044dbb09f9ab99685a7d264666207ff
 x
 Hcommon/src/main/java/com/cn/taihe/common/fileutils/FileUploadResult.java,8/3/8360f665ef71b2049e7a7cda19a5995d7b222f2a
-û
-naifengshui/backcentral/src/main/java/com/cn/taihe/back/imagefile/service/impl/LocalFileStorageServiceImpl.java,e/3/e30440de8447b865c13d3441c3a76d2b6a738c75
 ï
 eaifengshui/backcentral/src/main/java/com/cn/taihe/back/imagefile/controller/FileHealthController.java,f/6/f6a74d16ebca1d3f50aa5e1e9bea13095cd95730
 ï

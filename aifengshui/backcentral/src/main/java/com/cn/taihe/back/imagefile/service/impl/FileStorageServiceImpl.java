@@ -29,7 +29,7 @@ import java.util.UUID;
  */
 @Slf4j
 @Service
-public class LocalFileStorageServiceImpl implements FileStorageService {
+public class FileStorageServiceImpl implements FileStorageService {
   @Autowired
   private FileStorageProperties fileStorageProperties;
 
