@@ -8,16 +8,20 @@ import com.cn.taihe.common.ApiResponse;
 import com.cn.taihe.common.BusinessException;
 import com.cn.taihe.common.ResponseBuilder;
 import com.cn.taihe.common.ResponseUtil;
+import com.cn.taihe.common.dateutils.DateTimeParser;
 import com.cn.taihe.common.utils.PasswordUtil;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -45,7 +49,10 @@ public class UserController {
     @RequestPart("request") RegisterRequest request,
     @RequestPart(value = "avatarFile", required = false) MultipartFile avatarFile) {
     logger.info("新增注册用户信息........");
+    logger.info("生成的日期是：" + LocalDateTime.now());
+    logger.info("接收的日期是：" + request.getBirthdaytime());
     try {
+
       //检测邮箱是否存在
       if (userService.existsByEmail(request.getEmail())) {
         return ResponseEntity.badRequest().body(buildErrorResponse("邮箱已被注册"));
@@ -53,7 +60,7 @@ public class UserController {
       // 2. 生成盐值和加密密码
       String salt = PasswordUtil.generateSalt();
       String passwordHash = PasswordUtil.hashPassword(request.getPassword(), salt);
-      User user;
+      User user = null;
       // 优先使用文件上传方式
       if (avatarFile != null && !avatarFile.isEmpty()) {
         user = userService.registerWithAvatar(
@@ -62,7 +69,8 @@ public class UserController {
           salt,
           request.getNickname(),
           avatarFile,
-          Integer.valueOf(request.getStatus())
+          Integer.valueOf(1),
+          request.getBirthdaytime()
         );
       } else {
         // 使用URL方式
@@ -72,7 +80,8 @@ public class UserController {
           salt,
           request.getNickname(),
           request.getAvatar(),
-          Integer.valueOf(request.getStatus())
+          Integer.valueOf(1),
+          request.getBirthdaytime()
         );
       }
       return ResponseEntity.ok(buildSuccessResponse("注册成功", user));
@@ -142,14 +151,15 @@ public class UserController {
                                          @RequestParam(required = false) String nickname,
                                          @RequestParam(required = false) String avatar,
                                          @RequestParam(required = false) Integer status,
+                                         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime birthdaytime,
                                          @RequestPart(value = "avatarFile", required = false) MultipartFile avatarFile) {
     int result = 0;
     try {
       if (avatarFile != null && !avatarFile.isEmpty()) {
         logger.info("头像信息上传不为空");
-        result = userService.updateProfile(id, email, nickname, avatar, status, avatarFile);
+        result = userService.updateProfile(id, email, nickname, avatar, status, avatarFile, birthdaytime);
       } else {
-        result = userService.updateProfile(id, email, nickname, avatar, status);
+        result = userService.updateProfile(id, email, nickname, avatar, status, birthdaytime);
       }
       if (result > 0) {
         // 返回更新后的完整用户信息

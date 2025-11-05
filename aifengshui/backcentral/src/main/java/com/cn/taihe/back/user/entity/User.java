@@ -1,6 +1,8 @@
 package com.cn.taihe.back.user.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,8 +23,11 @@ public class User {
 
   @Column(length = 64)
   private String nickname = "新用户";
+  //出生时间
+  @Column(name = "birthdaytime")
+  private LocalDateTime birthdaytime;
 
-  @Column(length = 255)
+  @Column(length = 500)
   private String avatar;
 
   @Column(nullable = false)
@@ -47,7 +52,7 @@ public class User {
   /**
    * 原始头像文件名（新增）
    */
-  @Column(name = "avatar_original_name", length = 255)
+  @Column(name = "avatar_original_name", length = 500)
   private String avatarOriginalName;
 
   /**
@@ -259,5 +264,13 @@ public class User {
 
   public void setAvatarContentType(String avatarContentType) {
     this.avatarContentType = avatarContentType;
+  }
+
+  public LocalDateTime getBirthdaytime() {
+    return birthdaytime;
+  }
+
+  public void setBirthdaytime(LocalDateTime birthdaytime) {
+    this.birthdaytime = birthdaytime;
   }
 }

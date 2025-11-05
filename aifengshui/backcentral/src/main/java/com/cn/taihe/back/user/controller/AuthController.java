@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -28,7 +29,8 @@ public class AuthController {
             // 2. 生成盐值和加密密码
             String salt = PasswordUtil.generateSalt();
             String passwordHash = PasswordUtil.hashPassword(request.getPassword(), salt);
-            User user = userService.register(request.getEmail(), passwordHash,salt, request.getNickname(),request.getAvatar(),Integer.valueOf(request.getStatus()));
+            User user = userService.register(request.getEmail(), passwordHash,salt, request.getNickname(),
+              request.getAvatar(),Integer.valueOf(request.getStatus()), LocalDateTime.now());
             return ResponseEntity.ok(user);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

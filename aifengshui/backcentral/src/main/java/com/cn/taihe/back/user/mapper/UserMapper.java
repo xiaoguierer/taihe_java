@@ -16,16 +16,16 @@ public interface UserMapper extends BaseMapper {
   // 插入用户（返回主键）- 新增文件存储字段
   // ===== 修改：添加了4个新的文件存储字段 =====
   @Insert("INSERT INTO user (id, email, password_hash, salt, nickname, avatar, status, created_at, updated_at, " +
-    "avatar_path, avatar_original_name, avatar_size, avatar_content_type) " + // ← 新增字段
+    "avatar_path, avatar_original_name, avatar_size, avatar_content_type,birthdaytime) " + // ← 新增字段
     "VALUES (#{id}, #{email}, #{passwordHash}, #{salt}, #{nickname}, #{avatar}, #{status}, #{createdAt}, #{updatedAt}, " +
-    "#{avatarPath}, #{avatarOriginalName}, #{avatarSize}, #{avatarContentType})") // ← 新增参数
+    "#{avatarPath}, #{avatarOriginalName}, #{avatarSize}, #{avatarContentType},#{birthdaytime})") // ← 新增参数
   @Options(useGeneratedKeys = true, keyProperty = "id")
   int insert(User user);
 
   // 根据ID查询 - 新增文件存储字段
   // ===== 修改：添加了4个新的文件存储字段映射 =====
   @Select("SELECT " +
-    "id, email, password_hash as passwordHash, salt, nickname, avatar, status, " +
+    "id, email, password_hash as passwordHash, salt, nickname, avatar, status, birthdaytime," +
     "created_at as createdAt, updated_at as updatedAt, " +
     "avatar_path as avatarPath, avatar_original_name as avatarOriginalName, " + // ← 新增字段映射
     "avatar_size as avatarSize, avatar_content_type as avatarContentType " +    // ← 新增字段映射
@@ -35,7 +35,7 @@ public interface UserMapper extends BaseMapper {
   // 根据邮箱查询 - 新增文件存储字段
   // ===== 修改：添加了4个新的文件存储字段映射 =====
   @Select("SELECT " +
-    "id, email, password_hash as passwordHash, salt, nickname, avatar, status, " +
+    "id, email, password_hash as passwordHash, salt, nickname, avatar, status, birthdaytime," +
     "created_at as createdAt, updated_at as updatedAt, " +
     "avatar_path as avatarPath, avatar_original_name as avatarOriginalName, " + // ← 新增字段映射
     "avatar_size as avatarSize, avatar_content_type as avatarContentType " +    // ← 新增字段映射
@@ -55,6 +55,7 @@ public interface UserMapper extends BaseMapper {
     "nickname = #{nickname}, " +
     "avatar = #{avatar}, " +
     "updated_at = #{updatedAt}, " +
+    "birthdaytime = #{birthdaytime}," +
     "<if test='avatarPath != null'>avatar_path = #{avatarPath},</if>" +              // ← 新增动态更新
     "<if test='avatarOriginalName != null'>avatar_original_name = #{avatarOriginalName},</if>" + // ← 新增动态更新
     "<if test='avatar != null'>avatar = #{avatar},</if>" +            // ← 新增动态更新
@@ -101,14 +102,14 @@ public interface UserMapper extends BaseMapper {
 
   // 查询所有用户 - 保持不变（不包含新增字段）
   // ===== 未修改 =====
-  @Select("SELECT id, email, nickname, avatar, status, created_at as createdAt, updated_at as updatedAt " +
+  @Select("SELECT id, email, nickname, avatar, status,birthdaytime, created_at as createdAt, updated_at as updatedAt " +
     "FROM user ORDER BY created_at DESC")
   List<User> selectAll();
 
   // 条件查询用户 - 保持不变（不包含新增字段）
   // ===== 未修改 =====
   @Select("<script>" +
-    "SELECT id, email, nickname, avatar, status, created_at as createdAt, updated_at as updatedAt,avatar_path as avatarPath, avatar_original_name as avatarOriginalName, avatar_size as avatarSize, avatar_content_type as avatarContentType " +
+    "SELECT id, email, nickname, avatar, status, birthdaytime,created_at as createdAt, updated_at as updatedAt,avatar_path as avatarPath, avatar_original_name as avatarOriginalName, avatar_size as avatarSize, avatar_content_type as avatarContentType " +
     "FROM user WHERE 1=1 " +
     "<if test='email != null'>AND email LIKE CONCAT('%',#{email},'%')</if>" +
     "<if test='nickname != null'>AND nickname LIKE CONCAT('%',#{nickname},'%')</if>" +

@@ -5,6 +5,7 @@ import com.cn.taihe.back.user.entity.User;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -21,10 +22,10 @@ public interface UserService {
    * @param nickname 昵称（可选）
    * @return 注册成功的用户信息
    */
-  User register(String email, String password, String salt, String nickname, String avatar, Integer status);
+  User register(String email, String password, String salt, String nickname, String avatar, Integer status,LocalDateTime birthdaytime);
 
   public User registerWithAvatar(String email, String passwordHash, String salt,
-                                 String nickname, MultipartFile avatarFile, Integer status);
+                                 String nickname, MultipartFile avatarFile, Integer status,LocalDateTime birthdaytime);
 
   public User updateUserAvatar(String userId, MultipartFile avatarFile);
   /**
@@ -70,7 +71,7 @@ public interface UserService {
    * @param avatar   头像URL
    * @return 更新后的用户信息
    */
-  int updateProfile(String userId, String email, String nickname, String avatar, Integer status);
+  int updateProfile(String userId, String email, String nickname, String avatar, Integer status, LocalDateTime birthdaytime);
   /**
    * @description:
    * @author: 更新有附件的情况
@@ -79,7 +80,7 @@ public interface UserService {
    * @return: [java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, org.springframework.web.multipart.MultipartFile]
    **/
 
-  int updateProfile(String userId, String email, String nickname, String avatar, Integer status,MultipartFile avatarFile);
+  int updateProfile(String userId, String email, String nickname, String avatar, Integer status,MultipartFile avatarFile,LocalDateTime birthdaytime);
 
   /**
    * 修改密码

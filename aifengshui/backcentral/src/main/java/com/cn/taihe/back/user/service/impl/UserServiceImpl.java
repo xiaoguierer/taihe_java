@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
   private FileStorageService fileStorageService;
 
   @Transactional
-  public User register(String email, String password,String salt, String nickname,String avatar,Integer status) {
+  public User register(String email, String password,String salt, String nickname,String avatar,Integer status,LocalDateTime birthdaytime) {
     // 检查邮箱是否已存在（使用图片中的existsByEmail方法）
     if (userMapper.existsByEmail(email)) {
       throw new RuntimeException("邮箱已被注册");
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     user.setAvatar(avatar);
     user.setCreatedAt(LocalDateTime.now());
     user.setUpdatedAt(LocalDateTime.now());
-
+    user.setBirthdaytime(birthdaytime);
     userMapper.insert(user);
     return user;
   }
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
    */
   @Transactional
   public User registerWithAvatar(String email, String passwordHash, String salt,
-                                 String nickname, MultipartFile avatarFile, Integer status) {
+                                 String nickname, MultipartFile avatarFile, Integer status,LocalDateTime birthdaytime) {
     log.info("注册用户并上传头像: email={}", email);
 
     // 检查邮箱是否已存在
@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService {
     user.setStatus(status);
     user.setCreatedAt(LocalDateTime.now());
     user.setUpdatedAt(LocalDateTime.now());
+    user.setBirthdaytime(birthdaytime);
 
     // 处理文件上传的头像
     if (avatarFile != null && !avatarFile.isEmpty()) {
@@ -256,14 +257,13 @@ public class UserServiceImpl implements UserService {
    * @param: [userId, email, nickname, avatar, status]
    * @return: [java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer]
    **/
-  public int updateProfile(String userId, String email, String nickname, String avatar, Integer status) {
+  public int updateProfile(String userId, String email, String nickname, String avatar, Integer status,LocalDateTime birthdaytime) {
     User user = new User();
     user.setId(userId);
     user.setEmail(email);
     user.setNickname(nickname);
     user.setStatus(status);
-    // 处理头像信息
-    //processAvatarInfo(user, avatar);
+    user.setBirthdaytime(birthdaytime);
     int result = userMapper.update(user);
     log.info("用户资料更新{}: userId={}", result > 0 ? "成功" : "失败", userId);
     return result;
@@ -276,12 +276,13 @@ public class UserServiceImpl implements UserService {
    * @param: [userId, email, nickname, avatar, status, avatarFile]
    * @return: [java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, org.springframework.web.multipart.MultipartFile]
    **/
-  public int updateProfile(String userId, String email, String nickname, String avatar, Integer status, MultipartFile avatarFile){
+  public int updateProfile(String userId, String email, String nickname, String avatar, Integer status, MultipartFile avatarFile,LocalDateTime birthdaytime){
     User user = new User();
     user.setId(userId);
     user.setEmail(email);
     user.setNickname(nickname);
     user.setStatus(status);
+    user.setBirthdaytime(birthdaytime);
     // 处理文件上传的头像
     if (avatarFile != null && !avatarFile.isEmpty()) {
       // 删除旧文件

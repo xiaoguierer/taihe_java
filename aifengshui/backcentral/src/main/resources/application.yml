@@ -1,6 +1,6 @@
 spring:
   application:
-    name: backcentralmicroserviceapp
+    name: taihe_java
   profiles:
     active: dev
   jackson:
@@ -90,7 +90,7 @@ logging:
     com.baomidou.mybatisplus: DEBUG
     com.cn.taihe.backcentral.user.mapper: DEBUG
   file:
-    name: logs/microservice.log
+    name: logs/taihe_java.log
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
