@@ -54,10 +54,10 @@ public interface UserMapper extends BaseMapper {
     "email = #{email}, " +
     "nickname = #{nickname}, " +
     "avatar = #{avatar}, " +
-    "status = #{status}, " +
     "updated_at = #{updatedAt}, " +
     "<if test='avatarPath != null'>avatar_path = #{avatarPath},</if>" +              // ← 新增动态更新
     "<if test='avatarOriginalName != null'>avatar_original_name = #{avatarOriginalName},</if>" + // ← 新增动态更新
+    "<if test='avatar != null'>avatar = #{avatar},</if>" +            // ← 新增动态更新
     "<if test='avatarSize != null'>avatar_size = #{avatarSize},</if>" +            // ← 新增动态更新
     "<if test='avatarContentType != null'>avatar_content_type = #{avatarContentType},</if>" +     // ← 新增动态更新
     "updated_at = NOW() " +

@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
     if (userMapper.existsByEmail(email)) {
       throw new RuntimeException("邮箱已被注册");
     }
-
     User user = new User();
     user.setId(String.valueOf(SnowflakeIdGenerator.nextId()));
     user.setEmail(email);
@@ -250,19 +249,58 @@ public class UserServiceImpl implements UserService {
   public boolean existsByEmail(String email) {
     return userMapper.existsByEmail(email);
   }
+  /**
+   * @description:
+   * @author: 大咖
+   * @date: 2025/11/5 08:41
+   * @param: [userId, email, nickname, avatar, status]
+   * @return: [java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer]
+   **/
   public int updateProfile(String userId, String email, String nickname, String avatar, Integer status) {
     User user = new User();
     user.setId(userId);
     user.setEmail(email);
     user.setNickname(nickname);
-    user.setAvatar(avatar);
     user.setStatus(status);
     // 处理头像信息
-    processAvatarInfo(user, avatar);
-
+    //processAvatarInfo(user, avatar);
     int result = userMapper.update(user);
     log.info("用户资料更新{}: userId={}", result > 0 ? "成功" : "失败", userId);
     return result;
+  }
+
+  /**
+   * @description:
+   * @author: 大咖 带附件更新
+   * @date: 2025/11/5 08:46
+   * @param: [userId, email, nickname, avatar, status, avatarFile]
+   * @return: [java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, org.springframework.web.multipart.MultipartFile]
+   **/
+  public int updateProfile(String userId, String email, String nickname, String avatar, Integer status, MultipartFile avatarFile){
+    User user = new User();
+    user.setId(userId);
+    user.setEmail(email);
+    user.setNickname(nickname);
+    user.setStatus(status);
+    // 处理文件上传的头像
+    if (avatarFile != null && !avatarFile.isEmpty()) {
+      // 删除旧文件
+      User oleuser = userMapper.selectById(userId);
+      if(oleuser.getAvatarPath()!= null) {
+        deleteOldAvatarFile(oleuser.getAvatarPath());
+      }
+      try {
+        String avatarPath = fileStorageService.upload(avatarFile, AppCommonConstants.IMAGE_USER_File_PATH);
+        setAvatarInfoFromFile(user, avatarPath, avatarFile);
+      } catch (Exception e) {
+        log.warn("头像上传失败，继续注册用户: email={}", email, e);
+        // 头像上传失败不影响用户注册
+        clearAvatarInfo(user);
+      }
+    } else {
+      clearAvatarInfo(user);
+    }
+    return userMapper.update(user);
   }
 
   /**
@@ -363,6 +401,10 @@ public class UserServiceImpl implements UserService {
   }
   @Transactional
   public boolean deleteUser(String userId) {
+    User user = userMapper.selectById(userId);
+    if(user.getAvatarPath()!=null){
+      deleteOldAvatarFile(user.getAvatarPath());
+    }
     int res = userMapper.deleteById(userId);
     if (res > 0) { return true;}
     else  return false;

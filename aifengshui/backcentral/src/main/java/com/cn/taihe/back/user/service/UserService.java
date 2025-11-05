@@ -71,6 +71,15 @@ public interface UserService {
    * @return 更新后的用户信息
    */
   int updateProfile(String userId, String email, String nickname, String avatar, Integer status);
+  /**
+   * @description:
+   * @author: 更新有附件的情况
+   * @date: 2025/11/5 08:44
+   * @param: [userId, email, nickname, avatar, status, avatarFile]
+   * @return: [java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, org.springframework.web.multipart.MultipartFile]
+   **/
+
+  int updateProfile(String userId, String email, String nickname, String avatar, Integer status,MultipartFile avatarFile);
 
   /**
    * 修改密码

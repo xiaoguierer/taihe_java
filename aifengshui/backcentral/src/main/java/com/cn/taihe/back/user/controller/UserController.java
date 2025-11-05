@@ -37,11 +37,6 @@ public class UserController {
   Logger logger = LoggerFactory.getLogger(UserController.class);
 
   /**
-   *del
-   * profile
-   */
-
-  /**
    * 用户注册新增
    * POST /api/users/register
    */
@@ -52,7 +47,7 @@ public class UserController {
     logger.info("新增注册用户信息........");
     try {
       //检测邮箱是否存在
-      if(userService.existsByEmail(request.getEmail())) {
+      if (userService.existsByEmail(request.getEmail())) {
         return ResponseEntity.badRequest().body(buildErrorResponse("邮箱已被注册"));
       }
       // 2. 生成盐值和加密密码
@@ -103,7 +98,7 @@ public class UserController {
    * 条件查询用户
    * GET /api/users/search?page=1&size=10
    */
-  @GetMapping ("/search")
+  @GetMapping("/search")
   public ResponseEntity<?> searchUsers(
     @RequestParam(defaultValue = "1") int page,
     @RequestParam(defaultValue = "10") int size,
@@ -115,7 +110,7 @@ public class UserController {
       condition.setEmail(email);
       condition.setNickname(nickname);
       condition.setStatus(status);
-      PageInfo<User> pageInfo = userService.searchUsers( condition, page,size);
+      PageInfo<User> pageInfo = userService.searchUsers(condition, page, size);
       return ResponseBuilder.success(pageInfo);
     } catch (Exception e) {
       ApiResponse<PageInfo<User>> errorResponse = ResponseUtil.error("400", e.getMessage());
@@ -141,25 +136,35 @@ public class UserController {
    * 更新用户资料
    * PUT /api/users/{id}/profile
    */
-  @PutMapping("/{id}/profile")
+  @PutMapping(value = "/{id}/profile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<?> updateProfile(@PathVariable String id,
                                          @RequestParam(required = false) String email,
                                          @RequestParam(required = false) String nickname,
                                          @RequestParam(required = false) String avatar,
-                                         @RequestParam(required = false) Integer status) {
+                                         @RequestParam(required = false) Integer status,
+                                         @RequestPart(value = "avatarFile", required = false) MultipartFile avatarFile) {
+    int result = 0;
     try {
-      int user = userService.updateProfile(id, email,nickname, avatar,status);
-      if(user > 0){
-      // 返回更新后的完整用户信息
+      if (avatarFile != null && !avatarFile.isEmpty()) {
+        logger.info("头像信息上传不为空");
+        result = userService.updateProfile(id, email, nickname, avatar, status, avatarFile);
+      } else {
+        result = userService.updateProfile(id, email, nickname, avatar, status);
+      }
+      if (result > 0) {
+        // 返回更新后的完整用户信息
         Optional<User> updatedUser = userService.findById(id);
         return ResponseEntity.ok(buildSuccessResponse("资料更新成功", updatedUser));
       } else {
         return ResponseEntity.badRequest().body(buildErrorResponse("资料更新失败"));
       }
-    } catch (Exception e) {
+    } catch (
+      Exception e) {
       return ResponseEntity.badRequest().body(buildErrorResponse(e.getMessage()));
     }
+
   }
+
   /**
    * 删除用户
    * DELETE /api/users/del
@@ -192,6 +197,7 @@ public class UserController {
       return ResponseEntity.badRequest().body(buildErrorResponse("头像更新失败: " + e.getMessage()));
     }
   }
+
   /**
    * 清理无效头像
    * POST /api/users/{id}/clean-avatar
@@ -205,8 +211,6 @@ public class UserController {
       return ResponseEntity.badRequest().body(buildErrorResponse("头像清理失败: " + e.getMessage()));
     }
   }
-
-
 
 
   /**
@@ -259,7 +263,6 @@ public class UserController {
   }
 
 
-
   /**
    * 修改密码
    * PUT /api/users/{id}/password
@@ -276,7 +279,7 @@ public class UserController {
       String salt = PasswordUtil.generateSalt();
       String passwordHash = PasswordUtil.hashPassword(newPassword, salt);
 
-      int success = userService.changePassword(id, oldPassword, passwordHash,salt);
+      int success = userService.changePassword(id, oldPassword, passwordHash, salt);
       if (success > 0) {
         return ResponseEntity.ok(buildSuccessResponse("密码修改成功", null));
       }
@@ -340,8 +343,6 @@ public class UserController {
       return ResponseEntity.badRequest().body(buildErrorResponse(e.getMessage()));
     }
   }
-
-
 
 
   // 构建成功响应
