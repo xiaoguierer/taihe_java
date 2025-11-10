@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.product.mapper.ProductSpuWuxingMapper">
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    id, spu_id, wu_xing_id, element_strength, is_primary, sort_order, created_time
+  </sql>
+
+  <!-- 根据主键查找 -->
+  <select id="selectById" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuWuxing">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu_wuxing
+    WHERE id = #{id}
+  </select>
+
+  <!-- 根据SPU ID查找 -->
+  <select id="selectBySpuId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuWuxing">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu_wuxing
+    WHERE spu_id = #{spuId}
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 根据五行属性ID查找 -->
+  <select id="selectByWuXingId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuWuxing">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu_wuxing
+    WHERE wu_xing_id = #{wuXingId}
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 新增数据 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.product.entity.ProductSpuWuxing">
+    INSERT INTO product_spu_wuxing
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">id,</if>
+      spu_id,
+      wu_xing_id,
+      element_strength,
+      is_primary,
+      sort_order,
+      created_time
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">#{id},</if>
+      #{spuId},
+      #{wuXingId},
+      #{elementStrength},
+      #{isPrimary},
+      #{sortOrder},
+      #{createdTime}
+    </trim>
+  </insert>
+
+  <!-- 批量新增数据 -->
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO product_spu_wuxing (id, spu_id, wu_xing_id, element_strength, is_primary, sort_order, created_time)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      <choose>
+        <when test="item.id != null and item.id != ''">#{item.id},</when>
+        <otherwise>UUID(),</otherwise>
+      </choose>
+      #{item.spuId},
+      #{item.wuXingId},
+      #{item.elementStrength},
+      #{item.isPrimary},
+      #{item.sortOrder},
+      <choose>
+        <when test="item.createdTime != null">#{item.createdTime}</when>
+        <otherwise>NOW()</otherwise>
+      </choose>
+      )
+    </foreach>
+  </insert>
+
+  <!-- 根据主键删除数据 -->
+  <delete id="deleteById" parameterType="java.lang.String">
+    DELETE FROM product_spu_wuxing
+    WHERE id = #{id}
+  </delete>
+
+  <!-- 根据主键集合批量删除 -->
+  <delete id="deleteBatchIds" parameterType="java.util.List">
+    DELETE FROM product_spu_wuxing
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <!-- 根据SPU ID批量删除 -->
+  <delete id="deleteBySpuId" parameterType="java.lang.String">
+    DELETE FROM product_spu_wuxing
+    WHERE spu_id = #{spuId}
+  </delete>
+
+  <!-- 根据五行属性ID批量删除 -->
+  <delete id="deleteByWuXingId" parameterType="java.lang.String">
+    DELETE FROM product_spu_wuxing
+    WHERE wu_xing_id = #{wuXingId}
+  </delete>
+
+</mapper>

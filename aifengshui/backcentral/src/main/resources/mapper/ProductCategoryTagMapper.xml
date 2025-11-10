@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.product.mapper.ProductCategoryTagMapper">
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    id, tag_key, tag_name_en, tag_name_zh, tag_name_ar, description_en, description_zh, description_ar,
+        short_desc_en, short_desc_zh, short_desc_ar, icon_id, icon_path, cover_image_url, cover_id,
+        hover_image_url, hover_id, tag_type, parent_tag_id, color_code, sort_order, is_active,
+        show_in_filter, show_in_navigation, meta_title_en, meta_title_zh, meta_title_ar,
+        meta_description_en, meta_description_zh, meta_description_ar, meta_keywords_en,
+        meta_keywords_zh, meta_keywords_ar, created_by, updated_by, created_time, updated_time
+  </sql>
+
+  <!-- 根据主键查询 -->
+  <select id="selectById" parameterType="string" resultType="com.cn.taihe.back.product.entity.ProductCategoryTag">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM product_category_tag
+    WHERE id = #{id}
+  </select>
+
+  <!-- 新增数据 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.product.entity.ProductCategoryTag">
+    INSERT INTO product_category_tag (
+      id, tag_key, tag_name_en, tag_name_zh, tag_name_ar, description_en, description_zh, description_ar,
+      short_desc_en, short_desc_zh, short_desc_ar, icon_id, icon_path, cover_image_url, cover_id,
+      hover_image_url, hover_id, tag_type, parent_tag_id, color_code, sort_order, is_active,
+      show_in_filter, show_in_navigation, meta_title_en, meta_title_zh, meta_title_ar,
+      meta_description_en, meta_description_zh, meta_description_ar, meta_keywords_en,
+      meta_keywords_zh, meta_keywords_ar, created_by, updated_by, created_time, updated_time
+    ) VALUES (
+               #{id}, #{tagKey}, #{tagNameEn}, #{tagNameZh}, #{tagNameAr}, #{descriptionEn}, #{descriptionZh}, #{descriptionAr},
+               #{shortDescEn}, #{shortDescZh}, #{shortDescAr}, #{iconId}, #{iconPath}, #{coverImageUrl}, #{coverId},
+               #{hoverImageUrl}, #{hoverId}, #{tagType}, #{parentTagId}, #{colorCode}, #{sortOrder}, #{isActive},
+               #{showInFilter}, #{showInNavigation}, #{metaTitleEn}, #{metaTitleZh}, #{metaTitleAr},
+               #{metaDescriptionEn}, #{metaDescriptionZh}, #{metaDescriptionAr}, #{metaKeywordsEn},
+               #{metaKeywordsZh}, #{metaKeywordsAr}, #{createdBy}, #{updatedBy}, #{createdTime}, #{updatedTime}
+             )
+  </insert>
+
+  <!-- 根据主键更新数据（只更新非空字段） -->
+  <update id="updateById" parameterType="com.cn.taihe.back.product.entity.ProductCategoryTag">
+    UPDATE product_category_tag
+    <set>
+      <if test="tagKey != null and tagKey != ''">tag_key = #{tagKey},</if>
+      <if test="tagNameEn != null and tagNameEn != ''">tag_name_en = #{tagNameEn},</if>
+      <if test="tagNameZh != null and tagNameZh != ''">tag_name_zh = #{tagNameZh},</if>
+      <if test="tagNameAr != null and tagNameAr != ''">tag_name_ar = #{tagNameAr},</if>
+      <if test="descriptionEn != null">description_en = #{descriptionEn},</if>
+      <if test="descriptionZh != null">description_zh = #{descriptionZh},</if>
+      <if test="descriptionAr != null">description_ar = #{descriptionAr},</if>
+      <if test="shortDescEn != null and shortDescEn != ''">short_desc_en = #{shortDescEn},</if>
+      <if test="shortDescZh != null and shortDescZh != ''">short_desc_zh = #{shortDescZh},</if>
+      <if test="shortDescAr != null and shortDescAr != ''">short_desc_ar = #{shortDescAr},</if>
+      <if test="iconId != null and iconId != ''">icon_id = #{iconId},</if>
+      <if test="iconPath != null and iconPath != ''">icon_path = #{iconPath},</if>
+      <if test="coverImageUrl != null and coverImageUrl != ''">cover_image_url = #{coverImageUrl},</if>
+      <if test="coverId != null and coverId != ''">cover_id = #{coverId},</if>
+      <if test="hoverImageUrl != null and hoverImageUrl != ''">hover_image_url = #{hoverImageUrl},</if>
+      <if test="hoverId != null and hoverId != ''">hover_id = #{hoverId},</if>
+      <if test="tagType != null">tag_type = #{tagType},</if>
+      <if test="parentTagId != null and parentTagId != ''">parent_tag_id = #{parentTagId},</if>
+      <if test="colorCode != null and colorCode != ''">color_code = #{colorCode},</if>
+      <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+      <if test="isActive != null">is_active = #{isActive},</if>
+      <if test="showInFilter != null">show_in_filter = #{showInFilter},</if>
+      <if test="showInNavigation != null">show_in_navigation = #{showInNavigation},</if>
+      <if test="metaTitleEn != null and metaTitleEn != ''">meta_title_en = #{metaTitleEn},</if>
+      <if test="metaTitleZh != null and metaTitleZh != ''">meta_title_zh = #{metaTitleZh},</if>
+      <if test="metaTitleAr != null and metaTitleAr != ''">meta_title_ar = #{metaTitleAr},</if>
+      <if test="metaDescriptionEn != null">meta_description_en = #{metaDescriptionEn},</if>
+      <if test="metaDescriptionZh != null">meta_description_zh = #{metaDescriptionZh},</if>
+      <if test="metaDescriptionAr != null">meta_description_ar = #{metaDescriptionAr},</if>
+      <if test="metaKeywordsEn != null and metaKeywordsEn != ''">meta_keywords_en = #{metaKeywordsEn},</if>
+      <if test="metaKeywordsZh != null and metaKeywordsZh != ''">meta_keywords_zh = #{metaKeywordsZh},</if>
+      <if test="metaKeywordsAr != null and metaKeywordsAr != ''">meta_keywords_ar = #{metaKeywordsAr},</if>
+      <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+      <if test="updatedTime != null">updated_time = #{updatedTime}</if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 根据主键删除数据 -->
+  <delete id="deleteById" parameterType="string">
+    DELETE FROM product_category_tag
+    WHERE id = #{id}
+  </delete>
+
+  <!-- 条件查询列表（不分页） -->
+  <select id="selectList" parameterType="com.cn.taihe.back.product.dto.ProductCategoryTagQueryDTO"
+          resultType="com.cn.taihe.back.product.entity.ProductCategoryTag">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM product_category_tag
+    <where>
+      <if test="tagName != null and tagName != ''">
+        AND (tag_name_en LIKE CONCAT('%', #{tagName}, '%') OR tag_name_zh LIKE CONCAT('%', #{tagName}, '%'))
+      </if>
+      <if test="isActive != null">
+        AND is_active = #{isActive}
+      </if>
+      <if test="showInFilter != null">
+        AND show_in_filter = #{showInFilter}
+      </if>
+      <if test="showInNavigation != null">
+        AND show_in_navigation = #{showInNavigation}
+      </if>
+    </where>
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 条件查询分页列表 -->
+  <select id="selectPageList" resultType="com.cn.taihe.back.product.entity.ProductCategoryTag">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM product_category_tag
+    <where>
+      <if test="queryDTO.tagName != null and queryDTO.tagName != ''">
+        AND (tag_name_en LIKE CONCAT('%', #{queryDTO.tagName}, '%') OR tag_name_zh LIKE CONCAT('%', #{queryDTO.tagName}, '%'))
+      </if>
+      <if test="queryDTO.isActive != null">
+        AND is_active = #{queryDTO.isActive}
+      </if>
+      <if test="queryDTO.showInFilter != null">
+        AND show_in_filter = #{queryDTO.showInFilter}
+      </if>
+      <if test="queryDTO.showInNavigation != null">
+        AND show_in_navigation = #{queryDTO.showInNavigation}
+      </if>
+    </where>
+    ORDER BY sort_order ASC, created_time DESC
+    LIMIT #{offset}, #{limit}
+  </select>
+
+  <!-- 条件查询总数 -->
+  <select id="selectCount" parameterType="com.cn.taihe.back.product.dto.ProductCategoryTagQueryDTO" resultType="long">
+    SELECT COUNT(*)
+    FROM product_category_tag
+    <where>
+      <if test="tagName != null and tagName != ''">
+        AND (tag_name_en LIKE CONCAT('%', #{tagName}, '%') OR tag_name_zh LIKE CONCAT('%', #{tagName}, '%'))
+      </if>
+      <if test="isActive != null">
+        AND is_active = #{isActive}
+      </if>
+      <if test="showInFilter != null">
+        AND show_in_filter = #{showInFilter}
+      </if>
+      <if test="showInNavigation != null">
+        AND show_in_navigation = #{showInNavigation}
+      </if>
+    </where>
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.cn.taihe.back.product.entity.ProductCategoryTag">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM product_category_tag
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 根据主键集合批量删除 -->
+  <delete id="deleteBatchIds" parameterType="list">
+    DELETE FROM product_category_tag
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <!-- 根据主键更新状态（冻结/解冻） -->
+  <update id="updateStatusById">
+    UPDATE product_category_tag
+    SET is_active = #{isActive}, updated_time = NOW()
+    WHERE id = #{id}
+  </update>
+
+  <!-- 批量更新状态（冻结/解冻） -->
+  <update id="updateBatchStatus">
+    UPDATE product_category_tag
+    SET is_active = #{isActive}, updated_time = NOW()
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+
+</mapper>

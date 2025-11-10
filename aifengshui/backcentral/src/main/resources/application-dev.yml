@@ -1,6 +1,6 @@
 spring:
   application:
-    name: backcentralmicroserviceapp
+    name: taihe_java
   profiles:
     active: dev
   jackson:
@@ -10,13 +10,26 @@ spring:
     allow-bean-definition-overriding: true
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
+      max-file-size: 50MB
+      max-request-size: 100MB
       enabled: true
-  # 数据库配置   macbook mariadb968 / win mariadb
+  # 🆕 新增：文件存储配置
+  file-storage:
+    base-dir: ./data/uploads  # 首选目录
+    fallback-dir: ./data/uploads        # 备用目录（相对路径）
+    allowed-types:
+      - image/jpeg
+      - image/png
+      - image/gif
+      - image/webp
+      - application/pdf
+      - application/msword
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    max-size: 100MB
+    enabled: true
+  # 数据库配置
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3306/taihe?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/taihe?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: root
     password: mariadb968
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -27,13 +40,16 @@ spring:
       max-wait: 60000
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
-      validation-query: SELECT 1
+      validation-query: SELECT 1 FROM DUAL
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false
-      filters: stat,wall
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,log4j2
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       stat-view-servlet:
-        enabled: false
+        enabled: true
         url-pattern: /druid/*
         login-username: admin
         login-password: admin
@@ -42,17 +58,15 @@ spring:
         url-pattern: /*
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
 
-#Swagger 原生界面: http://localhost:8080/api/swagger-ui/index.html
-#Swagger JSON: http://localhost:8080/api/v3/api-docs
 springfox:
   documentation:
-    enabled: true # 默认关闭，通过启动参数开启
+    enabled: true
     swagger-ui:
       enabled: true
       path: /swagger-ui.html
     api-docs:
       path: /v3/api-docs
-# 服务配置
+
 server:
   port: 8080
   servlet:
@@ -62,21 +76,38 @@ server:
     min-spare-threads: 10
 
 mybatis-plus:
-  mapper-locations: classpath*:mapper/*.xml  # 修改1：使用更全面的路径匹配
-  type-aliases-package: com.cn.taihe.back.user.entity
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.cn.taihe.*
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl  # 修改2：使用SLF4J实现
-    cache-enabled: true  # 建议添加：启用二级缓存
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    cache-enabled: true
 
 logging:
   level:
-    com.cn.taihe: DEBUG  # 精确到mapper包级别
+    com.cn.taihe: DEBUG
     org.mybatis: DEBUG
-    com.baomidou.mybatisplus: DEBUG  # MyBatis-Plus 相关日志
-    com.cn.taihe.backcentral.user.mapper: DEBUG  # ✅ 重点：您的 Mapper 接口包
+    com.baomidou.mybatisplus: DEBUG
+    com.cn.taihe.backcentral.user.mapper: DEBUG
   file:
-    name: logs/microservice.log
+    name: logs/taihe_java.log
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
+# 🆕 新增：开发环境配置
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  file-storage:
+    base-dir: uploads
+
+# 🆕 新增：生产环境配置
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  file-storage:
+    base-dir: /app/backcentral/uploads

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.product.mapper.WuXingAttributeMapper">
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    id, element_key, element_code, element_category, element_name_en, element_name_zh,
+        element_name_ar, symbol_character, symbol_color, symbol_color_gradient,
+        symbol_direction, symbol_season, symbol_time, symbol_planet, symbol_weather,
+        symbol_landform, symbol_animal, symbol_plant, symbol_organ, symbol_sense,
+        symbol_tissue, symbol_emotion, symbol_sound, symbol_taste, symbol_virtue,
+        symbol_career, symbol_number, symbol_music, philosophy_meaning_zh,
+        philosophy_meaning_en, cosmology_meaning_zh, cosmology_meaning_en,
+        life_philosophy_zh, life_philosophy_en, change_principle_zh, change_principle_en,
+        cultural_symbolism_zh, cultural_symbolism_en, mythological_association_zh,
+        mythological_association_en, historical_reference_zh, historical_reference_en,
+        artistic_expression_zh, artistic_expression_en, energy_essence_zh, energy_essence_en,
+        energy_manifestation_zh, energy_manifestation_en, spiritual_meaning_zh,
+        spiritual_meaning_en, personality_archetype_zh, personality_archetype_en,
+        life_guidance_zh, life_guidance_en, healing_property_zh, healing_property_en,
+        generates_element, generated_by_element, restrains_element, restrained_by_element,
+        relationship_meaning_zh, relationship_meaning_en, symbol_icon_url,
+        philosophy_image_url, energy_flow_image_url, sort_order, element_tier, is_active,
+        created_time, updated_time
+  </sql>
+
+  <!-- 关键字段查询列（用于快速查询和缓存） -->
+  <sql id="Key_Column_List">
+    id, element_key, element_code, element_category, element_name_zh, element_name_en,
+        symbol_character, symbol_color, sort_order, element_tier, is_active
+  </sql>
+
+  <!-- 根据主键查询五行属性 -->
+  <select id="selectById" parameterType="string" resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM wu_xing_attribute
+    WHERE id = #{id}
+  </select>
+
+  <!-- 新增五行属性 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    INSERT INTO wu_xing_attribute (
+      id, element_key, element_code, element_category, element_name_en, element_name_zh,
+      element_name_ar, symbol_character, symbol_color, symbol_color_gradient,
+      symbol_direction, symbol_season, symbol_time, symbol_planet, symbol_weather,
+      symbol_landform, symbol_animal, symbol_plant, symbol_organ, symbol_sense,
+      symbol_tissue, symbol_emotion, symbol_sound, symbol_taste, symbol_virtue,
+      symbol_career, symbol_number, symbol_music, philosophy_meaning_zh,
+      philosophy_meaning_en, cosmology_meaning_zh, cosmology_meaning_en,
+      life_philosophy_zh, life_philosophy_en, change_principle_zh, change_principle_en,
+      cultural_symbolism_zh, cultural_symbolism_en, mythological_association_zh,
+      mythological_association_en, historical_reference_zh, historical_reference_en,
+      artistic_expression_zh, artistic_expression_en, energy_essence_zh, energy_essence_en,
+      energy_manifestation_zh, energy_manifestation_en, spiritual_meaning_zh,
+      spiritual_meaning_en, personality_archetype_zh, personality_archetype_en,
+      life_guidance_zh, life_guidance_en, healing_property_zh, healing_property_en,
+      generates_element, generated_by_element, restrains_element, restrained_by_element,
+      relationship_meaning_zh, relationship_meaning_en, symbol_icon_url,
+      philosophy_image_url, energy_flow_image_url, sort_order, element_tier, is_active,
+      created_time, updated_time
+    ) VALUES (
+               #{id}, #{elementKey}, #{elementCode}, #{elementCategory}, #{elementNameEn}, #{elementNameZh},
+               #{elementNameAr}, #{symbolCharacter}, #{symbolColor}, #{symbolColorGradient},
+               #{symbolDirection}, #{symbolSeason}, #{symbolTime}, #{symbolPlanet}, #{symbolWeather},
+               #{symbolLandform}, #{symbolAnimal}, #{symbolPlant}, #{symbolOrgan}, #{symbolSense},
+               #{symbolTissue}, #{symbolEmotion}, #{symbolSound}, #{symbolTaste}, #{symbolVirtue},
+               #{symbolCareer}, #{symbolNumber}, #{symbolMusic}, #{philosophyMeaningZh},
+               #{philosophyMeaningEn}, #{cosmologyMeaningZh}, #{cosmologyMeaningEn},
+               #{lifePhilosophyZh}, #{lifePhilosophyEn}, #{changePrincipleZh}, #{changePrincipleEn},
+               #{culturalSymbolismZh}, #{culturalSymbolismEn}, #{mythologicalAssociationZh},
+               #{mythologicalAssociationEn}, #{historicalReferenceZh}, #{historicalReferenceEn},
+               #{artisticExpressionZh}, #{artisticExpressionEn}, #{energyEssenceZh}, #{energyEssenceEn},
+               #{energyManifestationZh}, #{energyManifestationEn}, #{spiritualMeaningZh},
+               #{spiritualMeaningEn}, #{personalityArchetypeZh}, #{personalityArchetypeEn},
+               #{lifeGuidanceZh}, #{lifeGuidanceEn}, #{healingPropertyZh}, #{healingPropertyEn},
+               #{generatesElement}, #{generatedByElement}, #{restrainsElement}, #{restrainedByElement},
+               #{relationshipMeaningZh}, #{relationshipMeaningEn}, #{symbolIconUrl},
+               #{philosophyImageUrl}, #{energyFlowImageUrl}, #{sortOrder}, #{elementTier}, #{isActive},
+               #{createdTime}, #{updatedTime}
+             )
+  </insert>
+
+  <!-- 根据主键更新五行属性（只更新非空字段） -->
+  <update id="updateById" parameterType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    UPDATE wu_xing_attribute
+    <set>
+      <if test="elementKey != null and elementKey != ''">element_key = #{elementKey},</if>
+      <if test="elementCode != null and elementCode != ''">element_code = #{elementCode},</if>
+      <if test="elementCategory != null and elementCategory != ''">element_category = #{elementCategory},</if>
+      <if test="elementNameEn != null and elementNameEn != ''">element_name_en = #{elementNameEn},</if>
+      <if test="elementNameZh != null and elementNameZh != ''">element_name_zh = #{elementNameZh},</if>
+      <if test="elementNameAr != null and elementNameAr != ''">element_name_ar = #{elementNameAr},</if>
+      <if test="symbolCharacter != null and symbolCharacter != ''">symbol_character = #{symbolCharacter},</if>
+      <if test="symbolColor != null and symbolColor != ''">symbol_color = #{symbolColor},</if>
+      <if test="symbolColorGradient != null and symbolColorGradient != ''">symbol_color_gradient = #{symbolColorGradient},</if>
+      <if test="symbolDirection != null and symbolDirection != ''">symbol_direction = #{symbolDirection},</if>
+      <if test="symbolSeason != null and symbolSeason != ''">symbol_season = #{symbolSeason},</if>
+      <if test="symbolTime != null and symbolTime != ''">symbol_time = #{symbolTime},</if>
+      <if test="symbolPlanet != null and symbolPlanet != ''">symbol_planet = #{symbolPlanet},</if>
+      <if test="symbolWeather != null and symbolWeather != ''">symbol_weather = #{symbolWeather},</if>
+      <if test="symbolLandform != null and symbolLandform != ''">symbol_landform = #{symbolLandform},</if>
+      <if test="symbolAnimal != null and symbolAnimal != ''">symbol_animal = #{symbolAnimal},</if>
+      <if test="symbolPlant != null and symbolPlant != ''">symbol_plant = #{symbolPlant},</if>
+      <if test="symbolOrgan != null and symbolOrgan != ''">symbol_organ = #{symbolOrgan},</if>
+      <if test="symbolSense != null and symbolSense != ''">symbol_sense = #{symbolSense},</if>
+      <if test="symbolTissue != null and symbolTissue != ''">symbol_tissue = #{symbolTissue},</if>
+      <if test="symbolEmotion != null and symbolEmotion != ''">symbol_emotion = #{symbolEmotion},</if>
+      <if test="symbolSound != null and symbolSound != ''">symbol_sound = #{symbolSound},</if>
+      <if test="symbolTaste != null and symbolTaste != ''">symbol_taste = #{symbolTaste},</if>
+      <if test="symbolVirtue != null and symbolVirtue != ''">symbol_virtue = #{symbolVirtue},</if>
+      <if test="symbolCareer != null and symbolCareer != ''">symbol_career = #{symbolCareer},</if>
+      <if test="symbolNumber != null">symbol_number = #{symbolNumber},</if>
+      <if test="symbolMusic != null and symbolMusic != ''">symbol_music = #{symbolMusic},</if>
+      <if test="philosophyMeaningZh != null">philosophy_meaning_zh = #{philosophyMeaningZh},</if>
+      <if test="philosophyMeaningEn != null">philosophy_meaning_en = #{philosophyMeaningEn},</if>
+      <if test="cosmologyMeaningZh != null">cosmology_meaning_zh = #{cosmologyMeaningZh},</if>
+      <if test="cosmologyMeaningEn != null">cosmology_meaning_en = #{cosmologyMeaningEn},</if>
+      <if test="lifePhilosophyZh != null">life_philosophy_zh = #{lifePhilosophyZh},</if>
+      <if test="lifePhilosophyEn != null">life_philosophy_en = #{lifePhilosophyEn},</if>
+      <if test="changePrincipleZh != null">change_principle_zh = #{changePrincipleZh},</if>
+      <if test="changePrincipleEn != null">change_principle_en = #{changePrincipleEn},</if>
+      <if test="culturalSymbolismZh != null">cultural_symbolism_zh = #{culturalSymbolismZh},</if>
+      <if test="culturalSymbolismEn != null">cultural_symbolism_en = #{culturalSymbolismEn},</if>
+      <if test="mythologicalAssociationZh != null">mythological_association_zh = #{mythologicalAssociationZh},</if>
+      <if test="mythologicalAssociationEn != null">mythological_association_en = #{mythologicalAssociationEn},</if>
+      <if test="historicalReferenceZh != null">historical_reference_zh = #{historicalReferenceZh},</if>
+      <if test="historicalReferenceEn != null">historical_reference_en = #{historicalReferenceEn},</if>
+      <if test="artisticExpressionZh != null">artistic_expression_zh = #{artisticExpressionZh},</if>
+      <if test="artisticExpressionEn != null">artistic_expression_en = #{artisticExpressionEn},</if>
+      <if test="energyEssenceZh != null">energy_essence_zh = #{energyEssenceZh},</if>
+      <if test="energyEssenceEn != null">energy_essence_en = #{energyEssenceEn},</if>
+      <if test="energyManifestationZh != null">energy_manifestation_zh = #{energyManifestationZh},</if>
+      <if test="energyManifestationEn != null">energy_manifestation_en = #{energyManifestationEn},</if>
+      <if test="spiritualMeaningZh != null">spiritual_meaning_zh = #{spiritualMeaningZh},</if>
+      <if test="spiritualMeaningEn != null">spiritual_meaning_en = #{spiritualMeaningEn},</if>
+      <if test="personalityArchetypeZh != null">personality_archetype_zh = #{personalityArchetypeZh},</if>
+      <if test="personalityArchetypeEn != null">personality_archetype_en = #{personalityArchetypeEn},</if>
+      <if test="lifeGuidanceZh != null">life_guidance_zh = #{lifeGuidanceZh},</if>
+      <if test="lifeGuidanceEn != null">life_guidance_en = #{lifeGuidanceEn},</if>
+      <if test="healingPropertyZh != null">healing_property_zh = #{healingPropertyZh},</if>
+      <if test="healingPropertyEn != null">healing_property_en = #{healingPropertyEn},</if>
+      <if test="generatesElement != null and generatesElement != ''">generates_element = #{generatesElement},</if>
+      <if test="generatedByElement != null and generatedByElement != ''">generated_by_element = #{generatedByElement},</if>
+      <if test="restrainsElement != null and restrainsElement != ''">restrains_element = #{restrainsElement},</if>
+      <if test="restrainedByElement != null and restrainedByElement != ''">restrained_by_element = #{restrainedByElement},</if>
+      <if test="relationshipMeaningZh != null">relationship_meaning_zh = #{relationshipMeaningZh},</if>
+      <if test="relationshipMeaningEn != null">relationship_meaning_en = #{relationshipMeaningEn},</if>
+      <if test="symbolIconUrl != null and symbolIconUrl != ''">symbol_icon_url = #{symbolIconUrl},</if>
+      <if test="philosophyImageUrl != null and philosophyImageUrl != ''">philosophy_image_url = #{philosophyImageUrl},</if>
+      <if test="energyFlowImageUrl != null and energyFlowImageUrl != ''">energy_flow_image_url = #{energyFlowImageUrl},</if>
+      <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+      <if test="elementTier != null">element_tier = #{elementTier},</if>
+      <if test="isActive != null">is_active = #{isActive},</if>
+      updated_time = NOW()
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 根据主键删除五行属性 -->
+  <delete id="deleteById" parameterType="string">
+    DELETE FROM wu_xing_attribute WHERE id = #{id}
+  </delete>
+
+  <!-- 条件查询五行属性列表 -->
+  <select id="selectByCondition" parameterType="com.cn.taihe.back.product.dto.WuXingAttributeQueryDTO"
+          resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM wu_xing_attribute
+    <where>
+      <if test="elementKey != null and elementKey != ''">
+        AND element_key LIKE CONCAT('%', #{elementKey}, '%')
+      </if>
+      <if test="elementCategory != null and elementCategory != ''">
+        AND element_category = #{elementCategory}
+      </if>
+      <if test="elementNameZh != null and elementNameZh != ''">
+        AND element_name_zh LIKE CONCAT('%', #{elementNameZh}, '%')
+      </if>
+      <if test="elementTier != null">
+        AND element_tier = #{elementTier}
+      </if>
+      <if test="isActive != null">
+        AND is_active = #{isActive}
+      </if>
+    </where>
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 查询所有五行属性 -->
+  <select id="selectAll" resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM wu_xing_attribute
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 查询所有启用的五行属性（关键有效信息） -->
+  <select id="selectAllActive" resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM wu_xing_attribute
+    WHERE is_active = 1
+    ORDER BY sort_order ASC, element_tier ASC, created_time DESC
+  </select>
+
+  <!-- 根据条件查询关键有效信息列表（简化字段） -->
+  <select id="selectKeyInfoList" parameterType="com.cn.taihe.back.product.dto.WuXingAttributeQueryDTO"
+          resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT
+    <include refid="Key_Column_List"/>
+    FROM wu_xing_attribute
+    <where>
+      is_active = 1
+      <if test="elementKey != null and elementKey != ''">
+        AND element_key LIKE CONCAT('%', #{elementKey}, '%')
+      </if>
+      <if test="elementCategory != null and elementCategory != ''">
+        AND element_category = #{elementCategory}
+      </if>
+      <if test="elementNameZh != null and elementNameZh != ''">
+        AND element_name_zh LIKE CONCAT('%', #{elementNameZh}, '%')
+      </if>
+      <if test="elementTier != null">
+        AND element_tier = #{elementTier}
+      </if>
+    </where>
+    ORDER BY sort_order ASC, element_tier ASC
+  </select>
+
+  <!-- 根据元素分类查询启用的五行属性 -->
+  <select id="selectByCategory" parameterType="string" resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM wu_xing_attribute
+    WHERE element_category = #{elementCategory} AND is_active = 1
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 根据元素层级查询启用的五行属性 -->
+  <select id="selectByTier" parameterType="int" resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM wu_xing_attribute
+    WHERE element_tier = #{elementTier} AND is_active = 1
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 根据主键集合批量删除五行属性 -->
+  <delete id="deleteBatchIds" parameterType="list">
+    DELETE FROM wu_xing_attribute
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+
+  <!-- 根据主键更新状态（冻结/启用） -->
+  <update id="updateStatusById">
+    UPDATE wu_xing_attribute
+    SET is_active = #{isActive}, updated_time = NOW()
+    WHERE id = #{id}
+  </update>
+
+  <!-- 根据元素键名查询五行属性 -->
+  <select id="selectByElementKey" parameterType="string" resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM wu_xing_attribute
+    WHERE element_key = #{elementKey}
+  </select>
+
+  <!-- 检查元素键名是否存在 -->
+  <select id="countByElementKey" resultType="int">
+    SELECT COUNT(*) FROM wu_xing_attribute
+    WHERE element_key = #{elementKey}
+    <if test="excludeId != null and excludeId != ''">
+      AND id != #{excludeId}
+    </if>
+  </select>
+
+  <!-- 查询五行属性的关键字段（用于缓存或快速查询） -->
+  <select id="selectKeyFields" resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT
+    <include refid="Key_Column_List"/>
+    FROM wu_xing_attribute
+    WHERE is_active = 1
+    ORDER BY element_tier ASC, sort_order ASC
+  </select>
+
+  <!-- 根据状态查询数量（用于统计） -->
+  <select id="countByStatus" parameterType="int" resultType="int">
+    SELECT COUNT(*) FROM wu_xing_attribute
+    WHERE is_active = #{isActive}
+  </select>
+
+</mapper>

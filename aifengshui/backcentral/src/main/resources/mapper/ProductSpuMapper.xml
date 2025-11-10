@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.product.mapper.ProductSpuMapper">
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.product.entity.ProductSpu">
+    <id column="id" property="id" />
+    <result column="spu_code" property="spuCode" />
+    <result column="product_name_en" property="productNameEn" />
+    <result column="product_name_zh" property="productNameZh" />
+    <result column="product_name_ar" property="productNameAr" />
+    <result column="short_description_en" property="shortDescriptionEn" />
+    <result column="short_description_zh" property="shortDescriptionZh" />
+    <result column="short_description_ar" property="shortDescriptionAr" />
+    <result column="full_description_en" property="fullDescriptionEn" />
+    <result column="full_description_zh" property="fullDescriptionZh" />
+    <result column="full_description_ar" property="fullDescriptionAr" />
+    <result column="design_concept_en" property="designConceptEn" />
+    <result column="design_concept_zh" property="designConceptZh" />
+    <result column="design_concept_ar" property="designConceptAr" />
+    <result column="intended_usage_en" property="intendedUsageEn" />
+    <result column="intended_usage_zh" property="intendedUsageZh" />
+    <result column="intended_usage_ar" property="intendedUsageAr" />
+    <result column="emotional_purpose_en" property="emotionalPurposeEn" />
+    <result column="emotional_purpose_zh" property="emotionalPurposeZh" />
+    <result column="emotional_purpose_ar" property="emotionalPurposeAr" />
+    <result column="spiritual_significance_en" property="spiritualSignificanceEn" />
+    <result column="spiritual_significance_zh" property="spiritualSignificanceZh" />
+    <result column="spiritual_significance_ar" property="spiritualSignificanceAr" />
+    <result column="energy_properties_en" property="energyPropertiesEn" />
+    <result column="energy_properties_zh" property="energyPropertiesZh" />
+    <result column="energy_properties_ar" property="energyPropertiesAr" />
+    <result column="primary_element" property="primaryElement" />
+    <result column="element_combination" property="elementCombination" />
+    <result column="energy_intensity_default" property="energyIntensityDefault" />
+    <result column="material_standards" property="materialStandards" />
+    <result column="craftsmanship_standards" property="craftsmanshipStandards" />
+    <result column="quality_standards" property="qualityStandards" />
+    <result column="production_guidelines_en" property="productionGuidelinesEn" />
+    <result column="production_guidelines_zh" property="productionGuidelinesZh" />
+    <result column="production_guidelines_ar" property="productionGuidelinesAr" />
+    <result column="variant_definition" property="variantDefinition" />
+    <result column="customization_options" property="customizationOptions" />
+    <result column="production_lead_time" property="productionLeadTime" />
+    <result column="main_image_id" property="mainImageId" />
+    <result column="concept_image_id" property="conceptImageId" />
+    <result column="design_image_id" property="designImageId" />
+    <result column="prototype_image_id" property="prototypeImageId" />
+    <result column="usage_image_id" property="usageImageId" />
+    <result column="technical_image_id" property="technicalImageId" />
+    <result column="main_image_url" property="mainImageUrl" />
+    <result column="concept_image_url" property="conceptImageUrl" />
+    <result column="design_image_url" property="designImageUrl" />
+    <result column="prototype_image_url" property="prototypeImageUrl" />
+    <result column="usage_image_url" property="usageImageUrl" />
+    <result column="technical_image_url" property="technicalImageUrl" />
+    <result column="sort_order" property="sortOrder" />
+    <result column="is_featured" property="isFeatured" />
+    <result column="is_new_arrival" property="isNewArrival" />
+    <result column="is_ai_designed" property="isAiDesigned" />
+    <result column="ai_design_score" property="aiDesignScore" />
+    <result column="is_active" property="isActive" />
+    <result column="meta_title_en" property="metaTitleEn" />
+    <result column="meta_title_zh" property="metaTitleZh" />
+    <result column="meta_title_ar" property="metaTitleAr" />
+    <result column="meta_description_en" property="metaDescriptionEn" />
+    <result column="meta_description_zh" property="metaDescriptionZh" />
+    <result column="meta_description_ar" property="metaDescriptionAr" />
+    <result column="meta_keywords_en" property="metaKeywordsEn" />
+    <result column="meta_keywords_zh" property="metaKeywordsZh" />
+    <result column="meta_keywords_ar" property="metaKeywordsAr" />
+    <result column="created_by" property="createdBy" />
+    <result column="updated_by" property="updatedBy" />
+    <result column="created_time" property="createdTime" />
+    <result column="updated_time" property="updatedTime" />
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    id, spu_code, product_name_en, product_name_zh, product_name_ar,
+        short_description_en, short_description_zh, short_description_ar,
+        full_description_en, full_description_zh, full_description_ar,
+        design_concept_en, design_concept_zh, design_concept_ar,
+        intended_usage_en, intended_usage_zh, intended_usage_ar,
+        emotional_purpose_en, emotional_purpose_zh, emotional_purpose_ar,
+        spiritual_significance_en, spiritual_significance_zh, spiritual_significance_ar,
+        energy_properties_en, energy_properties_zh, energy_properties_ar,
+        primary_element, element_combination, energy_intensity_default,
+        material_standards, craftsmanship_standards, quality_standards,
+        production_guidelines_en, production_guidelines_zh, production_guidelines_ar,
+        variant_definition, customization_options, production_lead_time,
+        main_image_id, concept_image_id, design_image_id, prototype_image_id, usage_image_id, technical_image_id,
+        main_image_url, concept_image_url, design_image_url, prototype_image_url, usage_image_url, technical_image_url,
+        sort_order, is_featured, is_new_arrival, is_ai_designed, ai_design_score, is_active,
+        meta_title_en, meta_title_zh, meta_title_ar,
+        meta_description_en, meta_description_zh, meta_description_ar,
+        meta_keywords_en, meta_keywords_zh, meta_keywords_ar,
+        created_by, updated_by, created_time, updated_time
+  </sql>
+
+  <!-- 根据主键查找数据 -->
+  <select id="selectById" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu
+    WHERE id = #{id}
+  </select>
+
+  <!-- 新增数据 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.product.entity.ProductSpu">
+    INSERT INTO product_spu (
+      id, spu_code, product_name_en, product_name_zh, product_name_ar,
+      short_description_en, short_description_zh, short_description_ar,
+      full_description_en, full_description_zh, full_description_ar,
+      design_concept_en, design_concept_zh, design_concept_ar,
+      intended_usage_en, intended_usage_zh, intended_usage_ar,
+      emotional_purpose_en, emotional_purpose_zh, emotional_purpose_ar,
+      spiritual_significance_en, spiritual_significance_zh, spiritual_significance_ar,
+      energy_properties_en, energy_properties_zh, energy_properties_ar,
+      primary_element, element_combination, energy_intensity_default,
+      material_standards, craftsmanship_standards, quality_standards,
+      production_guidelines_en, production_guidelines_zh, production_guidelines_ar,
+      variant_definition, customization_options, production_lead_time,
+      main_image_id, concept_image_id, design_image_id, prototype_image_id, usage_image_id, technical_image_id,
+      main_image_url, concept_image_url, design_image_url, prototype_image_url, usage_image_url, technical_image_url,
+      sort_order, is_featured, is_new_arrival, is_ai_designed, ai_design_score, is_active,
+      meta_title_en, meta_title_zh, meta_title_ar,
+      meta_description_en, meta_description_zh, meta_description_ar,
+      meta_keywords_en, meta_keywords_zh, meta_keywords_ar,
+      created_by, updated_by
+    ) VALUES (
+               #{id}, #{spuCode}, #{productNameEn}, #{productNameZh}, #{productNameAr},
+               #{shortDescriptionEn}, #{shortDescriptionZh}, #{shortDescriptionAr},
+               #{fullDescriptionEn}, #{fullDescriptionZh}, #{fullDescriptionAr},
+               #{designConceptEn}, #{designConceptZh}, #{designConceptAr},
+               #{intendedUsageEn}, #{intendedUsageZh}, #{intendedUsageAr},
+               #{emotionalPurposeEn}, #{emotionalPurposeZh}, #{emotionalPurposeAr},
+               #{spiritualSignificanceEn}, #{spiritualSignificanceZh}, #{spiritualSignificanceAr},
+               #{energyPropertiesEn}, #{energyPropertiesZh}, #{energyPropertiesAr},
+               #{primaryElement}, #{elementCombination}, #{energyIntensityDefault},
+               #{materialStandards}, #{craftsmanshipStandards}, #{qualityStandards},
+               #{productionGuidelinesEn}, #{productionGuidelinesZh}, #{productionGuidelinesAr},
+               #{variantDefinition}, #{customizationOptions}, #{productionLeadTime},
+               #{mainImageId}, #{conceptImageId}, #{designImageId}, #{prototypeImageId}, #{usageImageId}, #{technicalImageId},
+               #{mainImageUrl}, #{conceptImageUrl}, #{designImageUrl}, #{prototypeImageUrl}, #{usageImageUrl}, #{technicalImageUrl},
+               #{sortOrder}, #{isFeatured}, #{isNewArrival}, #{isAiDesigned}, #{aiDesignScore}, #{isActive},
+               #{metaTitleEn}, #{metaTitleZh}, #{metaTitleAr},
+               #{metaDescriptionEn}, #{metaDescriptionZh}, #{metaDescriptionAr},
+               #{metaKeywordsEn}, #{metaKeywordsZh}, #{metaKeywordsAr},
+               #{createdBy}, #{updatedBy}
+             )
+  </insert>
+
+  <!-- 修改数据（只更新非空字段） -->
+  <update id="updateByIdSelective" parameterType="com.cn.taihe.back.product.entity.ProductSpu">
+    UPDATE product_spu
+    <set>
+      <if test="spuCode != null and spuCode != ''">spu_code = #{spuCode},</if>
+      <if test="productNameEn != null and productNameEn != ''">product_name_en = #{productNameEn},</if>
+      <if test="productNameZh != null and productNameZh != ''">product_name_zh = #{productNameZh},</if>
+      <if test="productNameAr != null and productNameAr != ''">product_name_ar = #{productNameAr},</if>
+      <if test="shortDescriptionEn != null">short_description_en = #{shortDescriptionEn},</if>
+      <if test="shortDescriptionZh != null">short_description_zh = #{shortDescriptionZh},</if>
+      <if test="shortDescriptionAr != null">short_description_ar = #{shortDescriptionAr},</if>
+      <if test="fullDescriptionEn != null">full_description_en = #{fullDescriptionEn},</if>
+      <if test="fullDescriptionZh != null">full_description_zh = #{fullDescriptionZh},</if>
+      <if test="fullDescriptionAr != null">full_description_ar = #{fullDescriptionAr},</if>
+      <if test="designConceptEn != null">design_concept_en = #{designConceptEn},</if>
+      <if test="designConceptZh != null">design_concept_zh = #{designConceptZh},</if>
+      <if test="designConceptAr != null">design_concept_ar = #{designConceptAr},</if>
+      <if test="intendedUsageEn != null">intended_usage_en = #{intendedUsageEn},</if>
+      <if test="intendedUsageZh != null">intended_usage_zh = #{intendedUsageZh},</if>
+      <if test="intendedUsageAr != null">intended_usage_ar = #{intendedUsageAr},</if>
+      <if test="emotionalPurposeEn != null">emotional_purpose_en = #{emotionalPurposeEn},</if>
+      <if test="emotionalPurposeZh != null">emotional_purpose_zh = #{emotionalPurposeZh},</if>
+      <if test="emotionalPurposeAr != null">emotional_purpose_ar = #{emotionalPurposeAr},</if>
+      <if test="spiritualSignificanceEn != null">spiritual_significance_en = #{spiritualSignificanceEn},</if>
+      <if test="spiritualSignificanceZh != null">spiritual_significance_zh = #{spiritualSignificanceZh},</if>
+      <if test="spiritualSignificanceAr != null">spiritual_significance_ar = #{spiritualSignificanceAr},</if>
+      <if test="energyPropertiesEn != null">energy_properties_en = #{energyPropertiesEn},</if>
+      <if test="energyPropertiesZh != null">energy_properties_zh = #{energyPropertiesZh},</if>
+      <if test="energyPropertiesAr != null">energy_properties_ar = #{energyPropertiesAr},</if>
+      <if test="primaryElement != null and primaryElement != ''">primary_element = #{primaryElement},</if>
+      <if test="elementCombination != null">element_combination = #{elementCombination},</if>
+      <if test="energyIntensityDefault != null">energy_intensity_default = #{energyIntensityDefault},</if>
+      <if test="materialStandards != null">material_standards = #{materialStandards},</if>
+      <if test="craftsmanshipStandards != null">craftsmanship_standards = #{craftsmanshipStandards},</if>
+      <if test="qualityStandards != null">quality_standards = #{qualityStandards},</if>
+      <if test="productionGuidelinesEn != null">production_guidelines_en = #{productionGuidelinesEn},</if>
+      <if test="productionGuidelinesZh != null">production_guidelines_zh = #{productionGuidelinesZh},</if>
+      <if test="productionGuidelinesAr != null">production_guidelines_ar = #{productionGuidelinesAr},</if>
+      <if test="variantDefinition != null">variant_definition = #{variantDefinition},</if>
+      <if test="customizationOptions != null">customization_options = #{customizationOptions},</if>
+      <if test="productionLeadTime != null">production_lead_time = #{productionLeadTime},</if>
+      <if test="mainImageId != null">main_image_id = #{mainImageId},</if>
+      <if test="conceptImageId != null">concept_image_id = #{conceptImageId},</if>
+      <if test="designImageId != null">design_image_id = #{designImageId},</if>
+      <if test="prototypeImageId != null">prototype_image_id = #{prototypeImageId},</if>
+      <if test="usageImageId != null">usage_image_id = #{usageImageId},</if>
+      <if test="technicalImageId != null">technical_image_id = #{technicalImageId},</if>
+      <if test="mainImageUrl != null">main_image_url = #{mainImageUrl},</if>
+      <if test="conceptImageUrl != null">concept_image_url = #{conceptImageUrl},</if>
+      <if test="designImageUrl != null">design_image_url = #{designImageUrl},</if>
+      <if test="prototypeImageUrl != null">prototype_image_url = #{prototypeImageUrl},</if>
+      <if test="usageImageUrl != null">usage_image_url = #{usageImageUrl},</if>
+      <if test="technicalImageUrl != null">technical_image_url = #{technicalImageUrl},</if>
+      <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+      <if test="isFeatured != null">is_featured = #{isFeatured},</if>
+      <if test="isNewArrival != null">is_new_arrival = #{isNewArrival},</if>
+      <if test="isAiDesigned != null">is_ai_designed = #{isAiDesigned},</if>
+      <if test="aiDesignScore != null">ai_design_score = #{aiDesignScore},</if>
+      <if test="isActive != null">is_active = #{isActive},</if>
+      <if test="metaTitleEn != null">meta_title_en = #{metaTitleEn},</if>
+      <if test="metaTitleZh != null">meta_title_zh = #{metaTitleZh},</if>
+      <if test="metaTitleAr != null">meta_title_ar = #{metaTitleAr},</if>
+      <if test="metaDescriptionEn != null">meta_description_en = #{metaDescriptionEn},</if>
+      <if test="metaDescriptionZh != null">meta_description_zh = #{metaDescriptionZh},</if>
+      <if test="metaDescriptionAr != null">meta_description_ar = #{metaDescriptionAr},</if>
+      <if test="metaKeywordsEn != null and metaKeywordsEn != ''">meta_keywords_en = #{metaKeywordsEn},</if>
+      <if test="metaKeywordsZh != null and metaKeywordsZh != ''">meta_keywords_zh = #{metaKeywordsZh},</if>
+      <if test="metaKeywordsAr != null and metaKeywordsAr != ''">meta_keywords_ar = #{metaKeywordsAr},</if>
+      <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+      updated_time = NOW()
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 根据主键删除数据 -->
+  <delete id="deleteById">
+    DELETE FROM product_spu
+    WHERE id = #{id}
+  </delete>
+
+  <!-- 条件查询数据（支持分页） -->
+  <select id="selectByCondition" parameterType="com.cn.taihe.back.product.dto.ProductSpuQueryDTO" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu
+    <where>
+      <if test="spuCode != null and spuCode != ''">
+        AND spu_code LIKE CONCAT('%', #{spuCode}, '%')
+      </if>
+      <if test="productNameEn != null and productNameEn != ''">
+        AND product_name_en LIKE CONCAT('%', #{productNameEn}, '%')
+      </if>
+      <if test="productNameZh != null and productNameZh != ''">
+        AND product_name_zh LIKE CONCAT('%', #{productNameZh}, '%')
+      </if>
+      <if test="isFeatured != null">
+        AND is_featured = #{isFeatured}
+      </if>
+      <if test="isNewArrival != null">
+        AND is_new_arrival = #{isNewArrival}
+      </if>
+      <if test="isAiDesigned != null">
+        AND is_ai_designed = #{isAiDesigned}
+      </if>
+      <if test="isActive != null">
+        AND is_active = #{isActive}
+      </if>
+      <if test="primaryElement != null and primaryElement != ''">
+        AND primary_element = #{primaryElement}
+      </if>
+    </where>
+    ORDER BY sort_order DESC, created_time DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu
+    ORDER BY sort_order DESC, created_time DESC
+  </select>
+
+  <!-- 根据主键集合批量删除数据 -->
+  <delete id="deleteBatchIds">
+    DELETE FROM product_spu
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <!-- 根据主键更新状态（冻结/启用） -->
+  <update id="updateStatusById">
+    UPDATE product_spu
+    SET is_active = #{isActive},
+        updated_by = #{updatedBy},
+        updated_time = NOW()
+    WHERE id = #{id}
+  </update>
+
+  <!-- 根据主键批量更新状态 -->
+  <update id="updateStatusBatchIds">
+    UPDATE product_spu
+    SET is_active = #{isActive},
+    updated_by = #{updatedBy},
+    updated_time = NOW()
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+
+  <!-- 根据SPU编码查询数据 -->
+  <select id="selectBySpuCode" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu
+    WHERE spu_code = #{spuCode}
+  </select>
+
+  <!-- 检查SPU编码是否存在 -->
+  <select id="countBySpuCode" resultType="int">
+    SELECT COUNT(*) FROM product_spu
+    WHERE spu_code = #{spuCode}
+    <if test="excludeId != null and excludeId != ''">
+      AND id != #{excludeId}
+    </if>
+  </select>
+
+</mapper>

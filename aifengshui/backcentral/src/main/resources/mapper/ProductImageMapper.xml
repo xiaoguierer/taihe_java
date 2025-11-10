@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.filestore.mapper.ProductImageMapper">
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.filestore.entity.ProductImage">
+    <id column="id" property="id" />
+    <result column="absolute_url" property="absoluteUrl" />
+    <result column="relative_path" property="relativePath" />
+    <result column="file_name" property="fileName" />
+    <result column="file_size" property="fileSize" />
+    <result column="mime_type" property="mimeType" />
+    <result column="image_alt_en" property="imageAltEn" />
+    <result column="image_alt_zh" property="imageAltZh" />
+    <result column="image_alt_ar" property="imageAltAr" />
+    <result column="image_title_en" property="imageTitleEn" />
+    <result column="image_title_zh" property="imageTitleZh" />
+    <result column="image_title_ar" property="imageTitleAr" />
+    <result column="sort_order" property="sortOrder" />
+    <result column="is_primary" property="isPrimary" />
+    <result column="is_active" property="isActive" />
+    <result column="created_by" property="createdBy" />
+    <result column="updated_by" property="updatedBy" />
+    <result column="created_time" property="createdTime" />
+    <result column="updated_time" property="updatedTime" />
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    id, absolute_url, relative_path, file_name, file_size, mime_type,
+        image_alt_en, image_alt_zh, image_alt_ar, image_title_en, image_title_zh, image_title_ar,
+        sort_order, is_primary, is_active, created_by, updated_by, created_time, updated_time
+  </sql>
+
+  <!-- 根据主键查询 -->
+  <select id="selectById" parameterType="string" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_image
+    WHERE id = #{id}
+  </select>
+
+  <!-- 新增商品图片 -->
+  <insert id="insertProductImage" parameterType="com.cn.taihe.back.filestore.entity.ProductImage">
+    INSERT INTO product_image (
+      id, absolute_url, relative_path, file_name, file_size, mime_type,
+      image_alt_en, image_alt_zh, image_alt_ar, image_title_en, image_title_zh, image_title_ar,
+      sort_order, is_primary, is_active, created_by, updated_by, created_time, updated_time
+    ) VALUES (
+               #{entity.id},
+               #{entity.absoluteUrl},
+               #{entity.relativePath},
+               #{entity.fileName},
+               #{entity.fileSize},
+               #{entity.mimeType},
+               #{entity.imageAltEn},
+               #{entity.imageAltZh},
+               #{entity.imageAltAr},
+               #{entity.imageTitleEn},
+               #{entity.imageTitleZh},
+               #{entity.imageTitleAr},
+               #{entity.sortOrder},
+               #{entity.isPrimary},
+               #{entity.isActive},
+               #{entity.createdBy},
+               #{entity.updatedBy},
+               #{entity.createdTime},
+               #{entity.updatedTime}
+             )
+  </insert>
+
+  <!-- 根据主键更新（非空字段更新） -->
+  <update id="updateProductImage" parameterType="com.cn.taihe.back.filestore.entity.ProductImage">
+    UPDATE product_image
+    <set>
+      <if test="entity.absoluteUrl != null and entity.absoluteUrl != ''">
+        absolute_url = #{entity.absoluteUrl},
+      </if>
+      <if test="entity.relativePath != null and entity.relativePath != ''">
+        relative_path = #{entity.relativePath},
+      </if>
+      <if test="entity.fileName != null and entity.fileName != ''">
+        file_name = #{entity.fileName},
+      </if>
+      <if test="entity.fileSize != null">
+        file_size = #{entity.fileSize},
+      </if>
+      <if test="entity.mimeType != null and entity.mimeType != ''">
+        mime_type = #{entity.mimeType},
+      </if>
+      <if test="entity.imageAltEn != null">
+        image_alt_en = #{entity.imageAltEn},
+      </if>
+      <if test="entity.imageAltZh != null">
+        image_alt_zh = #{entity.imageAltZh},
+      </if>
+      <if test="entity.imageAltAr != null">
+        image_alt_ar = #{entity.imageAltAr},
+      </if>
+      <if test="entity.imageTitleEn != null">
+        image_title_en = #{entity.imageTitleEn},
+      </if>
+      <if test="entity.imageTitleZh != null">
+        image_title_zh = #{entity.imageTitleZh},
+      </if>
+      <if test="entity.imageTitleAr != null">
+        image_title_ar = #{entity.imageTitleAr},
+      </if>
+      <if test="entity.sortOrder != null">
+        sort_order = #{entity.sortOrder},
+      </if>
+      <if test="entity.isPrimary != null">
+        is_primary = #{entity.isPrimary},
+      </if>
+      <if test="entity.isActive != null">
+        is_active = #{entity.isActive},
+      </if>
+      <if test="entity.updatedBy != null">
+        updated_by = #{entity.updatedBy},
+      </if>
+      updated_time = NOW()
+    </set>
+    WHERE id = #{entity.id}
+  </update>
+
+  <!-- 根据主键删除 -->
+  <delete id="deleteById" parameterType="string">
+    DELETE FROM product_image WHERE id = #{id}
+  </delete>
+
+  <!-- 条件查询商品图片列表 -->
+  <select id="selectProductImageList" parameterType="com.cn.taihe.back.filestore.dto.ProductImageQueryDTO" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_image
+    <where>
+      <if test="query.fileName != null and query.fileName != ''">
+        AND file_name LIKE CONCAT('%', #{query.fileName}, '%')
+      </if>
+      <if test="query.mimeType != null and query.mimeType != ''">
+        AND mime_type = #{query.mimeType}
+      </if>
+      <if test="query.isPrimary != null">
+        AND is_primary = #{query.isPrimary}
+      </if>
+      <if test="query.isActive != null">
+        AND is_active = #{query.isActive}
+      </if>
+    </where>
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 查询所有商品图片 -->
+  <select id="selectAllProductImage" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_image
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 根据主键集合批量删除 -->
+  <delete id="deleteBatchIds" parameterType="list">
+    DELETE FROM product_image
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <!-- 更新商品图片状态 -->
+  <update id="updateStatus">
+    UPDATE product_image
+    SET is_active = #{isActive},
+        updated_by = #{updatedBy},
+        updated_time = NOW()
+    WHERE id = #{id}
+  </update>
+
+  <!-- 批量更新商品图片状态 -->
+  <update id="updateBatchStatus">
+    UPDATE product_image
+    SET is_active = #{isActive},
+    updated_by = #{updatedBy},
+    updated_time = NOW()
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+
+</mapper>

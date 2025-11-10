@@ -1,0 +1,51 @@
+
+`	java:S1128"FDefine and throw a dedicated exception instead of using a generic one.(úÏœÙùÿÿÿÿ
+[	java:S112\"FDefine and throw a dedicated exception instead of using a generic one.(ãÒãª
+\	java:S112„"FDefine and throw a dedicated exception instead of using a generic one.(‰è¾
+a	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ù’îùûÿÿÿÿ
+[	java:S112µ"FDefine and throw a dedicated exception instead of using a generic one.(ñÛÍk
+\	java:S112Æ"FDefine and throw a dedicated exception instead of using a generic one.(Ä€ˆ‰
+\	java:S112×"FDefine and throw a dedicated exception instead of using a generic one.(†£ìı
+a	java:S112ñ"FDefine and throw a dedicated exception instead of using a generic one.(ÀëÃÕúÿÿÿÿ
+[	java:S112Š"FDefine and throw a dedicated exception instead of using a generic one.(„Ï™a
+[	java:S112£"FDefine and throw a dedicated exception instead of using a generic one.(³‚—h
+\	java:S112½"FDefine and throw a dedicated exception instead of using a generic one.(š°ô
+a	java:S112×"FDefine and throw a dedicated exception instead of using a generic one.(Ì¢ŞŠûÿÿÿÿ
+a	java:S112î"FDefine and throw a dedicated exception instead of using a generic one.(­×í°ûÿÿÿÿ
+a	java:S112‚"FDefine and throw a dedicated exception instead of using a generic one.(ÌÃ„—ûÿÿÿÿ
+n
+java:S21396"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+n
+java:S2139Z"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139‚"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139›"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+k
+java:S3252­"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(‹‹¥®úÿÿÿÿ
+o
+java:S2139³"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139Ä"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139Õ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139ï"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139ˆ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139¡"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139»"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139Õ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+S
+java:S1854è"<Remove this useless assignment to local variable "queryDTO".(¨ÚåÄ
+B
+java:S1168ä"+Return an empty collection instead of null.(¥¹ï
+D
+java:S1481è"-Remove this unused "queryDTO" local variable.(¨ÚåÄ
+o
+java:S2139ì"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139€"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾

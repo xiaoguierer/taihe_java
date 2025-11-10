@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.product.mapper.EmotionalIntentMapper">
+
+  <!-- 通用查询结果列 - 使用数据库字段名 -->
+  <sql id="Base_Column_List">
+    id, intent_key, intent_code, intent_category,
+        intent_name_en, intent_name_zh, intent_name_ar,
+        symbol_character, symbol_color, symbol_color_gradient,
+        primary_emotion_zh, primary_emotion_en, primary_emotion_ar,
+        secondary_emotions_zh, secondary_emotions_en, secondary_emotions_ar,
+        emotional_intensity, emotional_direction, emotional_frequency,
+        philosophy_meaning_zh, philosophy_meaning_en, philosophy_meaning_ar,
+        cultural_significance_zh, cultural_significance_en, cultural_significance_ar,
+        spiritual_meaning_zh, spiritual_meaning_en, spiritual_meaning_ar,
+        modern_interpretation_zh, modern_interpretation_en, modern_interpretation_ar,
+        personality_archetype_zh, personality_archetype_en, personality_archetype_ar,
+        life_guidance_zh, life_guidance_en, life_guidance_ar,
+        healing_property_zh, healing_property_en, healing_property_ar,
+        relationship_impact_zh, relationship_impact_en, relationship_impact_ar,
+        career_alignment_zh, career_alignment_en, career_alignment_ar,
+        icon_id, symbol_image_id, energy_image_id, application_image_id, meditation_image_id,
+        icon_url, symbol_image_url, energy_image_url, application_image_url, meditation_image_url,
+        meta_title_zh, meta_title_en, meta_title_ar,
+        meta_description_zh, meta_description_en, meta_description_ar,
+        meta_keywords_zh, meta_keywords_en, meta_keywords_ar,
+        sort_order, intensity_level, popularity_score,
+        is_active, show_in_navigation, show_in_filter, is_featured,
+        created_time, updated_time
+  </sql>
+
+  <!-- 关键信息查询列（简化字段） -->
+  <sql id="Key_Info_Column_List">
+    id, intent_key, intent_code, intent_category,
+        intent_name_zh, intent_name_en, intent_name_ar,
+        symbol_character, symbol_color,
+        sort_order, is_active, show_in_navigation, is_featured
+  </sql>
+
+  <!-- 根据主键查询情感意图 -->
+  <select id="selectById" parameterType="string" resultType="com.cn.taihe.back.product.entity.EmotionalIntent">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM emotional_intent
+    WHERE id = #{id}
+  </select>
+
+  <!-- 新增情感意图 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.product.entity.EmotionalIntent">
+    INSERT INTO emotional_intent (
+      id, intent_key, intent_code, intent_category,
+      intent_name_en, intent_name_zh, intent_name_ar,
+      symbol_character, symbol_color, symbol_color_gradient,
+      primary_emotion_zh, primary_emotion_en, primary_emotion_ar,
+      secondary_emotions_zh, secondary_emotions_en, secondary_emotions_ar,
+      emotional_intensity, emotional_direction, emotional_frequency,
+      philosophy_meaning_zh, philosophy_meaning_en, philosophy_meaning_ar,
+      cultural_significance_zh, cultural_significance_en, cultural_significance_ar,
+      spiritual_meaning_zh, spiritual_meaning_en, spiritual_meaning_ar,
+      modern_interpretation_zh, modern_interpretation_en, modern_interpretation_ar,
+      personality_archetype_zh, personality_archetype_en, personality_archetype_ar,
+      life_guidance_zh, life_guidance_en, life_guidance_ar,
+      healing_property_zh, healing_property_en, healing_property_ar,
+      relationship_impact_zh, relationship_impact_en, relationship_impact_ar,
+      career_alignment_zh, career_alignment_en, career_alignment_ar,
+      icon_id, symbol_image_id, energy_image_id, application_image_id, meditation_image_id,
+      icon_url, symbol_image_url, energy_image_url, application_image_url, meditation_image_url,
+      meta_title_zh, meta_title_en, meta_title_ar,
+      meta_description_zh, meta_description_en, meta_description_ar,
+      meta_keywords_zh, meta_keywords_en, meta_keywords_ar,
+      sort_order, intensity_level, popularity_score,
+      is_active, show_in_navigation, show_in_filter, is_featured
+    ) VALUES (
+               #{id}, #{intentKey}, #{intentCode}, #{intentCategory},
+               #{intentNameEn}, #{intentNameZh}, #{intentNameAr},
+               #{symbolCharacter}, #{symbolColor}, #{symbolColorGradient},
+               #{primaryEmotionZh}, #{primaryEmotionEn}, #{primaryEmotionAr},
+               #{secondaryEmotionsZh}, #{secondaryEmotionsEn}, #{secondaryEmotionsAr},
+               #{emotionalIntensity}, #{emotionalDirection}, #{emotionalFrequency},
+               #{philosophyMeaningZh}, #{philosophyMeaningEn}, #{philosophyMeaningAr},
+               #{culturalSignificanceZh}, #{culturalSignificanceEn}, #{culturalSignificanceAr},
+               #{spiritualMeaningZh}, #{spiritualMeaningEn}, #{spiritualMeaningAr},
+               #{modernInterpretationZh}, #{modernInterpretationEn}, #{modernInterpretationAr},
+               #{personalityArchetypeZh}, #{personalityArchetypeEn}, #{personalityArchetypeAr},
+               #{lifeGuidanceZh}, #{lifeGuidanceEn}, #{lifeGuidanceAr},
+               #{healingPropertyZh}, #{healingPropertyEn}, #{healingPropertyAr},
+               #{relationshipImpactZh}, #{relationshipImpactEn}, #{relationshipImpactAr},
+               #{careerAlignmentZh}, #{careerAlignmentEn}, #{careerAlignmentAr},
+               #{iconId}, #{symbolImageId}, #{energyImageId}, #{applicationImageId}, #{meditationImageId},
+               #{iconUrl}, #{symbolImageUrl}, #{energyImageUrl}, #{applicationImageUrl}, #{meditationImageUrl},
+               #{metaTitleZh}, #{metaTitleEn}, #{metaTitleAr},
+               #{metaDescriptionZh}, #{metaDescriptionEn}, #{metaDescriptionAr},
+               #{metaKeywordsZh}, #{metaKeywordsEn}, #{metaKeywordsAr},
+               #{sortOrder}, #{intensityLevel}, #{popularityScore},
+               #{isActive}, #{showInNavigation}, #{showInFilter}, #{isFeatured}
+             )
+  </insert>
+
+  <!-- 根据主键更新情感意图（只更新非空字段） -->
+  <update id="updateById" parameterType="com.cn.taihe.back.product.entity.EmotionalIntent">
+    UPDATE emotional_intent
+    <set>
+      <if test="intentKey != null and intentKey != ''">intent_key = #{intentKey},</if>
+      <if test="intentCode != null and intentCode != ''">intent_code = #{intentCode},</if>
+      <if test="intentCategory != null and intentCategory != ''">intent_category = #{intentCategory},</if>
+      <if test="intentNameEn != null and intentNameEn != ''">intent_name_en = #{intentNameEn},</if>
+      <if test="intentNameZh != null and intentNameZh != ''">intent_name_zh = #{intentNameZh},</if>
+      <if test="intentNameAr != null and intentNameAr != ''">intent_name_ar = #{intentNameAr},</if>
+      <if test="symbolCharacter != null and symbolCharacter != ''">symbol_character = #{symbolCharacter},</if>
+      <if test="symbolColor != null and symbolColor != ''">symbol_color = #{symbolColor},</if>
+      <if test="symbolColorGradient != null and symbolColorGradient != ''">symbol_color_gradient = #{symbolColorGradient},</if>
+      <if test="primaryEmotionZh != null">primary_emotion_zh = #{primaryEmotionZh},</if>
+      <if test="primaryEmotionEn != null">primary_emotion_en = #{primaryEmotionEn},</if>
+      <if test="primaryEmotionAr != null">primary_emotion_ar = #{primaryEmotionAr},</if>
+      <if test="secondaryEmotionsZh != null">secondary_emotions_zh = #{secondaryEmotionsZh},</if>
+      <if test="secondaryEmotionsEn != null">secondary_emotions_en = #{secondaryEmotionsEn},</if>
+      <if test="secondaryEmotionsAr != null">secondary_emotions_ar = #{secondaryEmotionsAr},</if>
+      <if test="emotionalIntensity != null">emotional_intensity = #{emotionalIntensity},</if>
+      <if test="emotionalDirection != null and emotionalDirection != ''">emotional_direction = #{emotionalDirection},</if>
+      <if test="emotionalFrequency != null and emotionalFrequency != ''">emotional_frequency = #{emotionalFrequency},</if>
+      <if test="philosophyMeaningZh != null">philosophy_meaning_zh = #{philosophyMeaningZh},</if>
+      <if test="philosophyMeaningEn != null">philosophy_meaning_en = #{philosophyMeaningEn},</if>
+      <if test="philosophyMeaningAr != null">philosophy_meaning_ar = #{philosophyMeaningAr},</if>
+      <if test="culturalSignificanceZh != null">cultural_significance_zh = #{culturalSignificanceZh},</if>
+      <if test="culturalSignificanceEn != null">cultural_significance_en = #{culturalSignificanceEn},</if>
+      <if test="culturalSignificanceAr != null">cultural_significance_ar = #{culturalSignificanceAr},</if>
+      <if test="spiritualMeaningZh != null">spiritual_meaning_zh = #{spiritualMeaningZh},</if>
+      <if test="spiritualMeaningEn != null">spiritual_meaning_en = #{spiritualMeaningEn},</if>
+      <if test="spiritualMeaningAr != null">spiritual_meaning_ar = #{spiritualMeaningAr},</if>
+      <if test="modernInterpretationZh != null">modern_interpretation_zh = #{modernInterpretationZh},</if>
+      <if test="modernInterpretationEn != null">modern_interpretation_en = #{modernInterpretationEn},</if>
+      <if test="modernInterpretationAr != null">modern_interpretation_ar = #{modernInterpretationAr},</if>
+      <if test="personalityArchetypeZh != null">personality_archetype_zh = #{personalityArchetypeZh},</if>
+      <if test="personalityArchetypeEn != null">personality_archetype_en = #{personalityArchetypeEn},</if>
+      <if test="personalityArchetypeAr != null">personality_archetype_ar = #{personalityArchetypeAr},</if>
+      <if test="lifeGuidanceZh != null">life_guidance_zh = #{lifeGuidanceZh},</if>
+      <if test="lifeGuidanceEn != null">life_guidance_en = #{lifeGuidanceEn},</if>
+      <if test="lifeGuidanceAr != null">life_guidance_ar = #{lifeGuidanceAr},</if>
+      <if test="healingPropertyZh != null">healing_property_zh = #{healingPropertyZh},</if>
+      <if test="healingPropertyEn != null">healing_property_en = #{healingPropertyEn},</if>
+      <if test="healingPropertyAr != null">healing_property_ar = #{healingPropertyAr},</if>
+      <if test="relationshipImpactZh != null">relationship_impact_zh = #{relationshipImpactZh},</if>
+      <if test="relationshipImpactEn != null">relationship_impact_en = #{relationshipImpactEn},</if>
+      <if test="relationshipImpactAr != null">relationship_impact_ar = #{relationshipImpactAr},</if>
+      <if test="careerAlignmentZh != null">career_alignment_zh = #{careerAlignmentZh},</if>
+      <if test="careerAlignmentEn != null">career_alignment_en = #{careerAlignmentEn},</if>
+      <if test="careerAlignmentAr != null">career_alignment_ar = #{careerAlignmentAr},</if>
+      <if test="iconId != null">icon_id = #{iconId},</if>
+      <if test="symbolImageId != null">symbol_image_id = #{symbolImageId},</if>
+      <if test="energyImageId != null">energy_image_id = #{energyImageId},</if>
+      <if test="applicationImageId != null">application_image_id = #{applicationImageId},</if>
+      <if test="meditationImageId != null">meditation_image_id = #{meditationImageId},</if>
+
+      <if test="iconUrl != null">icon_Url = #{iconUrl},</if>
+      <if test="symbolImageUrl != null">symbol_image_Url = #{symbolImageUrl},</if>
+      <if test="energyImageUrl != null">energy_image_Url = #{energyImageUrl},</if>
+      <if test="applicationImageUrl != null">application_image_Url = #{applicationImageUrl},</if>
+      <if test="meditationImageUrl != null">meditation_image_Url = #{meditationImageUrl},</if>
+      <if test="metaTitleZh != null">meta_title_zh = #{metaTitleZh},</if>
+      <if test="metaTitleEn != null">meta_title_en = #{metaTitleEn},</if>
+      <if test="metaTitleAr != null">meta_title_ar = #{metaTitleAr},</if>
+      <if test="metaDescriptionZh != null">meta_description_zh = #{metaDescriptionZh},</if>
+      <if test="metaDescriptionEn != null">meta_description_en = #{metaDescriptionEn},</if>
+      <if test="metaDescriptionAr != null">meta_description_ar = #{metaDescriptionAr},</if>
+      <if test="metaKeywordsZh != null">meta_keywords_zh = #{metaKeywordsZh},</if>
+      <if test="metaKeywordsEn != null">meta_keywords_en = #{metaKeywordsEn},</if>
+      <if test="metaKeywordsAr != null">meta_keywords_ar = #{metaKeywordsAr},</if>
+      <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+      <if test="intensityLevel != null">intensity_level = #{intensityLevel},</if>
+      <if test="popularityScore != null">popularity_score = #{popularityScore},</if>
+      <if test="isActive != null">is_active = #{isActive},</if>
+      <if test="showInNavigation != null">show_in_navigation = #{showInNavigation},</if>
+      <if test="showInFilter != null">show_in_filter = #{showInFilter},</if>
+      <if test="isFeatured != null">is_featured = #{isFeatured},</if>
+      updated_time = NOW()
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 根据主键逻辑删除情感意图（更新is_active=2） -->
+  <update id="deleteById" parameterType="string">
+    UPDATE emotional_intent
+    SET is_active = 2, updated_time = NOW()
+    WHERE id = #{id}
+  </update>
+
+  <!-- 条件查询情感意图列表（支持分页）- PageHelper自动处理分页 -->
+  <select id="selectByCondition" parameterType="com.cn.taihe.back.product.dto.EmotionalIntentQueryDTO"
+          resultType="com.cn.taihe.back.product.entity.EmotionalIntent">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM emotional_intent
+    <where>
+      <!-- 核心查询条件 -->
+      <if test="intentName != null and intentName != ''">
+        AND intent_name_zh LIKE CONCAT('%', #{intentName}, '%')
+      </if>
+      <if test="intentCode != null and intentCode != ''">
+        AND intent_code = #{intentCode}
+      </if>
+      <if test="intentCategory != null and intentCategory != ''">
+        AND intent_category = #{intentCategory}
+      </if>
+      <if test="status != null">
+        AND is_active = #{status}
+      </if>
+      <if test="showInNavigation != null">
+        AND show_in_navigation = #{showInNavigation}
+      </if>
+      <if test="isFeatured != null">
+        AND is_featured = #{isFeatured}
+      </if>
+    </where>
+    ORDER BY
+    <choose>
+      <when test="sortBy != null and sortBy != ''">
+        ${sortBy}
+        <choose>
+          <when test="sortDirection != null and sortDirection == 'desc'">DESC</when>
+          <otherwise>ASC</otherwise>
+        </choose>
+      </when>
+      <otherwise>
+        sort_order ASC, created_time DESC
+      </otherwise>
+    </choose>
+    <!-- PageHelper会自动在此添加LIMIT分页语句 -->
+  </select>
+
+  <!-- 条件查询情感意图数量（用于分页统计） -->
+  <select id="countByCondition" parameterType="com.cn.taihe.back.product.dto.EmotionalIntentQueryDTO" resultType="long">
+    SELECT COUNT(*) FROM emotional_intent
+    <where>
+
+      <!-- 核心查询条件 -->
+      <if test="intentName != null and intentName != ''">
+        AND intent_name_zh LIKE CONCAT('%', #{intentName}, '%')
+      </if>
+      <if test="intentCode != null and intentCode != ''">
+        AND intent_code = #{intentCode}
+      </if>
+      <if test="intentCategory != null and intentCategory != ''">
+        AND intent_category = #{intentCategory}
+      </if>
+      <if test="status != null">
+        AND is_active = #{status}
+      </if>
+      <if test="showInNavigation != null">
+        AND show_in_navigation = #{showInNavigation}
+      </if>
+      <if test="isFeatured != null">
+        AND is_featured = #{isFeatured}
+      </if>
+    </where>
+  </select>
+
+  <!-- 查询所有情感意图（不包含已删除的） -->
+  <select id="selectAll" resultType="com.cn.taihe.back.product.entity.EmotionalIntent">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM emotional_intent
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 查询所有情感意图的关键信息（简化字段） -->
+  <select id="selectAllKeyInfo" resultType="com.cn.taihe.back.product.entity.EmotionalIntent">
+    SELECT
+    <include refid="Key_Info_Column_List"/>
+    FROM emotional_intent
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 根据主键集合批量逻辑删除情感意图（更新is_active=2） -->
+  <update id="deleteBatchByIds">
+    UPDATE emotional_intent
+    SET is_active = 2, updated_time = NOW()
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+
+  <!-- 根据主键更新状态 -->
+  <update id="updateStatusById">
+    UPDATE emotional_intent
+    SET is_active = #{isActive}, updated_time = NOW()
+    WHERE id = #{id}
+  </update>
+
+  <!-- 根据主键集合批量更新状态 -->
+  <update id="updateStatusBatchByIds">
+    UPDATE emotional_intent
+    SET is_active = #{isActive}, updated_time = NOW()
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+
+  <!-- 更新排序值 -->
+  <update id="updateSortOrder">
+    UPDATE emotional_intent
+    SET sort_order = #{sortOrder}, updated_time = NOW()
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新推荐状态 -->
+  <update id="updateFeaturedStatus">
+    UPDATE emotional_intent
+    SET is_featured = #{isFeatured}, updated_time = NOW()
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新显示状态 -->
+  <update id="updateShowStatus">
+    UPDATE emotional_intent
+    SET show_in_navigation = #{showInNavigation}, updated_time = NOW()
+    WHERE id = #{id}
+  </update>
+
+</mapper>

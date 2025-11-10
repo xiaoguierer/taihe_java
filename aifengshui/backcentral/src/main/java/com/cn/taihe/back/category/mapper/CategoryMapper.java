@@ -7,11 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 // CategoryMapper.java
 @Mapper
+@Repository
 public interface CategoryMapper extends BaseMapper<Category> {
 
     // 根据父ID查询子分类

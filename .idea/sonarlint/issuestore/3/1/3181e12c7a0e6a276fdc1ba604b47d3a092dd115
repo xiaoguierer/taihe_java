@@ -1,0 +1,10 @@
+
+[	java:S112Y"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı
+C
+java:S1905 "'Remove this unnecessary cast to "long".(§ù÷ûÿÿÿÿ
+C
+java:S1905ª"'Remove this unnecessary cast to "long".(ëæİÉüÿÿÿÿ
+T	java:S106Â"9Replace this use of System.out or System.err by a logger.(–ç«·øÿÿÿÿ
+m
+java:S3457Ä"Q%n should be used in place of \n to produce the platform-specific line separator.(Æôİ¦ıÿÿÿÿ
+T	java:S106Ä"9Replace this use of System.out or System.err by a logger.(Æôİ¦ıÿÿÿÿ

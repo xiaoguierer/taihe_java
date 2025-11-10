@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.product.mapper.ProductSkuMapper">
+
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.product.entity.ProductSku">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="spu_id" property="spuId" jdbcType="VARCHAR"/>
+    <result column="sku_code" property="skuCode" jdbcType="VARCHAR"/>
+    <result column="sku_name_en" property="skuNameEn" jdbcType="VARCHAR"/>
+    <result column="sku_name_zh" property="skuNameZh" jdbcType="VARCHAR"/>
+    <result column="sku_name_ar" property="skuNameAr" jdbcType="VARCHAR"/>
+    <result column="variant_description_en" property="variantDescriptionEn" jdbcType="VARCHAR"/>
+    <result column="variant_description_zh" property="variantDescriptionZh" jdbcType="VARCHAR"/>
+    <result column="variant_description_ar" property="variantDescriptionAr" jdbcType="VARCHAR"/>
+    <result column="variant_yuyi_en" property="variantYuyiEn" jdbcType="VARCHAR"/>
+    <result column="variant_yuyi_zh" property="variantYuyiZh" jdbcType="VARCHAR"/>
+    <result column="variant_yuyi_ar" property="variantYuyiAr" jdbcType="VARCHAR"/>
+    <result column="primary_material" property="primaryMaterial" jdbcType="VARCHAR"/>
+    <result column="material_purity" property="materialPurity" jdbcType="VARCHAR"/>
+    <result column="material_color" property="materialColor" jdbcType="VARCHAR"/>
+    <result column="material_finish" property="materialFinish" jdbcType="VARCHAR"/>
+    <result column="material_thickness_mm" property="materialThicknessMm" jdbcType="DECIMAL"/>
+    <result column="gemstone_type" property="gemstoneType" jdbcType="VARCHAR"/>
+    <result column="gemstone_shape" property="gemstoneShape" jdbcType="VARCHAR"/>
+    <result column="gemstone_cut" property="gemstoneCut" jdbcType="VARCHAR"/>
+    <result column="gemstone_size_mm" property="gemstoneSizeMm" jdbcType="DECIMAL"/>
+    <result column="gemstone_weight_ct" property="gemstoneWeightCt" jdbcType="DECIMAL"/>
+    <result column="gemstone_quality" property="gemstoneQuality" jdbcType="VARCHAR"/>
+    <result column="gemstone_count" property="gemstoneCount" jdbcType="INTEGER"/>
+    <result column="length_cm" property="lengthCm" jdbcType="DECIMAL"/>
+    <result column="width_cm" property="widthCm" jdbcType="DECIMAL"/>
+    <result column="height_cm" property="heightCm" jdbcType="DECIMAL"/>
+    <result column="chain_length_cm" property="chainLengthCm" jdbcType="DECIMAL"/>
+    <result column="pendant_size_mm" property="pendantSizeMm" jdbcType="DECIMAL"/>
+    <result column="total_weight_g" property="totalWeightG" jdbcType="DECIMAL"/>
+    <result column="metal_weight_g" property="metalWeightG" jdbcType="DECIMAL"/>
+    <result column="gemstone_weight_g" property="gemstoneWeightG" jdbcType="DECIMAL"/>
+    <result column="craftsmanship_level" property="craftsmanshipLevel" jdbcType="VARCHAR"/>
+    <result column="setting_technique" property="settingTechnique" jdbcType="VARCHAR"/>
+    <result column="clasp_type" property="claspType" jdbcType="VARCHAR"/>
+    <result column="chain_type" property="chainType" jdbcType="VARCHAR"/>
+    <result column="suitable_gender" property="suitableGender" jdbcType="INTEGER"/>
+    <result column="suitable_age_min" property="suitableAgeMin" jdbcType="INTEGER"/>
+    <result column="suitable_age_max" property="suitableAgeMax" jdbcType="INTEGER"/>
+    <result column="size_standard" property="sizeStandard" jdbcType="VARCHAR"/>
+    <result column="stock_quantity" property="stockQuantity" jdbcType="INTEGER"/>
+    <result column="reserved_quantity" property="reservedQuantity" jdbcType="INTEGER"/>
+    <result column="safety_stock" property="safetyStock" jdbcType="INTEGER"/>
+    <result column="reorder_point" property="reorderPoint" jdbcType="INTEGER"/>
+    <result column="stock_status" property="stockStatus" jdbcType="INTEGER"/>
+    <result column="low_stock_alert" property="lowStockAlert" jdbcType="BOOLEAN"/>
+    <result column="last_stock_update" property="lastStockUpdate" jdbcType="TIMESTAMP"/>
+    <result column="cost_price" property="costPrice" jdbcType="DECIMAL"/>
+    <result column="retail_price" property="retailPrice" jdbcType="DECIMAL"/>
+    <result column="sale_price" property="salePrice" jdbcType="DECIMAL"/>
+    <result column="member_price" property="memberPrice" jdbcType="DECIMAL"/>
+    <result column="price_currency" property="priceCurrency" jdbcType="VARCHAR"/>
+    <result column="discount_rate" property="discountRate" jdbcType="DECIMAL"/>
+    <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL"/>
+    <result column="discount_start_date" property="discountStartDate" jdbcType="DATE"/>
+    <result column="discount_end_date" property="discountEndDate" jdbcType="DATE"/>
+    <result column="tax_rate" property="taxRate" jdbcType="DECIMAL"/>
+    <result column="price_adjustment_reason" property="priceAdjustmentReason" jdbcType="VARCHAR"/>
+    <result column="last_price_update" property="lastPriceUpdate" jdbcType="TIMESTAMP"/>
+    <result column="main_image_id" property="mainImageId" jdbcType="VARCHAR"/>
+    <result column="image_1_id" property="image1Id" jdbcType="VARCHAR"/>
+    <result column="image_2_id" property="image2Id" jdbcType="VARCHAR"/>
+    <result column="image_3_id" property="image3Id" jdbcType="VARCHAR"/>
+    <result column="image_4_id" property="image4Id" jdbcType="VARCHAR"/>
+    <result column="image_5_id" property="image5Id" jdbcType="VARCHAR"/>
+    <result column="main_image_url" property="mainImageUrl" jdbcType="VARCHAR"/>
+    <result column="image_1_url" property="image1Url" jdbcType="VARCHAR"/>
+    <result column="image_2_url" property="image2Url" jdbcType="VARCHAR"/>
+    <result column="image_3_url" property="image3Url" jdbcType="VARCHAR"/>
+    <result column="image_4_url" property="image4Url" jdbcType="VARCHAR"/>
+    <result column="image_5_url" property="image5Url" jdbcType="VARCHAR"/>
+    <result column="available_date" property="availableDate" jdbcType="DATE"/>
+    <result column="available_end_date" property="availableEndDate" jdbcType="DATE"/>
+    <result column="is_new_arrival" property="isNewArrival" jdbcType="BOOLEAN"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="is_available" property="isAvailable" jdbcType="BOOLEAN"/>
+    <result column="is_featured" property="isFeatured" jdbcType="BOOLEAN"/>
+    <result column="is_best_seller" property="isBestSeller" jdbcType="BOOLEAN"/>
+    <result column="sort_order" property="sortOrder" jdbcType="INTEGER"/>
+    <result column="visibility" property="visibility" jdbcType="INTEGER"/>
+    <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+    <!-- 虚拟字段映射 -->
+    <result column="available_quantity" property="availableQuantity" jdbcType="INTEGER"/>
+    <result column="final_price" property="finalPrice" jdbcType="DECIMAL"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, spu_id, sku_code, sku_name_en, sku_name_zh, sku_name_ar,
+        variant_description_en, variant_description_zh, variant_description_ar,
+        variant_yuyi_en, variant_yuyi_zh, variant_yuyi_ar,
+        primary_material, material_purity, material_color, material_finish, material_thickness_mm,
+        gemstone_type, gemstone_shape, gemstone_cut, gemstone_size_mm, gemstone_weight_ct, gemstone_quality, gemstone_count,
+        length_cm, width_cm, height_cm, chain_length_cm, pendant_size_mm,
+        total_weight_g, metal_weight_g, gemstone_weight_g,
+        craftsmanship_level, setting_technique, clasp_type, chain_type,
+        suitable_gender, suitable_age_min, suitable_age_max, size_standard,
+        stock_quantity, reserved_quantity, safety_stock, reorder_point, stock_status, low_stock_alert, last_stock_update,
+        cost_price, retail_price, sale_price, member_price, price_currency, discount_rate, discount_amount,
+        discount_start_date, discount_end_date, tax_rate, price_adjustment_reason, last_price_update,
+        main_image_id, image_1_id, image_2_id, image_3_id, image_4_id, image_5_id,
+        main_image_url, image_1_url, image_2_url, image_3_url, image_4_url, image_5_url,
+        available_date, available_end_date, is_new_arrival, status, is_available, is_featured, is_best_seller,
+        sort_order, visibility, created_by, updated_by, created_time, updated_time,
+        (stock_quantity - reserved_quantity) as available_quantity,
+        (COALESCE(sale_price, retail_price) * (1 - (discount_rate / 100))) as final_price
+  </sql>
+
+  <!-- 根据主键查找 -->
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM product_sku
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 新增数据 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.product.entity.ProductSku">
+    INSERT INTO product_sku (
+      id, spu_id, sku_code, sku_name_en, sku_name_zh, sku_name_ar,
+      variant_description_en, variant_description_zh, variant_description_ar,
+      variant_yuyi_en, variant_yuyi_zh, variant_yuyi_ar,
+      primary_material, material_purity, material_color, material_finish, material_thickness_mm,
+      gemstone_type, gemstone_shape, gemstone_cut, gemstone_size_mm, gemstone_weight_ct, gemstone_quality, gemstone_count,
+      length_cm, width_cm, height_cm, chain_length_cm, pendant_size_mm,
+      total_weight_g, metal_weight_g, gemstone_weight_g,
+      craftsmanship_level, setting_technique, clasp_type, chain_type,
+      suitable_gender, suitable_age_min, suitable_age_max, size_standard,
+      stock_quantity, reserved_quantity, safety_stock, reorder_point, stock_status, low_stock_alert, last_stock_update,
+      cost_price, retail_price, sale_price, member_price, price_currency, discount_rate, discount_amount,
+      discount_start_date, discount_end_date, tax_rate, price_adjustment_reason, last_price_update,
+      main_image_id, image_1_id, image_2_id, image_3_id, image_4_id, image_5_id,
+      main_image_url, image_1_url, image_2_url, image_3_url, image_4_url, image_5_url,
+      available_date, available_end_date, is_new_arrival, status, is_available, is_featured, is_best_seller,
+      sort_order, visibility, created_by, updated_by
+    ) VALUES (
+               #{id,jdbcType=VARCHAR}, #{spuId,jdbcType=VARCHAR}, #{skuCode,jdbcType=VARCHAR},
+               #{skuNameEn,jdbcType=VARCHAR}, #{skuNameZh,jdbcType=VARCHAR}, #{skuNameAr,jdbcType=VARCHAR},
+               #{variantDescriptionEn,jdbcType=VARCHAR}, #{variantDescriptionZh,jdbcType=VARCHAR}, #{variantDescriptionAr,jdbcType=VARCHAR},
+               #{variantYuyiEn,jdbcType=VARCHAR}, #{variantYuyiZh,jdbcType=VARCHAR}, #{variantYuyiAr,jdbcType=VARCHAR},
+               #{primaryMaterial,jdbcType=VARCHAR}, #{materialPurity,jdbcType=VARCHAR}, #{materialColor,jdbcType=VARCHAR},
+               #{materialFinish,jdbcType=VARCHAR}, #{materialThicknessMm,jdbcType=DECIMAL},
+               #{gemstoneType,jdbcType=VARCHAR}, #{gemstoneShape,jdbcType=VARCHAR}, #{gemstoneCut,jdbcType=VARCHAR},
+               #{gemstoneSizeMm,jdbcType=DECIMAL}, #{gemstoneWeightCt,jdbcType=DECIMAL}, #{gemstoneQuality,jdbcType=VARCHAR},
+               #{gemstoneCount,jdbcType=INTEGER},
+               #{lengthCm,jdbcType=DECIMAL}, #{widthCm,jdbcType=DECIMAL}, #{heightCm,jdbcType=DECIMAL},
+               #{chainLengthCm,jdbcType=DECIMAL}, #{pendantSizeMm,jdbcType=DECIMAL},
+               #{totalWeightG,jdbcType=DECIMAL}, #{metalWeightG,jdbcType=DECIMAL}, #{gemstoneWeightG,jdbcType=DECIMAL},
+               #{craftsmanshipLevel,jdbcType=VARCHAR}, #{settingTechnique,jdbcType=VARCHAR}, #{claspType,jdbcType=VARCHAR},
+               #{chainType,jdbcType=VARCHAR},
+               #{suitableGender,jdbcType=INTEGER}, #{suitableAgeMin,jdbcType=INTEGER}, #{suitableAgeMax,jdbcType=INTEGER},
+               #{sizeStandard,jdbcType=VARCHAR},
+               #{stockQuantity,jdbcType=INTEGER}, #{reservedQuantity,jdbcType=INTEGER}, #{safetyStock,jdbcType=INTEGER},
+               #{reorderPoint,jdbcType=INTEGER}, #{stockStatus,jdbcType=INTEGER}, #{lowStockAlert,jdbcType=BOOLEAN},
+               #{lastStockUpdate,jdbcType=TIMESTAMP},
+               #{costPrice,jdbcType=DECIMAL}, #{retailPrice,jdbcType=DECIMAL}, #{salePrice,jdbcType=DECIMAL},
+               #{memberPrice,jdbcType=DECIMAL}, #{priceCurrency,jdbcType=VARCHAR}, #{discountRate,jdbcType=DECIMAL},
+               #{discountAmount,jdbcType=DECIMAL}, #{discountStartDate,jdbcType=DATE}, #{discountEndDate,jdbcType=DATE},
+               #{taxRate,jdbcType=DECIMAL}, #{priceAdjustmentReason,jdbcType=VARCHAR}, #{lastPriceUpdate,jdbcType=TIMESTAMP},
+               #{mainImageId,jdbcType=VARCHAR}, #{image1Id,jdbcType=VARCHAR}, #{image2Id,jdbcType=VARCHAR},
+               #{image3Id,jdbcType=VARCHAR}, #{image4Id,jdbcType=VARCHAR}, #{image5Id,jdbcType=VARCHAR},
+               #{mainImageUrl,jdbcType=VARCHAR}, #{image1Url,jdbcType=VARCHAR}, #{image2Url,jdbcType=VARCHAR},
+               #{image3Url,jdbcType=VARCHAR}, #{image4Url,jdbcType=VARCHAR}, #{image5Url,jdbcType=VARCHAR},
+               #{availableDate,jdbcType=DATE}, #{availableEndDate,jdbcType=DATE}, #{isNewArrival,jdbcType=BOOLEAN},
+               #{status,jdbcType=INTEGER}, #{isAvailable,jdbcType=BOOLEAN}, #{isFeatured,jdbcType=BOOLEAN},
+               #{isBestSeller,jdbcType=BOOLEAN}, #{sortOrder,jdbcType=INTEGER}, #{visibility,jdbcType=INTEGER},
+               #{createdBy,jdbcType=BIGINT}, #{updatedBy,jdbcType=BIGINT}
+             )
+  </insert>
+
+  <!-- 修改数据（更新非空字段） -->
+  <update id="updateById" parameterType="com.cn.taihe.back.product.entity.ProductSku">
+    UPDATE product_sku
+    <set>
+      <if test="spuId != null">spu_id = #{spuId,jdbcType=VARCHAR},</if>
+      <if test="skuCode != null">sku_code = #{skuCode,jdbcType=VARCHAR},</if>
+      <if test="skuNameEn != null">sku_name_en = #{skuNameEn,jdbcType=VARCHAR},</if>
+      <if test="skuNameZh != null">sku_name_zh = #{skuNameZh,jdbcType=VARCHAR},</if>
+      <if test="skuNameAr != null">sku_name_ar = #{skuNameAr,jdbcType=VARCHAR},</if>
+      <if test="variantDescriptionEn != null">variant_description_en = #{variantDescriptionEn,jdbcType=VARCHAR},</if>
+      <if test="variantDescriptionZh != null">variant_description_zh = #{variantDescriptionZh,jdbcType=VARCHAR},</if>
+      <if test="variantDescriptionAr != null">variant_description_ar = #{variantDescriptionAr,jdbcType=VARCHAR},</if>
+      <if test="variantYuyiEn != null">variant_yuyi_en = #{variantYuyiEn,jdbcType=VARCHAR},</if>
+      <if test="variantYuyiZh != null">variant_yuyi_zh = #{variantYuyiZh,jdbcType=VARCHAR},</if>
+      <if test="variantYuyiAr != null">variant_yuyi_ar = #{variantYuyiAr,jdbcType=VARCHAR},</if>
+      <if test="primaryMaterial != null">primary_material = #{primaryMaterial,jdbcType=VARCHAR},</if>
+      <if test="materialPurity != null">material_purity = #{materialPurity,jdbcType=VARCHAR},</if>
+      <if test="materialColor != null">material_color = #{materialColor,jdbcType=VARCHAR},</if>
+      <if test="materialFinish != null">material_finish = #{materialFinish,jdbcType=VARCHAR},</if>
+      <if test="materialThicknessMm != null">material_thickness_mm = #{materialThicknessMm,jdbcType=DECIMAL},</if>
+      <if test="gemstoneType != null">gemstone_type = #{gemstoneType,jdbcType=VARCHAR},</if>
+      <if test="gemstoneShape != null">gemstone_shape = #{gemstoneShape,jdbcType=VARCHAR},</if>
+      <if test="gemstoneCut != null">gemstone_cut = #{gemstoneCut,jdbcType=VARCHAR},</if>
+      <if test="gemstoneSizeMm != null">gemstone_size_mm = #{gemstoneSizeMm,jdbcType=DECIMAL},</if>
+      <if test="gemstoneWeightCt != null">gemstone_weight_ct = #{gemstoneWeightCt,jdbcType=DECIMAL},</if>
+      <if test="gemstoneQuality != null">gemstone_quality = #{gemstoneQuality,jdbcType=VARCHAR},</if>
+      <if test="gemstoneCount != null">gemstone_count = #{gemstoneCount,jdbcType=INTEGER},</if>
+      <if test="lengthCm != null">length_cm = #{lengthCm,jdbcType=DECIMAL},</if>
+      <if test="widthCm != null">width_cm = #{widthCm,jdbcType=DECIMAL},</if>
+      <if test="heightCm != null">height_cm = #{heightCm,jdbcType=DECIMAL},</if>
+      <if test="chainLengthCm != null">chain_length_cm = #{chainLengthCm,jdbcType=DECIMAL},</if>
+      <if test="pendantSizeMm != null">pendant_size_mm = #{pendantSizeMm,jdbcType=DECIMAL},</if>
+      <if test="totalWeightG != null">total_weight_g = #{totalWeightG,jdbcType=DECIMAL},</if>
+      <if test="metalWeightG != null">metal_weight_g = #{metalWeightG,jdbcType=DECIMAL},</if>
+      <if test="gemstoneWeightG != null">gemstone_weight_g = #{gemstoneWeightG,jdbcType=DECIMAL},</if>
+      <if test="craftsmanshipLevel != null">craftsmanship_level = #{craftsmanshipLevel,jdbcType=VARCHAR},</if>
+      <if test="settingTechnique != null">setting_technique = #{settingTechnique,jdbcType=VARCHAR},</if>
+      <if test="claspType != null">clasp_type = #{claspType,jdbcType=VARCHAR},</if>
+      <if test="chainType != null">chain_type = #{chainType,jdbcType=VARCHAR},</if>
+      <if test="suitableGender != null">suitable_gender = #{suitableGender,jdbcType=INTEGER},</if>
+      <if test="suitableAgeMin != null">suitable_age_min = #{suitableAgeMin,jdbcType=INTEGER},</if>
+      <if test="suitableAgeMax != null">suitable_age_max = #{suitableAgeMax,jdbcType=INTEGER},</if>
+      <if test="sizeStandard != null">size_standard = #{sizeStandard,jdbcType=VARCHAR},</if>
+      <if test="stockQuantity != null">stock_quantity = #{stockQuantity,jdbcType=INTEGER},</if>
+      <if test="reservedQuantity != null">reserved_quantity = #{reservedQuantity,jdbcType=INTEGER},</if>
+      <if test="safetyStock != null">safety_stock = #{safetyStock,jdbcType=INTEGER},</if>
+      <if test="reorderPoint != null">reorder_point = #{reorderPoint,jdbcType=INTEGER},</if>
+      <if test="stockStatus != null">stock_status = #{stockStatus,jdbcType=INTEGER},</if>
+      <if test="lowStockAlert != null">low_stock_alert = #{lowStockAlert,jdbcType=BOOLEAN},</if>
+      <if test="lastStockUpdate != null">last_stock_update = #{lastStockUpdate,jdbcType=TIMESTAMP},</if>
+      <if test="costPrice != null">cost_price = #{costPrice,jdbcType=DECIMAL},</if>
+      <if test="retailPrice != null">retail_price = #{retailPrice,jdbcType=DECIMAL},</if>
+      <if test="salePrice != null">sale_price = #{salePrice,jdbcType=DECIMAL},</if>
+      <if test="memberPrice != null">member_price = #{memberPrice,jdbcType=DECIMAL},</if>
+      <if test="priceCurrency != null">price_currency = #{priceCurrency,jdbcType=VARCHAR},</if>
+      <if test="discountRate != null">discount_rate = #{discountRate,jdbcType=DECIMAL},</if>
+      <if test="discountAmount != null">discount_amount = #{discountAmount,jdbcType=DECIMAL},</if>
+      <if test="discountStartDate != null">discount_start_date = #{discountStartDate,jdbcType=DATE},</if>
+      <if test="discountEndDate != null">discount_end_date = #{discountEndDate,jdbcType=DATE},</if>
+      <if test="taxRate != null">tax_rate = #{taxRate,jdbcType=DECIMAL},</if>
+      <if test="priceAdjustmentReason != null">price_adjustment_reason = #{priceAdjustmentReason,jdbcType=VARCHAR},</if>
+      <if test="lastPriceUpdate != null">last_price_update = #{lastPriceUpdate,jdbcType=TIMESTAMP},</if>
+      <if test="mainImageId != null">main_image_id = #{mainImageId,jdbcType=VARCHAR},</if>
+      <if test="image1Id != null">image_1_id = #{image1Id,jdbcType=VARCHAR},</if>
+      <if test="image2Id != null">image_2_id = #{image2Id,jdbcType=VARCHAR},</if>
+      <if test="image3Id != null">image_3_id = #{image3Id,jdbcType=VARCHAR},</if>
+      <if test="image4Id != null">image_4_id = #{image4Id,jdbcType=VARCHAR},</if>
+      <if test="image5Id != null">image_5_id = #{image5Id,jdbcType=VARCHAR},</if>
+      <if test="mainImageUrl != null">main_image_url = #{mainImageUrl,jdbcType=VARCHAR},</if>
+      <if test="image1Url != null">image_1_url = #{image1Url,jdbcType=VARCHAR},</if>
+      <if test="image2Url != null">image_2_url = #{image2Url,jdbcType=VARCHAR},</if>
+      <if test="image3Url != null">image_3_url = #{image3Url,jdbcType=VARCHAR},</if>
+      <if test="image4Url != null">image_4_url = #{image4Url,jdbcType=VARCHAR},</if>
+      <if test="image5Url != null">image_5_url = #{image5Url,jdbcType=VARCHAR},</if>
+      <if test="availableDate != null">available_date = #{availableDate,jdbcType=DATE},</if>
+      <if test="availableEndDate != null">available_end_date = #{availableEndDate,jdbcType=DATE},</if>
+      <if test="isNewArrival != null">is_new_arrival = #{isNewArrival,jdbcType=BOOLEAN},</if>
+      <if test="status != null">status = #{status,jdbcType=INTEGER},</if>
+      <if test="isAvailable != null">is_available = #{isAvailable,jdbcType=BOOLEAN},</if>
+      <if test="isFeatured != null">is_featured = #{isFeatured,jdbcType=BOOLEAN},</if>
+      <if test="isBestSeller != null">is_best_seller = #{isBestSeller,jdbcType=BOOLEAN},</if>
+      <if test="sortOrder != null">sort_order = #{sortOrder,jdbcType=INTEGER},</if>
+      <if test="visibility != null">visibility = #{visibility,jdbcType=INTEGER},</if>
+      <if test="updatedBy != null">updated_by = #{updatedBy,jdbcType=BIGINT},</if>
+      updated_time = CURRENT_TIMESTAMP
+    </set>
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 根据主键删除数据 -->
+  <delete id="deleteById" parameterType="java.lang.String">
+    DELETE FROM product_sku
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <!-- 条件查询数据 -->
+  <select id="selectByCondition" parameterType="com.cn.taihe.back.product.dto.ProductSkuQueryDTO" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM product_sku
+    <where>
+      <if test="spuId != null and spuId != ''">
+        AND spu_id = #{spuId,jdbcType=VARCHAR}
+      </if>
+      <if test="skuCode != null and skuCode != ''">
+        AND sku_code LIKE CONCAT('%', #{skuCode,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="skuNameEn != null and skuNameEn != ''">
+        AND sku_name_en LIKE CONCAT('%', #{skuNameEn,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="skuNameZh != null and skuNameZh != ''">
+        AND sku_name_zh LIKE CONCAT('%', #{skuNameZh,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="skuNameAr != null and skuNameAr != ''">
+        AND sku_name_ar LIKE CONCAT('%', #{skuNameAr,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="primaryMaterial != null and primaryMaterial != ''">
+        AND primary_material LIKE CONCAT('%', #{primaryMaterial,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="materialPurity != null and materialPurity != ''">
+        AND material_purity = #{materialPurity,jdbcType=VARCHAR}
+      </if>
+      <if test="materialColor != null and materialColor != ''">
+        AND material_color = #{materialColor,jdbcType=VARCHAR}
+      </if>
+      <if test="gemstoneType != null and gemstoneType != ''">
+        AND gemstone_type = #{gemstoneType,jdbcType=VARCHAR}
+      </if>
+      <if test="gemstoneShape != null and gemstoneShape != ''">
+        AND gemstone_shape = #{gemstoneShape,jdbcType=VARCHAR}
+      </if>
+      <if test="suitableGender != null">
+        AND suitable_gender = #{suitableGender,jdbcType=INTEGER}
+      </if>
+      <if test="suitableAgeMin != null">
+        AND suitable_age_min = #{suitableAgeMin,jdbcType=INTEGER}
+      </if>
+      <if test="suitableAgeMax != null">
+        AND suitable_age_max = #{suitableAgeMax,jdbcType=INTEGER}
+      </if>
+      <if test="stockStatus != null">
+        AND stock_status = #{stockStatus,jdbcType=INTEGER}
+      </if>
+      <if test="lowStockAlert != null">
+        AND low_stock_alert = #{lowStockAlert,jdbcType=BOOLEAN}
+      </if>
+      <if test="priceCurrency != null and priceCurrency != ''">
+        AND price_currency = #{priceCurrency,jdbcType=VARCHAR}
+      </if>
+      <if test="minCostPrice != null">
+        AND cost_price >= #{minCostPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="maxCostPrice != null">
+        AND cost_price &lt;= #{maxCostPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="minRetailPrice != null">
+        AND retail_price >= #{minRetailPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="maxRetailPrice != null">
+        AND retail_price &lt;= #{maxRetailPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="minTotalWeightG != null">
+        AND total_weight_g >= #{minTotalWeightG,jdbcType=DECIMAL}
+      </if>
+      <if test="maxTotalWeightG != null">
+        AND total_weight_g &lt;= #{maxTotalWeightG,jdbcType=DECIMAL}
+      </if>
+      <if test="minStockQuantity != null">
+        AND stock_quantity >= #{minStockQuantity,jdbcType=INTEGER}
+      </if>
+      <if test="maxStockQuantity != null">
+        AND stock_quantity &lt;= #{maxStockQuantity,jdbcType=INTEGER}
+      </if>
+      <if test="availableDateStart != null">
+        AND available_date >= #{availableDateStart,jdbcType=DATE}
+      </if>
+      <if test="availableDateEnd != null">
+        AND available_date &lt;= #{availableDateEnd,jdbcType=DATE}
+      </if>
+      <if test="availableEndDateStart != null">
+        AND available_end_date >= #{availableEndDateStart,jdbcType=DATE}
+      </if>
+      <if test="availableEndDateEnd != null">
+        AND available_end_date &lt;= #{availableEndDateEnd,jdbcType=DATE}
+      </if>
+      <if test="isNewArrival != null">
+        AND is_new_arrival = #{isNewArrival,jdbcType=BOOLEAN}
+      </if>
+      <if test="status != null">
+        AND status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="isAvailable != null">
+        AND is_available = #{isAvailable,jdbcType=BOOLEAN}
+      </if>
+      <if test="isFeatured != null">
+        AND is_featured = #{isFeatured,jdbcType=BOOLEAN}
+      </if>
+      <if test="isBestSeller != null">
+        AND is_best_seller = #{isBestSeller,jdbcType=BOOLEAN}
+      </if>
+      <if test="visibility != null">
+        AND visibility = #{visibility,jdbcType=INTEGER}
+      </if>
+      <if test="createdTimeStart != null">
+        AND DATE(created_time) >= #{createdTimeStart,jdbcType=DATE}
+      </if>
+      <if test="createdTimeEnd != null">
+        AND DATE(created_time) &lt;= #{createdTimeEnd,jdbcType=DATE}
+      </if>
+      <if test="updatedTimeStart != null">
+        AND DATE(updated_time) >= #{updatedTimeStart,jdbcType=DATE}
+      </if>
+      <if test="updatedTimeEnd != null">
+        AND DATE(updated_time) &lt;= #{updatedTimeEnd,jdbcType=DATE}
+      </if>
+    </where>
+    <if test="sortField != null and sortField != '' and sortOrder != null and sortOrder != ''">
+      ORDER BY
+      <choose>
+        <when test="sortField == 'sku_code'">sku_code</when>
+        <when test="sortField == 'sku_name_zh'">sku_name_zh</when>
+        <when test="sortField == 'retail_price'">retail_price</when>
+        <when test="sortField == 'total_weight_g'">total_weight_g</when>
+        <when test="sortField == 'stock_quantity'">stock_quantity</when>
+        <when test="sortField == 'created_time'">created_time</when>
+        <when test="sortField == 'updated_time'">updated_time</when>
+        <otherwise>created_time</otherwise>
+      </choose>
+      <if test="sortOrder == 'desc'">DESC</if>
+      <if test="sortOrder == 'asc'">ASC</if>
+    </if>
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM product_sku
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 根据主键集合批量删除 -->
+  <delete id="deleteByIds" parameterType="java.util.List">
+    DELETE FROM product_sku
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+
+  <!-- 更新状态 -->
+  <update id="updateStatus">
+    UPDATE product_sku
+    SET status = #{status,jdbcType=INTEGER},
+        updated_by = #{updatedBy,jdbcType=BIGINT},
+        updated_time = CURRENT_TIMESTAMP
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 更新是否可售状态（冻结/解冻） -->
+  <update id="updateIsAvailable">
+    UPDATE product_sku
+    SET is_available = #{isAvailable,jdbcType=BOOLEAN},
+        updated_by = #{updatedBy,jdbcType=BIGINT},
+        updated_time = CURRENT_TIMESTAMP
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 批量更新状态 -->
+  <update id="batchUpdateStatus">
+    UPDATE product_sku
+    SET status = #{status,jdbcType=INTEGER},
+    updated_by = #{updatedBy,jdbcType=BIGINT},
+    updated_time = CURRENT_TIMESTAMP
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+  <!-- 批量更新是否可售状态 -->
+  <update id="batchUpdateIsAvailable">
+    UPDATE product_sku
+    SET is_available = #{isAvailable,jdbcType=BOOLEAN},
+    updated_by = #{updatedBy,jdbcType=BIGINT},
+    updated_time = CURRENT_TIMESTAMP
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+  <!-- 根据SPU ID查询 -->
+  <select id="selectBySpuId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM product_sku
+    WHERE spu_id = #{spuId,jdbcType=VARCHAR}
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 根据SKU编码查询 -->
+  <select id="selectBySkuCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM product_sku
+    WHERE sku_code = #{skuCode,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 检查SKU编码是否存在 -->
+  <select id="countBySkuCode" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM product_sku
+    WHERE sku_code = #{skuCode,jdbcType=VARCHAR}
+    <if test="excludeId != null and excludeId != ''">
+      AND id != #{excludeId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+</mapper>
