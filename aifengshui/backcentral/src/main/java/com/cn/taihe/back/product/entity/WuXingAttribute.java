@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -341,7 +342,7 @@ public class WuXingAttribute implements Serializable {
   @TableField("relationship_meaning_en")
   @ApiModelProperty(value = "英文关系意义")
   private String relationshipMeaningEn;
-
+  //图像
   @Column(name = "symbol_icon_url", length = 500)
   @TableField("symbol_icon_url")
   @ApiModelProperty(value = "象征图标URL", example = "https://example.com/metal.png")
@@ -356,6 +357,25 @@ public class WuXingAttribute implements Serializable {
   @TableField("energy_flow_image_url")
   @ApiModelProperty(value = "能量流动图URL", example = "https://example.com/metal_energy.png")
   private String energyFlowImageUrl;
+  // ==================== 图片资源属性 ====================
+  @Column(name = "symbol_icon_id")
+  @TableField("symbol_icon_id")
+  @ApiModelProperty(value = "象征图标ID")
+  @Size(max = 50, message = "象征图标ID长度不能超过50个字符")
+  private String symbolIconId;
+
+  @Column(name = "philosophy_image_id")
+  @TableField("philosophy_image_id")
+  @ApiModelProperty(value = "哲学原理图ID")
+  @Size(max = 50, message = "哲学原理图ID长度不能超过50个字符")
+  private String philosophyImageId;
+
+  @Column(name = "energy_flow_image_id")
+  @TableField("energy_flow_image_id")
+  @ApiModelProperty(value = "能量流动图ID")
+  @Size(max = 50, message = "能量流动图ID长度不能超过50个字符")
+  private String energyFlowImageId;
+
 
   @Column(name = "sort_order", nullable = false)
   @TableField("sort_order")

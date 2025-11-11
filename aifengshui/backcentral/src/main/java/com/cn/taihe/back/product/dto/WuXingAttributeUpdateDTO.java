@@ -22,6 +22,10 @@ public class WuXingAttributeUpdateDTO {
   @ApiModelProperty(value = "主键ID", required = true, example = "1234567890abcdef")
   private String id;
 
+  @NotBlank(message = "五行元素键名不能为空")
+  @ApiModelProperty(value = "五行元素键名", required = true, example = "metal")
+  private String elementKey;
+
   @ApiModelProperty(value = "五行代码", example = "JIN")
   private String elementCode;
 
@@ -210,6 +214,15 @@ public class WuXingAttributeUpdateDTO {
 
   @ApiModelProperty(value = "能量流动图URL", example = "https://example.com/metal_energy.png")
   private String energyFlowImageUrl;
+
+  @ApiModelProperty(value = "象征图标ID")
+  private String symbolIconId;
+
+  @ApiModelProperty(value = "哲学原理图ID")
+  private String philosophyImageId;
+
+  @ApiModelProperty(value = "能量流动图ID")
+  private String energyFlowImageId;
 
   @ApiModelProperty(value = "排序值", example = "1")
   private Integer sortOrder;

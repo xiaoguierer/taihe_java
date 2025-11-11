@@ -1,6 +1,4 @@
 
-A
-doc/gitÊèê‰∫§.txt,4/2/422f82f282426062c24dd297253f95ca19c210ab
 {
 Kaifengshui/backcentral/src/main/java/com/cn/taihe/config/MyBatisConfig.java,e/e/ee55ddbad35ddd4a2b66e78be940efcbebaaec60
 q
@@ -9,8 +7,6 @@ Acommon/src/main/java/com/cn/taihe/common/fileutils/ApiResult.java,e/c/ec08566c
 Pcommon/src/main/java/com/cn/taihe/common/mainexception/FileStorageException.java,d/3/d36d68c7a26b0fc6b05cac8f6fba23ee9a7d7a4e
 Å
 Qcommon/src/main/java/com/cn/taihe/common/mainexception/FileNotFoundException.java,e/e/ee9b1a0c0781b31ee196ee2d620b966466b098aa
-É
-Scommon/src/main/java/com/cn/taihe/common/mainexception/FileValidationException.java,a/4/a44c917be044dbb09f9ab99685a7d264666207ff
 x
 Hcommon/src/main/java/com/cn/taihe/common/fileutils/FileUploadResult.java,8/3/8360f665ef71b2049e7a7cda19a5995d7b222f2a
 ä
@@ -51,26 +47,8 @@ Raifengshui/backcentral/src/main/java/com/cn/taihe/back/user/mapper/UserMapper.j
 doc/biji,2/1/217936af116c27f84cfecb327e1afd5aa1649179
 Ç
 Raifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/Product.java,6/d/6dd80fb54deaccfdab4321975b86a18f21bdaa66
-9
-	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-ê
-`aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/WuXingAttributeUpdateDTO.java,3/3/33fba83e1b742206cd3068d68e08cd80a8a90019
-è
-_aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/WuXingAttributeQueryDTO.java,5/1/51c323f74a6ea2990f16d5759f2c2406b7f89fdd
-ä
-Zaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/WuXingAttribute.java,b/e/be1f2a30c7ed10830e3d79d8e1865ed76397552b
-ê
-`aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/WuXingAttributeCreateDTO.java,d/8/d87eb06a4ea11bf63bcfd9fe928f6de09cbadf5d
-õ
-kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/WuXingAttributeServiceImpl.java,9/d/9d175c9f2d14628e2c49d2d61cbb713f97f43a8b
-í
-baifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/WuXingAttributeService.java,d/5/d54d10a8c771923f67f373a12f76685e931d12ca
 ê
 `aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/mapper/WuXingAttributeMapper.java,2/3/230a84d47bee982be6768a01863edf15c0819084
-ò
-haifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/WuXingAttributeController.java,f/d/fde7409b78fa5d42116a4b47e60ed6a43d8af4c1
-å
-\aifengshui/backcentral/src/test/java/com/cn/taihe/product/WuXingAttributeControllerTest.java,1/0/10d0955dde13dbecb04d652a9323f5d2da5842a7
 è
 _aifengshui/backcentral/src/main/java/com/cn/taihe/back/filestore/dto/ProductImageUpdateDTO.java,9/4/948c7fdc0a277b14210bcf38f8b7b563eb6815ae
 é

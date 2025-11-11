@@ -1,10 +1,14 @@
 package com.cn.taihe.back.product.service.impl;
+
+import com.cn.taihe.back.filestore.service.ProductImageService;
+import com.cn.taihe.back.imagefile.service.FileStorageService;
 import com.cn.taihe.back.product.dto.WuXingAttributeCreateDTO;
 import com.cn.taihe.back.product.dto.WuXingAttributeQueryDTO;
 import com.cn.taihe.back.product.dto.WuXingAttributeUpdateDTO;
 import com.cn.taihe.back.product.entity.WuXingAttribute;
 import com.cn.taihe.back.product.mapper.WuXingAttributeMapper;
 import com.cn.taihe.back.product.service.WuXingAttributeService;
+import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -16,9 +20,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 五行属性服务实现类
@@ -34,6 +40,10 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
 
   @Autowired
   private WuXingAttributeMapper wuXingAttributeMapper;
+  @Autowired
+  private ProductImageService productImageService;
+  @Autowired
+  private FileStorageService fileStorageService;
 
   @Override
   public WuXingAttribute getById(String id) {
@@ -56,20 +66,13 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
 
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean create(WuXingAttributeCreateDTO createDTO) {
+  public boolean create(WuXingAttributeCreateDTO createDTO, MultipartFile symbolIconfile, MultipartFile philosophyImagefile, MultipartFile energyFlowImagefile) {
     logger.info("新增五行属性 - 操作人: {}, 参数: {}", OPERATOR, createDTO);
 
     if (createDTO == null) {
       logger.warn("新增五行属性 - 参数错误: createDTO为空");
       return false;
     }
-
-    // 检查元素键名是否已存在
-    if (wuXingAttributeMapper.countByElementKey(createDTO.getElementKey(), null) > 0) {
-      logger.warn("新增五行属性 - 元素键名已存在: {}", createDTO.getElementKey());
-      throw new RuntimeException("元素键名已存在");
-    }
-
     try {
       WuXingAttribute entity = new WuXingAttribute();
       BeanUtils.copyProperties(createDTO, entity);
@@ -77,6 +80,22 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
       // 设置创建时间和更新时间
       entity.setCreatedTime(LocalDateTime.now());
       entity.setUpdatedTime(LocalDateTime.now());
+      //文件图像处理
+      if (symbolIconfile != null && !symbolIconfile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, symbolIconfile);
+        entity.setSymbolIconId((String) map.get("key"));
+        entity.setSymbolIconUrl((String) map.get("jdpath"));
+      }
+      if (philosophyImagefile != null && !philosophyImagefile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, philosophyImagefile);
+        entity.setPhilosophyImageId((String) map.get("key"));
+        entity.setPhilosophyImageUrl((String) map.get("jdpath"));
+      }
+      if (energyFlowImagefile != null && !energyFlowImagefile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, energyFlowImagefile);
+        entity.setEnergyFlowImageId((String) map.get("key"));
+        entity.setEnergyFlowImageUrl((String) map.get("jdpath"));
+      }
 
       int result = wuXingAttributeMapper.insert(entity);
       boolean success = result > 0;
@@ -90,14 +109,13 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
 
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean update(WuXingAttributeUpdateDTO updateDTO) {
+  public boolean update(WuXingAttributeUpdateDTO updateDTO, MultipartFile symbolIconfile, MultipartFile philosophyImagefile, MultipartFile energyFlowImagefile) {
     logger.info("更新五行属性 - 操作人: {}, 参数: {}", OPERATOR, updateDTO);
 
     if (updateDTO == null || !StringUtils.hasText(updateDTO.getId())) {
       logger.warn("更新五行属性 - 参数错误: updateDTO或id为空");
       return false;
     }
-
     try {
       // 先查询现有记录
       WuXingAttribute existing = wuXingAttributeMapper.selectById(updateDTO.getId());
@@ -105,14 +123,49 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
         logger.warn("更新五行属性 - 记录不存在: id={}", updateDTO.getId());
         return false;
       }
-
       WuXingAttribute entity = new WuXingAttribute();
       BeanUtils.copyProperties(updateDTO, entity);
-
       // 保留创建时间，更新修改时间
       entity.setCreatedTime(existing.getCreatedTime());
       entity.setUpdatedTime(LocalDateTime.now());
-
+      //若图片有数据  则 1先删除原图片数据  2再删除图片标数据，3然后新增图片数据和图片表数据，4最后更新业务表数据
+      //1 删除图片数据
+      logger.info("entity.getSymbolIconUrl()   :  " + entity.getSymbolIconUrl());
+      if (entity.getSymbolIconUrl() != null && !entity.getSymbolIconUrl().isEmpty()) {
+        fileStorageService.delete(entity.getSymbolIconUrl().replace("/api/files", ""));
+      }
+      if (entity.getPhilosophyImageUrl() != null) {
+        fileStorageService.delete(entity.getPhilosophyImageUrl().replace("/api/files", ""));
+      }
+      if (entity.getEnergyFlowImageUrl() != null) {
+        fileStorageService.delete(entity.getEnergyFlowImageUrl().replace("/api/files", ""));
+      }
+      //2 删除图片表数据，根据主键批量删除
+      if (entity.getSymbolIconId() != null) {
+        productImageService.deleteProductImageById(entity.getSymbolIconId());
+      }
+      if (entity.getPhilosophyImageId() != null) {
+        productImageService.deleteProductImageById(entity.getPhilosophyImageId());
+      }
+      if (entity.getEnergyFlowImageId() != null) {
+        productImageService.deleteProductImageById(entity.getEnergyFlowImageId());
+      }
+      //新增图片和图片表数据
+      if (symbolIconfile != null && !symbolIconfile.isEmpty()){
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, symbolIconfile);
+        entity.setSymbolIconId((String) map.get("key"));
+        entity.setSymbolIconUrl((String) map.get("jdpath"));
+      }
+      if (philosophyImagefile != null && !philosophyImagefile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, philosophyImagefile);
+        entity.setPhilosophyImageId((String) map.get("key"));
+        entity.setPhilosophyImageUrl((String) map.get("jdpath"));
+      }
+      if (energyFlowImagefile != null && !energyFlowImagefile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, energyFlowImagefile);
+        entity.setEnergyFlowImageId((String) map.get("key"));
+        entity.setEnergyFlowImageUrl((String) map.get("jdpath"));
+      }
       int result = wuXingAttributeMapper.updateById(entity);
       boolean success = result > 0;
       logger.info("更新五行属性{} - 操作人: {}, 参数: {}", success ? "成功" : "失败", OPERATOR, updateDTO);

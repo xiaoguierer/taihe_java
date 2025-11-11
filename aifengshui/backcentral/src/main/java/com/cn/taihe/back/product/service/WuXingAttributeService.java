@@ -5,6 +5,7 @@ import com.cn.taihe.back.product.dto.WuXingAttributeQueryDTO;
 import com.cn.taihe.back.product.dto.WuXingAttributeUpdateDTO;
 import com.cn.taihe.back.product.entity.WuXingAttribute;
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public interface WuXingAttributeService {
    * @param createDTO 新增参数
    * @return 是否成功
    */
-  boolean create(WuXingAttributeCreateDTO createDTO);
+  boolean create(WuXingAttributeCreateDTO createDTO, MultipartFile symbolIconfile,MultipartFile philosophyImagefile,MultipartFile energyFlowImagefile);
 
   /**
    * 更新五行属性
@@ -38,7 +39,7 @@ public interface WuXingAttributeService {
    * @param updateDTO 更新参数
    * @return 是否成功
    */
-  boolean update(WuXingAttributeUpdateDTO updateDTO);
+  boolean update(WuXingAttributeUpdateDTO updateDTO,MultipartFile symbolIconfile,MultipartFile philosophyImagefile,MultipartFile energyFlowImagefile);
 
   /**
    * 根据主键删除五行属性

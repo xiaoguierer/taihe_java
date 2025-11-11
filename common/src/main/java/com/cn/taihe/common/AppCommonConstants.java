@@ -21,6 +21,6 @@ public final class AppCommonConstants {
   public static final String IMAGE_PRODUCT_File_PATH = "PRODUCT";
   //产品详情图像
   public static final String IMAGE_PRODUCT_DETAIL_File_PATH = "PRODUCDETAIL";
-  //产品基础图像
+  //产品基础图像  包括意向  五行 分类
   public static final String IMAGE_PRODUCT_EMO_File_PATH = "PRODUCTEMO";
 }

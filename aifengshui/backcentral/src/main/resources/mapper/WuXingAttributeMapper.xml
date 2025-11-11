@@ -20,7 +20,8 @@
         life_guidance_zh, life_guidance_en, healing_property_zh, healing_property_en,
         generates_element, generated_by_element, restrains_element, restrained_by_element,
         relationship_meaning_zh, relationship_meaning_en, symbol_icon_url,
-        philosophy_image_url, energy_flow_image_url, sort_order, element_tier, is_active,
+        philosophy_image_url, energy_flow_image_url, symbol_icon_id,
+        philosophy_image_id, energy_flow_image_id,sort_order, element_tier, is_active,
         created_time, updated_time
   </sql>
 
@@ -57,7 +58,8 @@
       life_guidance_zh, life_guidance_en, healing_property_zh, healing_property_en,
       generates_element, generated_by_element, restrains_element, restrained_by_element,
       relationship_meaning_zh, relationship_meaning_en, symbol_icon_url,
-      philosophy_image_url, energy_flow_image_url, sort_order, element_tier, is_active,
+      philosophy_image_url, energy_flow_image_url, symbol_icon_id,philosophy_image_id,
+      energy_flow_image_id,sort_order, element_tier, is_active,
       created_time, updated_time
     ) VALUES (
                #{id}, #{elementKey}, #{elementCode}, #{elementCategory}, #{elementNameEn}, #{elementNameZh},
@@ -76,7 +78,8 @@
                #{lifeGuidanceZh}, #{lifeGuidanceEn}, #{healingPropertyZh}, #{healingPropertyEn},
                #{generatesElement}, #{generatedByElement}, #{restrainsElement}, #{restrainedByElement},
                #{relationshipMeaningZh}, #{relationshipMeaningEn}, #{symbolIconUrl},
-               #{philosophyImageUrl}, #{energyFlowImageUrl}, #{sortOrder}, #{elementTier}, #{isActive},
+               #{philosophyImageUrl}, #{energyFlowImageUrl},#{symbolIconId},
+               #{philosophyImageId}, #{energyFlowImageId}, #{sortOrder}, #{elementTier}, #{isActive},
                #{createdTime}, #{updatedTime}
              )
   </insert>
@@ -149,6 +152,11 @@
       <if test="symbolIconUrl != null and symbolIconUrl != ''">symbol_icon_url = #{symbolIconUrl},</if>
       <if test="philosophyImageUrl != null and philosophyImageUrl != ''">philosophy_image_url = #{philosophyImageUrl},</if>
       <if test="energyFlowImageUrl != null and energyFlowImageUrl != ''">energy_flow_image_url = #{energyFlowImageUrl},</if>
+
+      <if test="symbolIconId != null and symbolIconId != ''">symbol_icon_id = #{symbolIconId},</if>
+      <if test="philosophyImageId != null and philosophyImageId != ''">philosophy_image_id = #{philosophyImageId},</if>
+      <if test="energyFlowImageId != null and energyFlowImageId != ''">energy_flow_image_id = #{energyFlowImageId},</if>
+
       <if test="sortOrder != null">sort_order = #{sortOrder},</if>
       <if test="elementTier != null">element_tier = #{elementTier},</if>
       <if test="isActive != null">is_active = #{isActive},</if>

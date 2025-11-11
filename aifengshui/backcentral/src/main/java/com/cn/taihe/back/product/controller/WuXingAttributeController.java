@@ -13,10 +13,12 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,7 +30,7 @@ import java.util.List;
  * @since 2025-02-20
  */
 @RestController
-@RequestMapping("/api/wu-xing-attributes")
+@RequestMapping("/wu-xing-attributes")
 @Api(tags = "五行属性管理接口")
 public class WuXingAttributeController {
 
@@ -38,19 +40,16 @@ public class WuXingAttributeController {
   @Autowired
   private WuXingAttributeService wuXingAttributeService;
 
-  @GetMapping("/{id}")
+  @GetMapping("getById/{id}")
   @ApiOperation(value = "根据ID查询五行属性详情", notes = "根据主键ID查询五行属性详细信息")
   public ResponseEntity<Object> getById(
     @ApiParam(value = "五行属性ID", required = true, example = "1234567890abcdef")
     @PathVariable String id) {
-
     logger.info("查询五行属性详情 - 操作人: {}, 参数: id={}", OPERATOR, id);
-
     if (!StringUtils.hasText(id)) {
       logger.warn("查询五行属性详情 - 参数错误: id为空");
       return ResponseEntity.ok(Result.error("ID不能为空"));
     }
-
     try {
       WuXingAttribute result = wuXingAttributeService.getById(id);
       if (result == null) {
@@ -65,24 +64,24 @@ public class WuXingAttributeController {
     }
   }
 
-  @PostMapping
+  @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @ApiOperation(value = "新增五行属性", notes = "创建新的五行属性记录")
   public ResponseEntity<Object> create(
     @ApiParam(value = "五行属性新增参数", required = true)
-    @Valid @RequestBody WuXingAttributeCreateDTO createDTO) {
-
+    @RequestPart("createDTO") @Valid WuXingAttributeCreateDTO createDTO,
+    @RequestPart(value = "symbolIconfile", required = false) MultipartFile symbolIconfile,
+    @RequestPart(value = "philosophyImagefile", required = false) MultipartFile philosophyImagefile,
+    @RequestPart(value = "energyFlowImagefile", required = false) MultipartFile energyFlowImagefile) {
     logger.info("新增五行属性 - 操作人: {}, 参数: {}", OPERATOR, createDTO);
-
     if (createDTO == null) {
       logger.warn("新增五行属性 - 参数错误: createDTO为空");
       return ResponseEntity.ok(Result.error("参数不能为空"));
     }
-
     try {
-      boolean result = wuXingAttributeService.create(createDTO);
+      boolean result = wuXingAttributeService.create(createDTO,symbolIconfile,philosophyImagefile,energyFlowImagefile);
       if (result) {
         logger.info("新增五行属性成功 - 操作人: {}, 参数: {}", OPERATOR, createDTO);
-        return ResponseEntity.ok(Result.success(true));
+        return ResponseEntity.ok(Result.success(result));
       } else {
         logger.warn("新增五行属性失败 - 操作人: {}, 参数: {}", OPERATOR, createDTO);
         return ResponseEntity.ok(Result.error("新增五行属性失败"));
@@ -93,24 +92,24 @@ public class WuXingAttributeController {
     }
   }
 
-  @PutMapping
+  @PutMapping(value = "/updateByid", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @ApiOperation(value = "更新五行属性", notes = "更新已存在的五行属性记录")
   public ResponseEntity<Object> update(
     @ApiParam(value = "五行属性更新参数", required = true)
-    @Valid @RequestBody WuXingAttributeUpdateDTO updateDTO) {
-
+    @RequestPart("updateDTO") @Valid WuXingAttributeUpdateDTO updateDTO,
+    @RequestPart(value = "symbolIconfile", required = false) MultipartFile symbolIconfile,
+    @RequestPart(value = "philosophyImagefile", required = false) MultipartFile philosophyImagefile,
+    @RequestPart(value = "energyFlowImagefile", required = false) MultipartFile energyFlowImagefile) {
     logger.info("更新五行属性 - 操作人: {}, 参数: {}", OPERATOR, updateDTO);
-
     if (updateDTO == null || !StringUtils.hasText(updateDTO.getId())) {
       logger.warn("更新五行属性 - 参数错误: updateDTO或id为空");
       return ResponseEntity.ok(Result.error("参数错误"));
     }
-
     try {
-      boolean result = wuXingAttributeService.update(updateDTO);
+      boolean result = wuXingAttributeService.update(updateDTO,symbolIconfile,philosophyImagefile,energyFlowImagefile);
       if (result) {
         logger.info("更新五行属性成功 - 操作人: {}, 参数: {}", OPERATOR, updateDTO);
-        return ResponseEntity.ok(Result.success(true));
+        return ResponseEntity.ok(Result.success(result));
       } else {
         logger.warn("更新五行属性失败 - 操作人: {}, 参数: {}", OPERATOR, updateDTO);
         return ResponseEntity.ok(Result.error("更新五行属性失败，记录可能不存在"));
@@ -121,24 +120,21 @@ public class WuXingAttributeController {
     }
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/del/{id}")
   @ApiOperation(value = "删除五行属性", notes = "根据ID删除五行属性记录")
   public ResponseEntity<Object> deleteById(
     @ApiParam(value = "五行属性ID", required = true, example = "1234567890abcdef")
     @PathVariable String id) {
-
     logger.info("删除五行属性 - 操作人: {}, 参数: id={}", OPERATOR, id);
-
     if (!StringUtils.hasText(id)) {
       logger.warn("删除五行属性 - 参数错误: id为空");
       return ResponseEntity.ok(Result.error("ID不能为空"));
     }
-
     try {
       boolean result = wuXingAttributeService.deleteById(id);
       if (result) {
         logger.info("删除五行属性成功 - 操作人: {}, 参数: id={}", OPERATOR, id);
-        return ResponseEntity.ok(Result.success(true));
+        return ResponseEntity.ok(Result.success(result));
       } else {
         logger.warn("删除五行属性失败 - 操作人: {}, 参数: id={}", OPERATOR, id);
         return ResponseEntity.ok(Result.error("删除五行属性失败，记录可能不存在"));
@@ -158,9 +154,7 @@ public class WuXingAttributeController {
     @RequestParam(defaultValue = "1") Integer page,
     @ApiParam(value = "每页大小", defaultValue = "10")
     @RequestParam(defaultValue = "10") Integer size) {
-
     logger.info("分页查询五行属性列表 - 操作人: {}, 参数: queryDTO={}, page={}, size={}", OPERATOR, queryDTO, page, size);
-
     try {
       PageInfo<WuXingAttribute> result = wuXingAttributeService.getPageList(queryDTO, page, size);
       logger.info("分页查询五行属性列表成功 - 操作人: {}, 参数: queryDTO={}, page={}, size={}, 结果数量: {}",
@@ -178,9 +172,7 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> getList(
     @ApiParam(value = "查询条件")
     @RequestBody(required = false) WuXingAttributeQueryDTO queryDTO) {
-
     logger.info("查询五行属性列表 - 操作人: {}, 参数: queryDTO={}", OPERATOR, queryDTO);
-
     try {
       List<WuXingAttribute> result = wuXingAttributeService.getList(queryDTO);
       logger.info("查询五行属性列表成功 - 操作人: {}, 参数: queryDTO={}, 结果数量: {}",
@@ -197,7 +189,6 @@ public class WuXingAttributeController {
   @ApiOperation(value = "查询所有五行属性", notes = "获取所有五行属性记录")
   public ResponseEntity<Object> getAll() {
     logger.info("查询所有五行属性 - 操作人: {}", OPERATOR);
-
     try {
       List<WuXingAttribute> result = wuXingAttributeService.getAll();
       logger.info("查询所有五行属性成功 - 操作人: {}, 结果数量: {}", OPERATOR, result.size());
@@ -212,7 +203,6 @@ public class WuXingAttributeController {
   @ApiOperation(value = "查询所有启用的五行属性", notes = "获取所有启用的五行属性记录")
   public ResponseEntity<Object> getAllActive() {
     logger.info("查询所有启用的五行属性 - 操作人: {}", OPERATOR);
-
     try {
       List<WuXingAttribute> result = wuXingAttributeService.getAllActive();
       logger.info("查询所有启用的五行属性成功 - 操作人: {}, 结果数量: {}", OPERATOR, result.size());
@@ -228,9 +218,7 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> getKeyInfoList(
     @ApiParam(value = "查询条件")
     @RequestBody(required = false) WuXingAttributeQueryDTO queryDTO) {
-
     logger.info("查询关键信息列表 - 操作人: {}, 参数: queryDTO={}", OPERATOR, queryDTO);
-
     try {
       List<WuXingAttribute> result = wuXingAttributeService.getKeyInfoList(queryDTO);
       logger.info("查询关键信息列表成功 - 操作人: {}, 参数: queryDTO={}, 结果数量: {}",
@@ -248,14 +236,11 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> getByCategory(
     @ApiParam(value = "元素分类", required = true, example = "basic")
     @PathVariable String category) {
-
     logger.info("按分类查询五行属性 - 操作人: {}, 参数: category={}", OPERATOR, category);
-
     if (!StringUtils.hasText(category)) {
       logger.warn("按分类查询五行属性 - 参数错误: category为空");
       return ResponseEntity.ok(Result.error("分类不能为空"));
     }
-
     try {
       List<WuXingAttribute> result = wuXingAttributeService.getByCategory(category);
       logger.info("按分类查询五行属性成功 - 操作人: {}, 参数: category={}, 结果数量: {}",
@@ -273,14 +258,11 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> getByTier(
     @ApiParam(value = "元素层级", required = true, example = "1")
     @PathVariable Integer tier) {
-
     logger.info("按层级查询五行属性 - 操作人: {}, 参数: tier={}", OPERATOR, tier);
-
     if (tier == null) {
       logger.warn("按层级查询五行属性 - 参数错误: tier为空");
       return ResponseEntity.ok(Result.error("层级不能为空"));
     }
-
     try {
       List<WuXingAttribute> result = wuXingAttributeService.getByTier(tier);
       logger.info("按层级查询五行属性成功 - 操作人: {}, 参数: tier={}, 结果数量: {}",
@@ -298,19 +280,16 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> deleteBatch(
     @ApiParam(value = "五行属性ID集合", required = true)
     @RequestBody List<String> ids) {
-
     logger.info("批量删除五行属性 - 操作人: {}, 参数: ids={}", OPERATOR, ids);
-
     if (CollectionUtils.isEmpty(ids)) {
       logger.warn("批量删除五行属性 - 参数错误: ids为空");
       return ResponseEntity.ok(Result.error("ID集合不能为空"));
     }
-
     try {
       boolean result = wuXingAttributeService.deleteBatch(ids);
       if (result) {
         logger.info("批量删除五行属性成功 - 操作人: {}, 参数: ids={}", OPERATOR, ids);
-        return ResponseEntity.ok(Result.success(true));
+        return ResponseEntity.ok(Result.success(result));
       } else {
         logger.warn("批量删除五行属性失败 - 操作人: {}, 参数: ids={}", OPERATOR, ids);
         return ResponseEntity.ok(Result.error("批量删除五行属性失败"));
@@ -326,19 +305,16 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> freeze(
     @ApiParam(value = "五行属性ID", required = true, example = "1234567890abcdef")
     @PathVariable String id) {
-
     logger.info("冻结五行属性 - 操作人: {}, 参数: id={}", OPERATOR, id);
-
     if (!StringUtils.hasText(id)) {
       logger.warn("冻结五行属性 - 参数错误: id为空");
       return ResponseEntity.ok(Result.error("ID不能为空"));
     }
-
     try {
       boolean result = wuXingAttributeService.freeze(id);
       if (result) {
         logger.info("冻结五行属性成功 - 操作人: {}, 参数: id={}", OPERATOR, id);
-        return ResponseEntity.ok(Result.success(true));
+        return ResponseEntity.ok(Result.success(result));
       } else {
         logger.warn("冻结五行属性失败 - 操作人: {}, 参数: id={}", OPERATOR, id);
         return ResponseEntity.ok(Result.error("冻结五行属性失败，记录可能不存在"));
@@ -354,19 +330,16 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> enable(
     @ApiParam(value = "五行属性ID", required = true, example = "1234567890abcdef")
     @PathVariable String id) {
-
     logger.info("启用五行属性 - 操作人: {}, 参数: id={}", OPERATOR, id);
-
     if (!StringUtils.hasText(id)) {
       logger.warn("启用五行属性 - 参数错误: id为空");
       return ResponseEntity.ok(Result.error("ID不能为空"));
     }
-
     try {
       boolean result = wuXingAttributeService.enable(id);
       if (result) {
         logger.info("启用五行属性成功 - 操作人: {}, 参数: id={}", OPERATOR, id);
-        return ResponseEntity.ok(Result.success(true));
+        return ResponseEntity.ok(Result.success(result));
       } else {
         logger.warn("启用五行属性失败 - 操作人: {}, 参数: id={}", OPERATOR, id);
         return ResponseEntity.ok(Result.error("启用五行属性失败，记录可能不存在"));
@@ -382,19 +355,16 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> freezeBatch(
     @ApiParam(value = "五行属性ID集合", required = true)
     @RequestBody List<String> ids) {
-
     logger.info("批量冻结五行属性 - 操作人: {}, 参数: ids={}", OPERATOR, ids);
-
     if (CollectionUtils.isEmpty(ids)) {
       logger.warn("批量冻结五行属性 - 参数错误: ids为空");
       return ResponseEntity.ok(Result.error("ID集合不能为空"));
     }
-
     try {
       boolean result = wuXingAttributeService.freezeBatch(ids);
       if (result) {
         logger.info("批量冻结五行属性成功 - 操作人: {}, 参数: ids={}", OPERATOR, ids);
-        return ResponseEntity.ok(Result.success(true));
+        return ResponseEntity.ok(Result.success(result));
       } else {
         logger.warn("批量冻结五行属性失败 - 操作人: {}, 参数: ids={}", OPERATOR, ids);
         return ResponseEntity.ok(Result.error("批量冻结五行属性失败"));
@@ -410,19 +380,16 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> enableBatch(
     @ApiParam(value = "五行属性ID集合", required = true)
     @RequestBody List<String> ids) {
-
     logger.info("批量启用五行属性 - 操作人: {}, 参数: ids={}", OPERATOR, ids);
-
     if (CollectionUtils.isEmpty(ids)) {
       logger.warn("批量启用五行属性 - 参数错误: ids为空");
       return ResponseEntity.ok(Result.error("ID集合不能为空"));
     }
-
     try {
       boolean result = wuXingAttributeService.enableBatch(ids);
       if (result) {
         logger.info("批量启用五行属性成功 - 操作人: {}, 参数: ids={}", OPERATOR, ids);
-        return ResponseEntity.ok(Result.success(true));
+        return ResponseEntity.ok(Result.success(result));
       } else {
         logger.warn("批量启用五行属性失败 - 操作人: {}, 参数: ids={}", OPERATOR, ids);
         return ResponseEntity.ok(Result.error("批量启用五行属性失败"));
@@ -438,14 +405,11 @@ public class WuXingAttributeController {
   public ResponseEntity<Object> getByElementKey(
     @ApiParam(value = "元素键名", required = true, example = "metal")
     @PathVariable String elementKey) {
-
     logger.info("按元素键名查询 - 操作人: {}, 参数: elementKey={}", OPERATOR, elementKey);
-
     if (!StringUtils.hasText(elementKey)) {
       logger.warn("按元素键名查询 - 参数错误: elementKey为空");
       return ResponseEntity.ok(Result.error("元素键名不能为空"));
     }
-
     try {
       WuXingAttribute result = wuXingAttributeService.getByElementKey(elementKey);
       if (result == null) {

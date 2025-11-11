@@ -19,10 +19,6 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "WuXingAttributeCreateDTO", description = "五行属性新增参数")
 public class WuXingAttributeCreateDTO {
 
-  @NotBlank(message = "主键ID不能为空")
-  @ApiModelProperty(value = "主键ID", required = true, example = "1234567890abcdef")
-  private String id;
-
   @NotBlank(message = "五行元素键名不能为空")
   @ApiModelProperty(value = "五行元素键名", required = true, example = "metal")
   private String elementKey;
@@ -221,6 +217,15 @@ public class WuXingAttributeCreateDTO {
 
   @ApiModelProperty(value = "能量流动图URL", example = "https://example.com/metal_energy.png")
   private String energyFlowImageUrl;
+
+  @ApiModelProperty(value = "象征图标ID")
+  private String symbolIconId;
+
+  @ApiModelProperty(value = "哲学原理图ID")
+  private String philosophyImageId;
+
+  @ApiModelProperty(value = "能量流动图ID")
+  private String energyFlowImageId;
 
   @NotNull(message = "排序值不能为空")
   @ApiModelProperty(value = "排序值", required = true, example = "1")
