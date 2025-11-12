@@ -4,6 +4,7 @@ import com.cn.taihe.back.product.dto.ProductSpuQueryDTO;
 import com.cn.taihe.back.product.dto.ProductSpuUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductSpu;
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,7 +30,8 @@ public interface ProductSpuService {
    * @param createDTO 新增参数
    * @return 是否成功
    */
-  boolean create(ProductSpuCreateDTO createDTO);
+  boolean create(ProductSpuCreateDTO createDTO, MultipartFile mainImagefile, MultipartFile conceptImageFile, MultipartFile designImageFile,
+                 MultipartFile prototypeImageFile, MultipartFile usageImageFile, MultipartFile technicalImageFile);
 
   /**
    * 修改数据
@@ -37,7 +39,8 @@ public interface ProductSpuService {
    * @param updateDTO 更新参数
    * @return 是否成功
    */
-  boolean update(ProductSpuUpdateDTO updateDTO);
+  boolean update(ProductSpuUpdateDTO updateDTO, MultipartFile mainImagefile,MultipartFile conceptImageFile,MultipartFile designImageFile,
+                 MultipartFile prototypeImageFile,MultipartFile usageImageFile,MultipartFile technicalImageFile);
 
   /**
    * 根据主键删除数据

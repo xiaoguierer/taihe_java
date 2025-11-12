@@ -1,0 +1,20 @@
+
+k
+java:S1192Œ"ODefine a constant instead of duplicating this literal "is_deleted = 0" 3 times.(È¶Ð÷þÿÿÿÿ
+i
+java:S3776ˆ"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(¿‡£ù
+B
+java:S3599‰",Use another way to initialize this instance.(ÕÿŽP
+o
+java:S1171‰"YMove the contents of this initializer to a standard constructor or to field initializers.(ÕÿŽP
+O	java:S106®"9Replace this use of System.out or System.err by a logger.(Ï¼ÈÁ
+H
+java:S3599¶",Use another way to initialize this instance.(«ëƒ³ÿÿÿÿÿ
+u
+java:S1171¶"YMove the contents of this initializer to a standard constructor or to field initializers.(«ëƒ³ÿÿÿÿÿ
+i
+java:S3776À"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(ªÇÖ»
+H
+java:S3599Á",Use another way to initialize this instance.(«ëƒ³ÿÿÿÿÿ
+u
+java:S1171Á"YMove the contents of this initializer to a standard constructor or to field initializers.(«ëƒ³ÿÿÿÿÿ

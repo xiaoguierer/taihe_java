@@ -246,16 +246,16 @@
       <if test="productNameZh != null and productNameZh != ''">
         AND product_name_zh LIKE CONCAT('%', #{productNameZh}, '%')
       </if>
-      <if test="isFeatured != null">
+      <if test="isFeatured != null and isFeatured">
         AND is_featured = #{isFeatured}
       </if>
-      <if test="isNewArrival != null">
+      <if test="isNewArrival != null and isNewArrival">
         AND is_new_arrival = #{isNewArrival}
       </if>
-      <if test="isAiDesigned != null">
+      <if test="isAiDesigned != null and isAiDesigned">
         AND is_ai_designed = #{isAiDesigned}
       </if>
-      <if test="isActive != null">
+      <if test="isActive != null and  isActive">
         AND is_active = #{isActive}
       </if>
       <if test="primaryElement != null and primaryElement != ''">

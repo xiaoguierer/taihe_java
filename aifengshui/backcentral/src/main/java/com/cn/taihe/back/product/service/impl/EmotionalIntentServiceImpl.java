@@ -241,35 +241,35 @@ public class EmotionalIntentServiceImpl implements EmotionalIntentService {
       BeanUtils.copyProperties(updateDTO, emotionalIntent);
       //若图片有数据  则 1先删除原图片数据  2再删除图片标数据，3然后新增图片数据和图片表数据，4最后更新业务表数据
       //1 删除图片数据
-      if(emotionalIntent.getIconUrl()!= null){
+      if(emotionalIntent.getIconUrl()!= null && !emotionalIntent.getIconUrl().isEmpty()){
         fileStorageService.delete(emotionalIntent.getIconUrl().replace("/api/files", ""));
       }
-      if(emotionalIntent.getSymbolImageUrl()!= null){
+      if(emotionalIntent.getSymbolImageUrl()!= null && !emotionalIntent.getSymbolImageUrl().isEmpty()){
         fileStorageService.delete(emotionalIntent.getSymbolImageUrl().replace("/api/files", ""));
       }
-      if(emotionalIntent.getEnergyImageUrl()!= null){
+      if(emotionalIntent.getEnergyImageUrl()!= null && !emotionalIntent.getEnergyImageUrl().isEmpty()){
         fileStorageService.delete(emotionalIntent.getEnergyImageUrl().replace("/api/files", ""));
       }
-      if(emotionalIntent.getApplicationImageUrl()!= null){
+      if(emotionalIntent.getApplicationImageUrl()!= null && !emotionalIntent.getApplicationImageUrl().isEmpty()){
         fileStorageService.delete(emotionalIntent.getApplicationImageUrl().replace("/api/files", ""));
       }
-      if(emotionalIntent.getMeditationImageUrl()!= null){
+      if(emotionalIntent.getMeditationImageUrl()!= null && !emotionalIntent.getMeditationImageUrl().isEmpty()){
         fileStorageService.delete(emotionalIntent.getMeditationImageUrl().replace("/api/files", ""));
       }
       //2 删除图片表数据，根据主键批量删除
-      if(emotionalIntent.getIconId()!= null){
+      if(emotionalIntent.getIconId()!= null && !emotionalIntent.getIconId().isEmpty()){
         productImageService.deleteProductImageById(emotionalIntent.getIconId());
       }
-      if(emotionalIntent.getSymbolImageId()!= null){
+      if(emotionalIntent.getSymbolImageId()!= null && !emotionalIntent.getSymbolImageId().isEmpty()){
         productImageService.deleteProductImageById(emotionalIntent.getSymbolImageId());
       }
-      if(emotionalIntent.getEnergyImageId()!= null){
+      if(emotionalIntent.getEnergyImageId()!= null && !emotionalIntent.getEnergyImageId().isEmpty()){
         productImageService.deleteProductImageById(emotionalIntent.getEnergyImageId());
       }
-      if(emotionalIntent.getApplicationImageId()!= null){
+      if(emotionalIntent.getApplicationImageId()!= null && !emotionalIntent.getApplicationImageId().isEmpty()){
         productImageService.deleteProductImageById(emotionalIntent.getApplicationImageId());
       }
-      if(emotionalIntent.getMeditationImageId()!= null){
+      if(emotionalIntent.getMeditationImageId()!= null && !emotionalIntent.getMeditationImageId().isEmpty()){
         productImageService.deleteProductImageById(emotionalIntent.getMeditationImageId());
       }
       //新增图片和图片表数据

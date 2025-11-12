@@ -6,6 +6,7 @@ import com.cn.taihe.back.product.dto.ProductCategoryTagUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductCategoryTag;
 import com.github.pagehelper.PageInfo;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,7 +33,8 @@ public interface ProductCategoryTagService {
    * @return 是否成功
    */
   @Transactional(rollbackFor = Exception.class)
-  boolean create(ProductCategoryTagCreateDTO createDTO);
+  boolean create(ProductCategoryTagCreateDTO createDTO, MultipartFile iconfile,MultipartFile
+    coverimagefile,MultipartFile hoverimagefile);
 
   /**
    * 更新商品品类标签
@@ -41,7 +43,8 @@ public interface ProductCategoryTagService {
    * @return 是否成功
    */
   @Transactional(rollbackFor = Exception.class)
-  boolean update(ProductCategoryTagUpdateDTO updateDTO);
+  boolean update(ProductCategoryTagUpdateDTO updateDTO, MultipartFile iconfile,MultipartFile
+    coverimagefile,MultipartFile hoverimagefile);
 
   /**
    * 根据主键删除商品品类标签

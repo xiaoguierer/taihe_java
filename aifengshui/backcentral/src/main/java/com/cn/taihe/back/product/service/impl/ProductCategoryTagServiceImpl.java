@@ -1,11 +1,14 @@
 package com.cn.taihe.back.product.service.impl;
 
+import com.cn.taihe.back.filestore.service.ProductImageService;
+import com.cn.taihe.back.imagefile.service.FileStorageService;
 import com.cn.taihe.back.product.dto.ProductCategoryTagCreateDTO;
 import com.cn.taihe.back.product.dto.ProductCategoryTagQueryDTO;
 import com.cn.taihe.back.product.dto.ProductCategoryTagUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductCategoryTag;
 import com.cn.taihe.back.product.mapper.ProductCategoryTagMapper;
 import com.cn.taihe.back.product.service.ProductCategoryTagService;
+import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,9 +18,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -34,6 +39,10 @@ public class ProductCategoryTagServiceImpl implements ProductCategoryTagService 
 
   @Autowired
   private ProductCategoryTagMapper productCategoryTagMapper;
+  @Autowired
+  private ProductImageService productImageService;
+  @Autowired
+  private FileStorageService fileStorageService;
 
   /**
    * 根据主键查询商品品类标签
@@ -62,25 +71,41 @@ public class ProductCategoryTagServiceImpl implements ProductCategoryTagService 
    */
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean create(ProductCategoryTagCreateDTO createDTO) {
+  public boolean create(ProductCategoryTagCreateDTO createDTO, MultipartFile iconfile, MultipartFile
+    coverimagefile, MultipartFile hoverimagefile) {
     logger.info("新增商品品类标签开始，操作人：{}，参数：{}", OPERATOR, createDTO);
 
     if (createDTO == null) {
       logger.warn("新增商品品类标签失败，参数不能为空");
       return false;
     }
-
     try {
       // 转换DTO
       ProductCategoryTag productCategoryTag = new ProductCategoryTag();
       BeanUtils.copyProperties(createDTO, productCategoryTag);
-
       // 设置系统字段
       productCategoryTag.setId(String.valueOf(SnowflakeIdGenerator.nextId()));
       productCategoryTag.setCreatedBy(1L); // 实际应从上下文中获取
       productCategoryTag.setUpdatedBy(1L); // 实际应从上下文中获取
       productCategoryTag.setCreatedTime(LocalDateTime.now());
       productCategoryTag.setUpdatedTime(LocalDateTime.now());
+
+      //文件图像处理
+      if (iconfile != null && !iconfile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, iconfile);
+        productCategoryTag.setIconId((String) map.get("key"));
+        productCategoryTag.setIconPath((String) map.get("jdpath"));
+      }
+      if (coverimagefile != null && !coverimagefile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, coverimagefile);
+        productCategoryTag.setCoverId((String) map.get("key"));
+        productCategoryTag.setCoverImageUrl((String) map.get("jdpath"));
+      }
+      if (hoverimagefile != null && !hoverimagefile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, hoverimagefile);
+        productCategoryTag.setHoverId((String) map.get("key"));
+        productCategoryTag.setHoverImageUrl((String) map.get("jdpath"));
+      }
 
       int result = productCategoryTagMapper.insert(productCategoryTag);
       boolean success = result > 0;
@@ -98,14 +123,13 @@ public class ProductCategoryTagServiceImpl implements ProductCategoryTagService 
    */
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean update(ProductCategoryTagUpdateDTO updateDTO) {
+  public boolean update(ProductCategoryTagUpdateDTO updateDTO, MultipartFile iconfile,MultipartFile
+    coverimagefile,MultipartFile hoverimagefile) {
     logger.info("更新商品品类标签开始，操作人：{}，参数：{}", OPERATOR, updateDTO);
-
     if (updateDTO == null || updateDTO.getId() == null) {
       logger.warn("更新商品品类标签失败，参数或ID不能为空");
       return false;
     }
-
     try {
       // 先查询是否存在
       ProductCategoryTag existing = productCategoryTagMapper.selectById(updateDTO.getId());
@@ -113,14 +137,49 @@ public class ProductCategoryTagServiceImpl implements ProductCategoryTagService 
         logger.warn("更新商品品类标签失败，记录不存在，ID：{}", updateDTO.getId());
         return false;
       }
-
       // 转换DTO
       ProductCategoryTag productCategoryTag = new ProductCategoryTag();
       BeanUtils.copyProperties(updateDTO, productCategoryTag);
-
       // 设置系统字段
       productCategoryTag.setUpdatedBy(1L); // 实际应从上下文中获取
       productCategoryTag.setUpdatedTime(LocalDateTime.now());
+      //若图片有数据  则 1先删除原图片数据  2再删除图片标数据，3然后新增图片数据和图片表数据，4最后更新业务表数据
+      //1 删除图片数据
+      if (productCategoryTag.getIconPath() != null && !productCategoryTag.getIconPath().isEmpty()) {
+        fileStorageService.delete(productCategoryTag.getIconPath().replace("/api/files", ""));
+      }
+      if (productCategoryTag.getCoverImageUrl() != null && !productCategoryTag.getCoverImageUrl().isEmpty() ) {
+        fileStorageService.delete(productCategoryTag.getCoverImageUrl().replace("/api/files", ""));
+      }
+      if (productCategoryTag.getHoverImageUrl() != null && !productCategoryTag.getHoverImageUrl().isEmpty()) {
+        fileStorageService.delete(productCategoryTag.getHoverImageUrl().replace("/api/files", ""));
+      }
+      //2 删除图片表数据，根据主键批量删除
+      if (productCategoryTag.getIconId() != null && !productCategoryTag.getIconId().isEmpty()) {
+        productImageService.deleteProductImageById(productCategoryTag.getIconId());
+      }
+      if (productCategoryTag.getCoverId() != null && !productCategoryTag.getCoverId().isEmpty()) {
+        productImageService.deleteProductImageById(productCategoryTag.getCoverId());
+      }
+      if (productCategoryTag.getHoverImageUrl() != null && !productCategoryTag.getHoverImageUrl().isEmpty()) {
+        productImageService.deleteProductImageById(productCategoryTag.getHoverImageUrl());
+      }
+      //新增图片和图片表数据
+      if (iconfile != null && !iconfile.isEmpty()){
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, iconfile);
+        productCategoryTag.setIconId((String) map.get("key"));
+        productCategoryTag.setIconPath((String) map.get("jdpath"));
+      }
+      if (coverimagefile != null && !coverimagefile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, coverimagefile);
+        productCategoryTag.setCoverId((String) map.get("key"));
+        productCategoryTag.setCoverImageUrl((String) map.get("jdpath"));
+      }
+      if (hoverimagefile != null && !hoverimagefile.isEmpty()) {
+        Map map = productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_EMO_File_PATH, hoverimagefile);
+        productCategoryTag.setHoverId((String) map.get("key"));
+        productCategoryTag.setHoverImageUrl((String) map.get("jdpath"));
+      }
 
       int result = productCategoryTagMapper.updateById(productCategoryTag);
       boolean success = result > 0;
@@ -140,16 +199,34 @@ public class ProductCategoryTagServiceImpl implements ProductCategoryTagService 
   @Transactional(rollbackFor = Exception.class)
   public boolean deleteById(String id) {
     logger.info("删除商品品类标签开始，操作人：{}，参数：id={}", OPERATOR, id);
-
     if (id == null || id.trim().isEmpty()) {
       logger.warn("删除商品品类标签失败，ID不能为空");
       return false;
     }
-
     try {
+      ProductCategoryTag productCategoryTag = productCategoryTagMapper.selectById(id);
+      //1 删除图片数据
+      if (productCategoryTag.getIconPath() != null && !productCategoryTag.getIconPath().isEmpty()) {
+        fileStorageService.delete(productCategoryTag.getIconPath().replace("/api/files", ""));
+      }
+      if (productCategoryTag.getCoverImageUrl() != null) {
+        fileStorageService.delete(productCategoryTag.getCoverImageUrl().replace("/api/files", ""));
+      }
+      if (productCategoryTag.getHoverImageUrl() != null) {
+        fileStorageService.delete(productCategoryTag.getHoverImageUrl().replace("/api/files", ""));
+      }
+      //2 删除图片表数据，根据主键批量删除
+      if (productCategoryTag.getIconId() != null) {
+        productImageService.deleteProductImageById(productCategoryTag.getIconId());
+      }
+      if (productCategoryTag.getCoverId() != null) {
+        productImageService.deleteProductImageById(productCategoryTag.getCoverId());
+      }
+      if (productCategoryTag.getHoverImageUrl() != null) {
+        productImageService.deleteProductImageById(productCategoryTag.getHoverImageUrl());
+      }
       int result = productCategoryTagMapper.deleteById(id);
       boolean success = result > 0;
-
       logger.info("删除商品品类标签{}，操作人：{}，ID：{}", success ? "成功" : "失败", OPERATOR, id);
       return success;
     } catch (Exception e) {

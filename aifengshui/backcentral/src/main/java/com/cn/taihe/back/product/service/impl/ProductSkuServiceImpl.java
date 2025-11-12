@@ -1,11 +1,14 @@
 package com.cn.taihe.back.product.service.impl;
 
+import com.cn.taihe.back.filestore.service.ProductImageService;
+import com.cn.taihe.back.imagefile.service.FileStorageService;
 import com.cn.taihe.back.product.dto.ProductSkuCreateDTO;
 import com.cn.taihe.back.product.dto.ProductSkuQueryDTO;
 import com.cn.taihe.back.product.dto.ProductSkuUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductSku;
 import com.cn.taihe.back.product.mapper.ProductSkuMapper;
 import com.cn.taihe.back.product.service.ProductSkuService;
+import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,8 +18,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品SKU Service实现类
@@ -32,6 +37,10 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 
   @Autowired
   private ProductSkuMapper productSkuMapper;
+  @Autowired
+  private ProductImageService productImageService;
+  @Autowired
+  private FileStorageService fileStorageService;
 
   /**
    * 根据主键查找
@@ -54,7 +63,8 @@ public class ProductSkuServiceImpl implements ProductSkuService {
    */
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean create(ProductSkuCreateDTO createDTO) {
+  public boolean create(ProductSkuCreateDTO createDTO, MultipartFile mainImagefile,MultipartFile image1file,MultipartFile image2file,
+                        MultipartFile image3file,MultipartFile image4file,MultipartFile image5file){
     logger.info("新增商品SKU，请求参数：{}, operator={}", createDTO, OPERATOR);
     try {
       // 检查SKU编码是否已存在
@@ -63,13 +73,41 @@ public class ProductSkuServiceImpl implements ProductSkuService {
         logger.warn("SKU编码已存在，skuCode={}, operator={}", createDTO.getSkuCode(), OPERATOR);
         return false;
       }
-
       ProductSku productSku = new ProductSku();
       BeanUtils.copyProperties(createDTO, productSku);
-
       // 设置主键
       productSku.setId(String.valueOf(SnowflakeIdGenerator.nextId()));
 
+      if(mainImagefile != null && !mainImagefile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,mainImagefile);
+        productSku.setMainImageId((String) map.get("key"));
+        productSku.setMainImageUrl((String) map.get("jdpath"));
+      }
+      if(image1file != null && !image1file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image1file);
+        productSku.setImage1Id((String) map.get("key"));
+        productSku.setImage1Url((String) map.get("jdpath"));
+      }
+      if(image2file != null && !image2file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image2file);
+        productSku.setImage2Id((String) map.get("key"));
+        productSku.setImage2Url((String) map.get("jdpath"));
+      }
+      if(image3file != null && !image3file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image3file);
+        productSku.setImage3Id((String) map.get("key"));
+        productSku.setImage3Url((String) map.get("jdpath"));
+      }
+      if(image4file != null && !image4file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image4file);
+        productSku.setImage4Id((String) map.get("key"));
+        productSku.setImage4Url((String) map.get("jdpath"));
+      }
+      if(image5file != null && !image5file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image5file);
+        productSku.setImage5Id((String) map.get("key"));
+        productSku.setImage5Url((String) map.get("jdpath"));
+      }
       int result = productSkuMapper.insert(productSku);
       boolean success = result > 0;
       logger.info("新增商品SKU{}，id={}, operator={}", success ? "成功" : "失败", productSku.getId(), OPERATOR);
@@ -85,7 +123,8 @@ public class ProductSkuServiceImpl implements ProductSkuService {
    */
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean update(ProductSkuUpdateDTO updateDTO) {
+  public boolean update(ProductSkuUpdateDTO updateDTO, MultipartFile mainImagefile,MultipartFile image1file,MultipartFile image2file,
+                        MultipartFile image3file,MultipartFile image4file,MultipartFile image5file){
     logger.info("修改商品SKU，请求参数：{}, operator={}", updateDTO, OPERATOR);
     try {
       // 检查数据是否存在
@@ -94,7 +133,6 @@ public class ProductSkuServiceImpl implements ProductSkuService {
         logger.warn("商品SKU不存在，id={}, operator={}", updateDTO.getId(), OPERATOR);
         return false;
       }
-
       // 检查SKU编码是否已存在（排除当前记录）
       if (updateDTO.getSkuCode() != null && !updateDTO.getSkuCode().equals(existing.getSkuCode())) {
         int count = productSkuMapper.countBySkuCode(updateDTO.getSkuCode(), updateDTO.getId());
@@ -103,9 +141,79 @@ public class ProductSkuServiceImpl implements ProductSkuService {
           return false;
         }
       }
-
       ProductSku productSku = new ProductSku();
       BeanUtils.copyProperties(updateDTO, productSku);
+
+      //若图片有数据  则 1先删除原图片数据  2再删除图片标数据，3然后新增图片数据和图片表数据，4最后更新业务表数据
+      //1 删除图片数据
+      if(productSku.getMainImageUrl()!= null && !productSku.getMainImageUrl().isEmpty()){
+        fileStorageService.delete(productSku.getMainImageUrl().replace("/api/files", ""));
+      }
+      if(productSku.getImage1Url()!= null && !productSku.getImage1Url().isEmpty()){
+        fileStorageService.delete(productSku.getImage1Url().replace("/api/files", ""));
+      }
+      if(productSku.getImage2Url()!= null && !productSku.getImage2Url().isEmpty()){
+        fileStorageService.delete(productSku.getImage2Url().replace("/api/files", ""));
+      }
+      if(productSku.getImage3Url()!= null && !productSku.getImage3Url().isEmpty()){
+        fileStorageService.delete(productSku.getImage3Url().replace("/api/files", ""));
+      }
+      if(productSku.getImage4Url()!= null && !productSku.getImage4Url().isEmpty()){
+        fileStorageService.delete(productSku.getImage4Url().replace("/api/files", ""));
+      }
+      if(productSku.getImage5Url()!= null && !productSku.getImage5Url().isEmpty()){
+        fileStorageService.delete(productSku.getImage5Url().replace("/api/files", ""));
+      }
+      //2 删除图片表数据，根据主键批量删除
+      if(productSku.getMainImageId()!= null && !productSku.getMainImageId().isEmpty()){
+        productImageService.deleteProductImageById(productSku.getMainImageId());
+      }
+      if(productSku.getImage1Id()!= null && !productSku.getImage1Id().isEmpty()){
+        productImageService.deleteProductImageById(productSku.getImage1Id());
+      }
+      if(productSku.getImage2Id()!= null && !productSku.getImage2Id().isEmpty()){
+        productImageService.deleteProductImageById(productSku.getImage2Id());
+      }
+      if(productSku.getImage3Id()!= null && !productSku.getImage3Id().isEmpty()){
+        productImageService.deleteProductImageById(productSku.getImage3Id());
+      }
+      if(productSku.getImage4Id()!= null && !productSku.getImage4Id().isEmpty()){
+        productImageService.deleteProductImageById(productSku.getImage4Id());
+      }
+      if(productSku.getImage5Id()!= null && !productSku.getImage5Id().isEmpty()){
+        productImageService.deleteProductImageById(productSku.getImage5Id());
+      }
+      //新增图片和图片表数据
+      if(mainImagefile != null && !mainImagefile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,mainImagefile);
+        productSku.setMainImageId((String) map.get("key"));
+        productSku.setMainImageUrl((String) map.get("jdpath"));
+      }
+      if(image1file != null && !image1file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image1file);
+        productSku.setImage1Id((String) map.get("key"));
+        productSku.setImage1Url((String) map.get("jdpath"));
+      }
+      if(image2file != null && !image2file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image2file);
+        productSku.setImage2Id((String) map.get("key"));
+        productSku.setImage2Url((String) map.get("jdpath"));
+      }
+      if(image3file != null && !image3file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image3file);
+        productSku.setImage3Id((String) map.get("key"));
+        productSku.setImage3Url((String) map.get("jdpath"));
+      }
+      if(image4file != null && !image4file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image4file);
+        productSku.setImage4Id((String) map.get("key"));
+        productSku.setImage4Url((String) map.get("jdpath"));
+      }
+      if(image5file != null && !image5file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image5file);
+        productSku.setImage5Id((String) map.get("key"));
+        productSku.setImage5Url((String) map.get("jdpath"));
+      }
 
       int result = productSkuMapper.updateById(productSku);
       boolean success = result > 0;

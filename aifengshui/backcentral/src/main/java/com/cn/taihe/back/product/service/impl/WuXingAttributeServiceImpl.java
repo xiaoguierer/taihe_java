@@ -180,13 +180,32 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
   @Transactional(rollbackFor = Exception.class)
   public boolean deleteById(String id) {
     logger.info("删除五行属性 - 操作人: {}, 参数: id={}", OPERATOR, id);
-
     if (!StringUtils.hasText(id)) {
       logger.warn("删除五行属性 - 参数错误: id为空");
       return false;
     }
-
     try {
+      WuXingAttribute entity = wuXingAttributeMapper.selectById(id);
+      //1 删除图片数据
+      if (entity.getSymbolIconUrl() != null && !entity.getSymbolIconUrl().isEmpty()) {
+        fileStorageService.delete(entity.getSymbolIconUrl().replace("/api/files", ""));
+      }
+      if (entity.getPhilosophyImageUrl() != null && !entity.getPhilosophyImageUrl().isEmpty()) {
+        fileStorageService.delete(entity.getPhilosophyImageUrl().replace("/api/files", ""));
+      }
+      if (entity.getEnergyFlowImageUrl() != null && !entity.getPhilosophyImageUrl().isEmpty()) {
+        fileStorageService.delete(entity.getEnergyFlowImageUrl().replace("/api/files", ""));
+      }
+      //2 删除图片表数据，根据主键批量删除
+      if (entity.getSymbolIconId() != null && !entity.getSymbolIconId().isEmpty()) {
+        productImageService.deleteProductImageById(entity.getSymbolIconId());
+      }
+      if (entity.getPhilosophyImageId() != null && !entity.getPhilosophyImageId().isEmpty()) {
+        productImageService.deleteProductImageById(entity.getPhilosophyImageId());
+      }
+      if (entity.getEnergyFlowImageId() != null && !entity.getEnergyFlowImageId().isEmpty()) {
+        productImageService.deleteProductImageById(entity.getEnergyFlowImageId());
+      }
       int result = wuXingAttributeMapper.deleteById(id);
       boolean success = result > 0;
       logger.info("删除五行属性{} - 操作人: {}, 参数: id={}", success ? "成功" : "失败", OPERATOR, id);

@@ -54,9 +54,7 @@ public class EmotionalIntentController {
   public ResponseEntity<Object> getById(
     @ApiParam(value = "情感意图ID", required = true, example = "1234567890")
     @PathVariable String id) {
-
     logger.info("查询情感意图详情接口调用开始，操作人：{}，参数：id={}", OPERATOR, id);
-
     try {
       if (!StringUtils.hasText(id)) {
         logger.warn("查询情感意图详情接口参数验证失败，ID不能为空，操作人：{}", OPERATOR);

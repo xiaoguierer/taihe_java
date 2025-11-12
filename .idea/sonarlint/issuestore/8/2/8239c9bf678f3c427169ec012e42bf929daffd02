@@ -1,0 +1,16 @@
+
+_
+java:S1192<"IDefine a constant instead of duplicating this literal "message" 28 times.(ÆëÅÀ
+]
+java:S46844"@Replace this persistent entity with a simple POJO or DTO object.(˛äÄˆ8ÛÔ¨ˆ•3
+^
+java:S4684Ω"@Replace this persistent entity with a simple POJO or DTO object.(˛äÄˆ8ï¨ˆ•3
+Q
+java:S1854ç":Remove this useless assignment to local variable "result".(ô±—∂
+<
+java:S1452É"&Remove usage of generic wildcard type.(¬úÌ>
+B
+java:S1481ç"+Remove this unused "result" local variable.(ô±—∂
+W	java:S125ï"<This block of commented-out lines of code should be removed.(©»◊Í˙ˇˇˇˇ
+\
+java:S1128"?Remove this unused import 'com.cn.taihe.back.user.entity.User'.(ê˙Î∏8Œ¨ˆ•3

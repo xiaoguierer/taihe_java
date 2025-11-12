@@ -198,51 +198,51 @@ public class ProductSpu implements Serializable {
 
   @TableField("main_image_id")
   @ApiModelProperty(value = "主图ID")
-  private Long mainImageId;
+  private String mainImageId;
 
   @TableField("concept_image_id")
   @ApiModelProperty(value = "概念图ID")
-  private Long conceptImageId;
+  private String conceptImageId;
 
   @TableField("design_image_id")
   @ApiModelProperty(value = "设计图ID")
-  private Long designImageId;
+  private String designImageId;
 
   @TableField("prototype_image_id")
   @ApiModelProperty(value = "原型图ID")
-  private Long prototypeImageId;
+  private String prototypeImageId;
 
   @TableField("usage_image_id")
   @ApiModelProperty(value = "使用场景图ID")
-  private Long usageImageId;
+  private String usageImageId;
 
   @TableField("technical_image_id")
   @ApiModelProperty(value = "技术图纸ID")
-  private Long technicalImageId;
+  private String technicalImageId;
 
   @TableField("main_image_url")
   @ApiModelProperty(value = "主图url")
-  private Long mainImageUrl;
+  private String mainImageUrl;
 
   @TableField("concept_image_url")
   @ApiModelProperty(value = "概念图url")
-  private Long conceptImageUrl;
+  private String conceptImageUrl;
 
   @TableField("design_image_url")
   @ApiModelProperty(value = "设计图url")
-  private Long designImageUrl;
+  private String designImageUrl;
 
   @TableField("prototype_image_url")
   @ApiModelProperty(value = "原型图url")
-  private Long prototypeImageUrl;
+  private String prototypeImageUrl;
 
   @TableField("usage_image_url")
   @ApiModelProperty(value = "使用场景图url")
-  private Long usageImageUrl;
+  private String usageImageUrl;
 
   @TableField("technical_image_url")
   @ApiModelProperty(value = "技术图纸url")
-  private Long technicalImageUrl;
+  private String technicalImageUrl;
 
   @TableField("sort_order")
   @ApiModelProperty(value = "排序值")

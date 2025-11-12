@@ -1,11 +1,14 @@
 package com.cn.taihe.back.product.service.impl;
 
+import com.cn.taihe.back.filestore.service.ProductImageService;
+import com.cn.taihe.back.imagefile.service.FileStorageService;
 import com.cn.taihe.back.product.dto.ProductSpuCreateDTO;
 import com.cn.taihe.back.product.dto.ProductSpuQueryDTO;
 import com.cn.taihe.back.product.dto.ProductSpuUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductSpu;
 import com.cn.taihe.back.product.mapper.ProductSpuMapper;
 import com.cn.taihe.back.product.service.ProductSpuService;
+import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -16,8 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品SPU Service实现类
@@ -34,6 +39,10 @@ public class ProductSpuServiceImpl implements ProductSpuService {
 
   @Autowired
   private ProductSpuMapper productSpuMapper;
+  @Autowired
+  private ProductImageService productImageService;
+  @Autowired
+  private FileStorageService fileStorageService;
 
   /**
    * 根据主键查找数据
@@ -62,26 +71,54 @@ public class ProductSpuServiceImpl implements ProductSpuService {
    */
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean create(ProductSpuCreateDTO createDTO) {
+  public boolean create(ProductSpuCreateDTO createDTO, MultipartFile mainImagefile, MultipartFile conceptImageFile, MultipartFile designImageFile,
+                        MultipartFile prototypeImageFile, MultipartFile usageImageFile, MultipartFile technicalImageFile) {
     logger.info("新增商品SPU数据，请求参数: {}, operator={}", createDTO, DEFAULT_OPERATOR);
-
     if (createDTO == null) {
       logger.warn("新增参数不能为空");
       return false;
     }
-
     // 检查SPU编码是否已存在
     if (productSpuMapper.countBySpuCode(createDTO.getSpuCode(), null) > 0) {
       logger.warn("SPU编码已存在: {}", createDTO.getSpuCode());
       throw new RuntimeException("SPU编码已存在");
     }
-
     try {
       ProductSpu productSpu = new ProductSpu();
       BeanUtils.copyProperties(createDTO, productSpu);
-
       // 设置系统生成字段
       productSpu.setId(String.valueOf(SnowflakeIdGenerator.nextId()));
+
+      if(mainImagefile != null && !mainImagefile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,mainImagefile);
+        productSpu.setMainImageId((String) map.get("key"));
+        productSpu.setMainImageUrl((String) map.get("jdpath"));
+      }
+      if(conceptImageFile != null && !conceptImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,conceptImageFile);
+        productSpu.setConceptImageId((String) map.get("key"));
+        productSpu.setConceptImageUrl((String) map.get("jdpath"));
+      }
+      if(designImageFile != null && !designImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,designImageFile);
+        productSpu.setDesignImageId((String) map.get("key"));
+        productSpu.setDesignImageUrl((String) map.get("jdpath"));
+      }
+      if(prototypeImageFile != null && !prototypeImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,prototypeImageFile);
+        productSpu.setPrototypeImageId((String) map.get("key"));
+        productSpu.setPrototypeImageUrl((String) map.get("jdpath"));
+      }
+      if(usageImageFile != null && !usageImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,usageImageFile);
+        productSpu.setUsageImageId((String) map.get("key"));
+        productSpu.setUsageImageUrl((String) map.get("jdpath"));
+      }
+      if(technicalImageFile != null && !technicalImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,technicalImageFile);
+        productSpu.setTechnicalImageId((String) map.get("key"));
+        productSpu.setTechnicalImageUrl((String) map.get("jdpath"));
+      }
 
       int result = productSpuMapper.insert(productSpu);
       boolean success = result > 0;
@@ -99,21 +136,19 @@ public class ProductSpuServiceImpl implements ProductSpuService {
    */
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean update(ProductSpuUpdateDTO updateDTO) {
+  public boolean update(ProductSpuUpdateDTO updateDTO, MultipartFile mainImagefile,MultipartFile conceptImageFile,MultipartFile designImageFile,
+                        MultipartFile prototypeImageFile,MultipartFile usageImageFile,MultipartFile technicalImageFile) {
     logger.info("修改商品SPU数据，请求参数: {}, operator={}", updateDTO, DEFAULT_OPERATOR);
-
     if (updateDTO == null || !StringUtils.hasText(updateDTO.getId())) {
       logger.warn("更新参数或主键ID不能为空");
       return false;
     }
-
     // 检查数据是否存在
     ProductSpu existing = productSpuMapper.selectById(updateDTO.getId());
     if (existing == null) {
       logger.warn("商品SPU数据不存在，id: {}", updateDTO.getId());
       throw new RuntimeException("商品SPU数据不存在");
     }
-
     // 检查SPU编码是否已存在（排除当前记录）
     if (StringUtils.hasText(updateDTO.getSpuCode()) &&
       !updateDTO.getSpuCode().equals(existing.getSpuCode())) {
@@ -122,10 +157,80 @@ public class ProductSpuServiceImpl implements ProductSpuService {
         throw new RuntimeException("SPU编码已存在");
       }
     }
-
     try {
       ProductSpu productSpu = new ProductSpu();
       BeanUtils.copyProperties(updateDTO, productSpu);
+
+      //若图片有数据  则 1先删除原图片数据  2再删除图片标数据，3然后新增图片数据和图片表数据，4最后更新业务表数据
+      //1 删除图片数据
+      if(productSpu.getMainImageUrl()!= null && !productSpu.getMainImageUrl().isEmpty()){
+        fileStorageService.delete(productSpu.getMainImageUrl().replace("/api/files", ""));
+      }
+      if(productSpu.getConceptImageUrl()!= null && !productSpu.getConceptImageUrl().isEmpty()){
+        fileStorageService.delete(productSpu.getConceptImageUrl().replace("/api/files", ""));
+      }
+      if(productSpu.getDesignImageUrl()!= null && !productSpu.getDesignImageUrl().isEmpty()){
+        fileStorageService.delete(productSpu.getDesignImageUrl().replace("/api/files", ""));
+      }
+      if(productSpu.getPrototypeImageUrl()!= null && !productSpu.getPrototypeImageUrl().isEmpty()){
+        fileStorageService.delete(productSpu.getPrototypeImageUrl().replace("/api/files", ""));
+      }
+      if(productSpu.getUsageImageUrl()!= null && !productSpu.getUsageImageUrl().isEmpty()){
+        fileStorageService.delete(productSpu.getUsageImageUrl().replace("/api/files", ""));
+      }
+      if(productSpu.getTechnicalImageUrl()!= null && !productSpu.getTechnicalImageUrl().isEmpty()){
+        fileStorageService.delete(productSpu.getTechnicalImageUrl().replace("/api/files", ""));
+      }
+      //2 删除图片表数据，根据主键批量删除
+      if(productSpu.getMainImageId()!= null && !productSpu.getMainImageId().isEmpty()){
+        productImageService.deleteProductImageById(productSpu.getMainImageId());
+      }
+      if(productSpu.getConceptImageId()!= null && !productSpu.getConceptImageId().isEmpty()){
+        productImageService.deleteProductImageById(productSpu.getConceptImageId());
+      }
+      if(productSpu.getDesignImageId()!= null && !productSpu.getDesignImageId().isEmpty()){
+        productImageService.deleteProductImageById(productSpu.getDesignImageId());
+      }
+      if(productSpu.getPrototypeImageId()!= null && !productSpu.getPrototypeImageId().isEmpty()){
+        productImageService.deleteProductImageById(productSpu.getPrototypeImageId());
+      }
+      if(productSpu.getUsageImageId()!= null && !productSpu.getUsageImageId().isEmpty()){
+        productImageService.deleteProductImageById(productSpu.getUsageImageId());
+      }
+      if(productSpu.getTechnicalImageId()!= null && !productSpu.getTechnicalImageId().isEmpty()){
+        productImageService.deleteProductImageById(productSpu.getTechnicalImageId());
+      }
+      //新增图片和图片表数据
+      if(mainImagefile != null && !mainImagefile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,mainImagefile);
+        productSpu.setMainImageId((String) map.get("key"));
+        productSpu.setMainImageUrl((String) map.get("jdpath"));
+      }
+      if(conceptImageFile != null && !conceptImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,conceptImageFile);
+        productSpu.setConceptImageId((String) map.get("key"));
+        productSpu.setConceptImageUrl((String) map.get("jdpath"));
+      }
+      if(designImageFile != null && !designImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,designImageFile);
+        productSpu.setDesignImageId((String) map.get("key"));
+        productSpu.setDesignImageUrl((String) map.get("jdpath"));
+      }
+      if(prototypeImageFile != null && !prototypeImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,prototypeImageFile);
+        productSpu.setPrototypeImageId((String) map.get("key"));
+        productSpu.setPrototypeImageUrl((String) map.get("jdpath"));
+      }
+      if(usageImageFile != null && !usageImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,usageImageFile);
+        productSpu.setUsageImageId((String) map.get("key"));
+        productSpu.setUsageImageUrl((String) map.get("jdpath"));
+      }
+      if(technicalImageFile != null && !technicalImageFile.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,technicalImageFile);
+        productSpu.setTechnicalImageId((String) map.get("key"));
+        productSpu.setTechnicalImageUrl((String) map.get("jdpath"));
+      }
 
       int result = productSpuMapper.updateByIdSelective(productSpu);
       boolean success = result > 0;

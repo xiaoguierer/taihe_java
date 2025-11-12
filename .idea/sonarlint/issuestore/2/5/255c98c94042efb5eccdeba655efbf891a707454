@@ -1,0 +1,19 @@
+
+C
+java:S5411L"(Use a primitive boolean expression here.(¤ğÈºúÿÿÿÿ
+C
+java:S5411`"(Use a primitive boolean expression here.(¤ğÈºúÿÿÿÿ
+C
+java:S5411u"(Use a primitive boolean expression here.(¤ğÈºúÿÿÿÿ
+D
+java:S5411Î"(Use a primitive boolean expression here.(¤ğÈºúÿÿÿÿ
+D
+java:S5411å"(Use a primitive boolean expression here.(¤ğÈºúÿÿÿÿ
+D
+java:S5411û"(Use a primitive boolean expression here.(‡Äùÿÿÿÿ
+
+java:S44499"ˆAnnotate the parameter with @javax.annotation.Nullable in method 'ok' declaration, or make sure that null can not be passed as argument.(àêá
+a
+java:S1128"?Remove this unused import 'org.springframework.http.MediaType'.(úŸİ¯şÿÿÿÿ8Ø‘Ì¿¦3
+n
+java:S1128"LRemove this unused import 'org.springframework.web.multipart.MultipartFile'.(ôŸœÿÿÿÿÿ8Ø‘Ì¿¦3

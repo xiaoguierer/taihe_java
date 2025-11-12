@@ -12,13 +12,14 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 商品SPU Controller
@@ -27,13 +28,13 @@ import java.util.Map;
  * @since 2025-01-01
  */
 @RestController
-@RequestMapping("/product/spu")
+@RequestMapping("/product-spu")
 @Api(tags = "商品SPU管理接口")
 public class ProductSpuController {
 
   private static final Logger logger = LoggerFactory.getLogger(ProductSpuController.class);
 
-  private static final String DEFAULT_OPERATOR = "ADMIN";
+  private static final String OPERATOR = "ADMIN";
 
   @Autowired
   private ProductSpuService productSpuService;
@@ -41,129 +42,104 @@ public class ProductSpuController {
   /**
    * 根据主键查找数据
    */
-  @GetMapping("/{id}")
+  @GetMapping("/getByid/{id}")
   @ApiOperation(value = "根据ID查询商品SPU", notes = "根据主键ID查询商品SPU详细信息")
   public ResponseEntity<Object> getById(
     @ApiParam(value = "主键ID", required = true) @PathVariable String id) {
-    logger.info("根据ID查询商品SPU，请求参数: id={}, operator={}", id, DEFAULT_OPERATOR);
-
-    Map<String, Object> result = new HashMap<>();
+    logger.info("根据ID查询商品SPU，请求参数: id={}, operator={}", id, OPERATOR);
     try {
       if (!StringUtils.hasText(id)) {
-        result.put("success", false);
-        result.put("message", "主键ID不能为空");
-        return ResponseEntity.badRequest().body(result);
+        return ResponseEntity.badRequest().body(Result.error("参数为空"));
       }
-
       ProductSpu productSpu = productSpuService.getById(id);
       if (productSpu == null) {
-        result.put("success", false);
-        result.put("message", "商品SPU不存在");
-        return ResponseEntity.ok().body(result);
+        logger.info("查询接口未找到数据，操作人：{}，ID：{}", OPERATOR, id);
+        return ResponseEntity.ok(Result.success("未找到对应数据"));
       }
-
-      result.put("success", true);
-      result.put("data", productSpu);
-      result.put("message", "查询成功");
-      logger.info("根据ID查询商品SPU成功，id: {}, operator: {}", id, DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+      logger.info("查询接口调用成功，操作人：{}，结果：{}", OPERATOR, productSpu);
+      return ResponseEntity.ok(Result.success(productSpu));
     } catch (Exception e) {
-      logger.error("根据ID查询商品SPU异常，id: {}, operator: {}", id, DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "查询失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("失败"));
+      logger.error("查询接口异常，操作人：{}，参数：id={}，异常信息：", OPERATOR, id, e);
+      return ResponseEntity.badRequest().body(Result.error("查询失败"));
     }
   }
 
   /**
    * 新增数据
    */
-  @PostMapping
+  @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @ApiOperation(value = "新增商品SPU", notes = "创建新的商品SPU")
   public ResponseEntity<Object> create(
-    @ApiParam(value = "新增参数", required = true) @RequestBody ProductSpuCreateDTO createDTO) {
-    logger.info("新增商品SPU，请求参数: {}, operator={}", createDTO, DEFAULT_OPERATOR);
-
-    Map<String, Object> result = new HashMap<>();
+    @ApiParam(value = "新增参数", required = true)
+    @RequestPart("createDTO") @Valid ProductSpuCreateDTO createDTO,
+    @RequestPart(value = "mainImagefile", required = false) MultipartFile mainImagefile,
+    @RequestPart(value = "conceptImageFile", required = false) MultipartFile conceptImageFile,
+    @RequestPart(value = "designImageFile", required = false) MultipartFile designImageFile,
+    @RequestPart(value = "prototypeImageFile", required = false) MultipartFile prototypeImageFile,
+    @RequestPart(value = "usageImageFile", required = false) MultipartFile usageImageFile,
+    @RequestPart(value = "technicalImageFile", required = false) MultipartFile technicalImageFile) {
+    logger.info("新增商品SPU，请求参数: {}, operator={}", createDTO, OPERATOR);
     try {
       if (createDTO == null) {
-        result.put("success", false);
-        result.put("message", "请求参数不能为空");
-        return ResponseEntity.badRequest().body(result);
+        return ResponseEntity.badRequest().body(Result.error("参数异常"));
       }
-
-      boolean success = productSpuService.create(createDTO);
-      result.put("success", success);
-      result.put("message", success ? "新增成功" : "新增失败");
-      logger.info("新增商品SPU{}，operator: {}", success ? "成功" : "失败", DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+      boolean success = productSpuService.create(createDTO,mainImagefile,conceptImageFile,designImageFile,prototypeImageFile,usageImageFile,technicalImageFile);
+      logger.info("新增商品SPU{}，operator: {}", success ? "成功" : "失败", OPERATOR);
+      return ResponseEntity.ok(Result.success(success));
     } catch (Exception e) {
-      logger.error("新增商品SPU异常，参数: {}, operator: {}", createDTO, DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "新增失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
+      logger.error("新增商品SPU异常，参数: {}, operator: {}", createDTO, OPERATOR, e);
+      return ResponseEntity.badRequest().body(Result.error("查询失败"));
     }
   }
 
   /**
    * 修改数据
    */
-  @PutMapping
+  @PutMapping(value = "/updateByid", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @ApiOperation(value = "修改商品SPU", notes = "更新商品SPU信息")
   public ResponseEntity<Object> update(
-    @ApiParam(value = "更新参数", required = true) @RequestBody ProductSpuUpdateDTO updateDTO) {
-    logger.info("修改商品SPU，请求参数: {}, operator={}", updateDTO, DEFAULT_OPERATOR);
-
-    Map<String, Object> result = new HashMap<>();
+    @ApiParam(value = "更新参数", required = true)
+    @RequestPart ("updateDTO") @Valid  ProductSpuUpdateDTO updateDTO,
+    @RequestPart(value = "mainImagefile", required = false) MultipartFile mainImagefile,
+    @RequestPart(value = "conceptImageFile", required = false) MultipartFile conceptImageFile,
+    @RequestPart(value = "designImageFile", required = false) MultipartFile designImageFile,
+    @RequestPart(value = "prototypeImageFile", required = false) MultipartFile prototypeImageFile,
+    @RequestPart(value = "usageImageFile", required = false) MultipartFile usageImageFile,
+    @RequestPart(value = "technicalImageFile", required = false) MultipartFile technicalImageFile) {
+    logger.info("修改商品SPU，请求参数: {}, operator={}", updateDTO, OPERATOR);
     try {
       if (updateDTO == null || !StringUtils.hasText(updateDTO.getId())) {
-        result.put("success", false);
-        result.put("message", "请求参数或主键ID不能为空");
-        return ResponseEntity.badRequest().body(result);
+        return ResponseEntity.badRequest().body("请求参数或主键ID不能为空");
       }
-
-      boolean success = productSpuService.update(updateDTO);
-      result.put("success", success);
-      result.put("message", success ? "修改成功" : "修改失败");
-      logger.info("修改商品SPU{}，id: {}, operator: {}",
-        success ? "成功" : "失败", updateDTO.getId(), DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+      boolean success = productSpuService.update(updateDTO,mainImagefile,conceptImageFile,designImageFile,prototypeImageFile,usageImageFile,technicalImageFile);
+      return ResponseEntity.ok(Result.success(success));
     } catch (Exception e) {
-      logger.error("修改商品SPU异常，参数: {}, operator: {}", updateDTO, DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "修改失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
+      logger.error("修改商品SPU异常，参数: {}, operator: {}", updateDTO, OPERATOR, e);
+
+      return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     }
   }
 
   /**
    * 根据主键删除数据
    */
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/del/{id}")
   @ApiOperation(value = "删除商品SPU", notes = "根据主键ID删除商品SPU")
   public ResponseEntity<Object> deleteById(
     @ApiParam(value = "主键ID", required = true) @PathVariable String id) {
-    logger.info("删除商品SPU，请求参数: id={}, operator={}", id, DEFAULT_OPERATOR);
+    logger.info("删除商品SPU，请求参数: id={}, operator={}", id, OPERATOR);
 
-    Map<String, Object> result = new HashMap<>();
     try {
       if (!StringUtils.hasText(id)) {
-        result.put("success", false);
-        result.put("message", "主键ID不能为空");
-        return ResponseEntity.badRequest().body(result);
+        return ResponseEntity.badRequest().body("主键ID不能为空");
       }
-
       boolean success = productSpuService.deleteById(id);
-      result.put("success", success);
-      result.put("message", success ? "删除成功" : "删除失败");
       logger.info("删除商品SPU{}，id: {}, operator: {}",
-        success ? "成功" : "失败", id, DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+        success ? "成功" : "失败", id, OPERATOR);
+      return ResponseEntity.ok(Result.success(success));
     } catch (Exception e) {
-      logger.error("删除商品SPU异常，id: {}, operator: {}", id, DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "删除失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
+      logger.error("删除商品SPU异常，id: {}, operator: {}", id, OPERATOR, e);
+      return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     }
   }
 
@@ -172,61 +148,42 @@ public class ProductSpuController {
    */
   @PostMapping("/page")
   @ApiOperation(value = "条件分页查询商品SPU", notes = "根据条件分页查询商品SPU列表")
-  public ResponseEntity<Object> getByCondition(
-    @ApiParam(value = "查询条件") @RequestBody(required = false) ProductSpuQueryDTO queryDTO,
-    @ApiParam(value = "页码", defaultValue = "1") @RequestParam(defaultValue = "1") Integer page,
-    @ApiParam(value = "每页大小", defaultValue = "10") @RequestParam(defaultValue = "10") Integer size) {
+  public ResponseEntity<Object> getByPage(
+    @ApiParam(value = "查询条件")
+    @RequestBody(required = false) ProductSpuQueryDTO queryDTO,
+    @ApiParam(value = "页码", defaultValue = "1")
+    @RequestParam(defaultValue = "1") Integer page,
+    @ApiParam(value = "每页大小", defaultValue = "10")
+    @RequestParam(defaultValue = "10") Integer size) {
     logger.info("条件分页查询商品SPU，请求参数: queryDTO={}, page={}, size={}, operator={}",
-      queryDTO, page, size, DEFAULT_OPERATOR);
-
-    Map<String, Object> result = new HashMap<>();
+      queryDTO, page, size, OPERATOR);
     try {
-      // 设置默认查询条件
-      if (queryDTO == null) {
-        queryDTO = new ProductSpuQueryDTO();
-      }
 
       PageInfo<ProductSpu> pageInfo = productSpuService.getByCondition(queryDTO, page, size);
-      result.put("success", true);
-      result.put("data", pageInfo.getList());
-      result.put("total", pageInfo.getTotal());
-      result.put("page", pageInfo.getPageNum());
-      result.put("size", pageInfo.getPageSize());
-      result.put("pages", pageInfo.getPages());
-      result.put("message", "查询成功");
+
       logger.info("条件分页查询商品SPU成功，总记录数: {}, 当前页: {}, 页大小: {}, operator: {}",
-        pageInfo.getTotal(), pageInfo.getPageNum(), pageInfo.getPageSize(), DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+        pageInfo.getTotal(), pageInfo.getPageNum(), pageInfo.getPageSize(), OPERATOR);
+      return ResponseEntity.ok(Result.success(pageInfo));
     } catch (Exception e) {
-      logger.error("条件分页查询商品SPU异常，参数: {}, operator: {}", queryDTO, DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "查询失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
+      logger.error("条件分页查询商品SPU异常，参数: {}, operator: {}", queryDTO, OPERATOR, e);
+      return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     }
   }
 
   /**
-   * 查询所有数据
+   * 查询所有数据  无任何查询参数和条件限制
    */
-  @GetMapping("/all")
+  @GetMapping("/list")
   @ApiOperation(value = "查询所有商品SPU", notes = "获取所有商品SPU列表（不分页）")
   public ResponseEntity<Object> getAll() {
-    logger.info("查询所有商品SPU，operator={}", DEFAULT_OPERATOR);
-
-    Map<String, Object> result = new HashMap<>();
+    logger.info("查询所有商品SPU，operator={}", OPERATOR);
     try {
       List<ProductSpu> list = productSpuService.getAll();
-      result.put("success", true);
-      result.put("data", list);
-      result.put("total", list.size());
-      result.put("message", "查询成功");
-      logger.info("查询所有商品SPU成功，记录数: {}, operator: {}", list.size(), DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+      logger.info("查询所有商品SPU成功，记录数: {}, operator: {}", list.size(), OPERATOR);
+      return ResponseEntity.ok(Result.success(list));
     } catch (Exception e) {
-      logger.error("查询所有商品SPU异常，operator: {}", DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "查询失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
+      logger.error("查询所有商品SPU异常，operator: {}", OPERATOR, e);
+      return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     }
   }
 
@@ -236,28 +193,21 @@ public class ProductSpuController {
   @PostMapping("/batch-delete")
   @ApiOperation(value = "批量删除商品SPU", notes = "根据主键ID集合批量删除商品SPU")
   public ResponseEntity<Object> deleteBatchIds(
-    @ApiParam(value = "主键ID集合", required = true) @RequestBody List<String> ids) {
-    logger.info("批量删除商品SPU，请求参数: ids={}, operator={}", ids, DEFAULT_OPERATOR);
+    @ApiParam(value = "主键ID集合", required = true)
+    @RequestBody List<String> ids) {
+    logger.info("批量删除商品SPU，请求参数: ids={}, operator={}", ids, OPERATOR);
 
-    Map<String, Object> result = new HashMap<>();
     try {
       if (ids == null || ids.isEmpty()) {
-        result.put("success", false);
-        result.put("message", "主键ID集合不能为空");
-        return ResponseEntity.badRequest().body(result);
+        return ResponseEntity.badRequest().body("主键ID集合不能为空");
       }
-
       boolean success = productSpuService.deleteBatchIds(ids);
-      result.put("success", success);
-      result.put("message", success ? "批量删除成功" : "批量删除失败");
       logger.info("批量删除商品SPU{}，删除记录数: {}, operator: {}",
-        success ? "成功" : "失败", ids.size(), DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+        success ? "成功" : "失败", ids.size(), OPERATOR);
+      return ResponseEntity.ok(success);
     } catch (Exception e) {
-      logger.error("批量删除商品SPU异常，ids: {}, operator: {}", ids, DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "批量删除失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
+      logger.error("批量删除商品SPU异常，ids: {}, operator: {}", ids, OPERATOR, e);
+      return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     }
   }
 
@@ -267,30 +217,23 @@ public class ProductSpuController {
   @PutMapping("/{id}/status")
   @ApiOperation(value = "更新商品SPU状态", notes = "冻结或启用商品SPU")
   public ResponseEntity<Object> updateStatus(
-    @ApiParam(value = "主键ID", required = true) @PathVariable String id,
-    @ApiParam(value = "是否启用", required = true) @RequestParam Boolean isActive) {
-    logger.info("更新商品SPU状态，请求参数: id={}, isActive={}, operator={}", id, isActive, DEFAULT_OPERATOR);
-
-    Map<String, Object> result = new HashMap<>();
+    @ApiParam(value = "主键ID", required = true)
+    @PathVariable String id,
+    @ApiParam(value = "是否启用", required = true)
+    @RequestParam Boolean isActive) {
+    logger.info("更新商品SPU状态，请求参数: id={}, isActive={}, operator={}", id, isActive, OPERATOR);
     try {
       if (!StringUtils.hasText(id) || isActive == null) {
-        result.put("success", false);
-        result.put("message", "主键ID和状态不能为空");
-        return ResponseEntity.badRequest().body(result);
+        return ResponseEntity.badRequest().body("主键ID和状态不能为空");
       }
-
       boolean success = productSpuService.updateStatusById(id, isActive);
-      result.put("success", success);
-      result.put("message", success ? (isActive ? "启用成功" : "冻结成功") : "状态更新失败");
       logger.info("更新商品SPU状态{}，id: {}, 状态: {}, operator: {}",
-        success ? "成功" : "失败", id, isActive, DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+        success ? "成功" : "失败", id, isActive, OPERATOR);
+      return ResponseEntity.ok(success);
     } catch (Exception e) {
       logger.error("更新商品SPU状态异常，id: {}, isActive: {}, operator: {}",
-        id, isActive, DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "状态更新失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
+        id, isActive, OPERATOR, e);
+      return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     }
   }
 
@@ -300,30 +243,23 @@ public class ProductSpuController {
   @PostMapping("/batch-status")
   @ApiOperation(value = "批量更新商品SPU状态", notes = "批量冻结或启用商品SPU")
   public ResponseEntity<Object> updateStatusBatch(
-    @ApiParam(value = "主键ID集合", required = true) @RequestBody List<String> ids,
-    @ApiParam(value = "是否启用", required = true) @RequestParam Boolean isActive) {
-    logger.info("批量更新商品SPU状态，请求参数: ids={}, isActive={}, operator={}", ids, isActive, DEFAULT_OPERATOR);
-
-    Map<String, Object> result = new HashMap<>();
+    @ApiParam(value = "主键ID集合", required = true)
+    @RequestBody List<String> ids,
+    @ApiParam(value = "是否启用", required = true)
+    @RequestParam Boolean isActive) {
+    logger.info("批量更新商品SPU状态，请求参数: ids={}, isActive={}, operator={}", ids, isActive, OPERATOR);
     try {
       if (ids == null || ids.isEmpty() || isActive == null) {
-        result.put("success", false);
-        result.put("message", "主键ID集合和状态不能为空");
-        return ResponseEntity.badRequest().body(result);
+        return ResponseEntity.badRequest().body("主键ID集合和状态不能为空");
       }
-
       boolean success = productSpuService.updateStatusBatchIds(ids, isActive);
-      result.put("success", success);
-      result.put("message", success ? (isActive ? "批量启用成功" : "批量冻结成功") : "批量状态更新失败");
-      logger.info("批量更新商品SPU状态{}，更新记录数: {}, 状态: {}, operator: {}",
-        success ? "成功" : "失败", ids.size(), isActive, DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+       logger.info("批量更新商品SPU状态{}，更新记录数: {}, 状态: {}, operator: {}",
+        success ? "成功" : "失败", ids.size(), isActive, OPERATOR);
+      return ResponseEntity.ok(Result.success(success));
     } catch (Exception e) {
       logger.error("批量更新商品SPU状态异常，ids: {}, isActive: {}, operator: {}",
-        ids, isActive, DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "批量状态更新失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
+        ids, isActive, OPERATOR, e);
+      return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     }
   }
 
@@ -333,34 +269,23 @@ public class ProductSpuController {
   @GetMapping("/code/{spuCode}")
   @ApiOperation(value = "根据SPU编码查询", notes = "根据SPU编码查询商品SPU详细信息")
   public ResponseEntity<Object> getBySpuCode(
-    @ApiParam(value = "SPU编码", required = true) @PathVariable String spuCode) {
-    logger.info("根据SPU编码查询商品SPU，请求参数: spuCode={}, operator={}", spuCode, DEFAULT_OPERATOR);
-
-    Map<String, Object> result = new HashMap<>();
+    @ApiParam(value = "SPU编码", required = true)
+    @PathVariable String spuCode) {
+    logger.info("根据SPU编码查询商品SPU，请求参数: spuCode={}, operator={}", spuCode, OPERATOR);
     try {
       if (!StringUtils.hasText(spuCode)) {
-        result.put("success", false);
-        result.put("message", "SPU编码不能为空");
-        return ResponseEntity.badRequest().body(result);
+        return ResponseEntity.badRequest().body("SPU编码不能为空");
       }
 
       ProductSpu productSpu = productSpuService.getBySpuCode(spuCode);
       if (productSpu == null) {
-        result.put("success", false);
-        result.put("message", "商品SPU不存在");
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok().body("商品SPU不存在");
       }
-
-      result.put("success", true);
-      result.put("data", productSpu);
-      result.put("message", "查询成功");
-      logger.info("根据SPU编码查询商品SPU成功，spuCode: {}, operator: {}", spuCode, DEFAULT_OPERATOR);
-      return ResponseEntity.ok().body(result);
+      logger.info("根据SPU编码查询商品SPU成功，spuCode: {}, operator: {}", spuCode, OPERATOR);
+      return ResponseEntity.ok(Result.success(productSpu));
     } catch (Exception e) {
-      logger.error("根据SPU编码查询商品SPU异常，spuCode: {}, operator: {}", spuCode, DEFAULT_OPERATOR, e);
-      result.put("success", false);
-      result.put("message", "查询失败: " + e.getMessage());
-      return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
+      logger.error("根据SPU编码查询商品SPU异常，spuCode: {}, operator: {}", spuCode, OPERATOR, e);
+       return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     }
   }
 }

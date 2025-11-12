@@ -148,40 +148,40 @@ public class ProductSpuCreateDTO implements Serializable {
   private Integer productionLeadTime;
 
   @ApiModelProperty(value = "主图ID")
-  private Long mainImageId;
+  private String mainImageId;
 
   @ApiModelProperty(value = "概念图ID")
-  private Long conceptImageId;
+  private String conceptImageId;
 
   @ApiModelProperty(value = "设计图ID")
-  private Long designImageId;
+  private String designImageId;
 
   @ApiModelProperty(value = "原型图ID")
-  private Long prototypeImageId;
+  private String prototypeImageId;
 
   @ApiModelProperty(value = "使用场景图ID")
-  private Long usageImageId;
+  private String usageImageId;
 
   @ApiModelProperty(value = "技术图纸ID")
-  private Long technicalImageId;
+  private String technicalImageId;
 
   @ApiModelProperty(value = "主图url")
-  private Long mainImageUrl;
+  private String mainImageUrl;
 
   @ApiModelProperty(value = "概念图url")
-  private Long conceptImageUrl;
+  private String conceptImageUrl;
 
   @ApiModelProperty(value = "设计图url")
-  private Long designImageUrl;
+  private String designImageUrl;
 
   @ApiModelProperty(value = "原型图url")
-  private Long prototypeImageUrl;
+  private String prototypeImageUrl;
 
   @ApiModelProperty(value = "使用场景图url")
-  private Long usageImageUrl;
+  private String usageImageUrl;
 
   @ApiModelProperty(value = "技术图纸url")
-  private Long technicalImageUrl;
+  private String technicalImageUrl;
 
   @ApiModelProperty(value = "排序值")
   private Integer sortOrder;
@@ -235,11 +235,9 @@ public class ProductSpuCreateDTO implements Serializable {
   @ApiModelProperty(value = "阿拉伯语SEO关键词")
   private String metaKeywordsAr;
 
-  @NotNull(message = "创建人ID不能为空")
-  @ApiModelProperty(value = "创建人ID", required = true)
+  @ApiModelProperty(value = "创建人ID")
   private Long createdBy;
 
-  @NotNull(message = "更新人ID不能为空")
-  @ApiModelProperty(value = "更新人ID", required = true)
+  @ApiModelProperty(value = "更新人ID")
   private Long updatedBy;
 }

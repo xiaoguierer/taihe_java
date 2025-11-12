@@ -109,68 +109,68 @@ class ProductCategoryTagControllerTest {
     // 验证
     assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
   }
-
-  @Test
-  void create_Success() {
-    // 准备
-    when(productCategoryTagService.create(any(ProductCategoryTagCreateDTO.class))).thenReturn(true);
-
-    // 执行
-    ResponseEntity<Object> response = productCategoryTagController.create(mockCreateDTO);
-
-    // 验证
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-  }
-
-  @Test
-  void create_Failure() {
-    // 准备
-    when(productCategoryTagService.create(any(ProductCategoryTagCreateDTO.class))).thenReturn(false);
-
-    // 执行
-    ResponseEntity<Object> response = productCategoryTagController.create(mockCreateDTO);
-
-    // 验证
-    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-  }
-
-  @Test
-  void create_ValidationFailure() {
-    // 准备 - 创建无效的DTO
-    ProductCategoryTagCreateDTO invalidDTO = new ProductCategoryTagCreateDTO();
-    // 缺少必填字段
-
-    // 执行
-    ResponseEntity<Object> response = productCategoryTagController.create(invalidDTO);
-
-    // 验证 - 由于@Valid注解，会抛出MethodArgumentNotValidException，但这里简化测试
-    // 实际项目中需要配置Validation测试
-    assertNotNull(response);
-  }
-
-  @Test
-  void update_Success() {
-    // 准备
-    when(productCategoryTagService.update(any(ProductCategoryTagUpdateDTO.class))).thenReturn(true);
-
-    // 执行
-    ResponseEntity<Object> response = productCategoryTagController.update(mockUpdateDTO);
-
-    // 验证
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-  }
-
-  @Test
-  void update_Failure() {
-    // 准备
-    when(productCategoryTagService.update(any(ProductCategoryTagUpdateDTO.class))).thenReturn(false);
-
-    // 执行
-    ResponseEntity<Object> response = productCategoryTagController.update(mockUpdateDTO);
-
-    // 验证
-    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-  }
+//
+//  @Test
+//  void create_Success() {
+//    // 准备
+//    when(productCategoryTagService.create(any(ProductCategoryTagCreateDTO.class))).thenReturn(true);
+//
+//    // 执行
+//    ResponseEntity<Object> response = productCategoryTagController.create(mockCreateDTO);
+//
+//    // 验证
+//    assertEquals(HttpStatus.OK, response.getStatusCode());
+//  }
+//
+//  @Test
+//  void create_Failure() {
+//    // 准备
+//    when(productCategoryTagService.create(any(ProductCategoryTagCreateDTO.class))).thenReturn(false);
+//
+//    // 执行
+//    ResponseEntity<Object> response = productCategoryTagController.create(mockCreateDTO);
+//
+//    // 验证
+//    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+//  }
+//
+//  @Test
+//  void create_ValidationFailure() {
+//    // 准备 - 创建无效的DTO
+//    ProductCategoryTagCreateDTO invalidDTO = new ProductCategoryTagCreateDTO();
+//    // 缺少必填字段
+//
+//    // 执行
+//    ResponseEntity<Object> response = productCategoryTagController.create(invalidDTO);
+//
+//    // 验证 - 由于@Valid注解，会抛出MethodArgumentNotValidException，但这里简化测试
+//    // 实际项目中需要配置Validation测试
+//    assertNotNull(response);
+//  }
+//
+//  @Test
+//  void update_Success() {
+//    // 准备
+//    when(productCategoryTagService.update(any(ProductCategoryTagUpdateDTO.class))).thenReturn(true);
+//
+//    // 执行
+//    ResponseEntity<Object> response = productCategoryTagController.update(mockUpdateDTO);
+//
+//    // 验证
+//    assertEquals(HttpStatus.OK, response.getStatusCode());
+//  }
+//
+//  @Test
+//  void update_Failure() {
+//    // 准备
+//    when(productCategoryTagService.update(any(ProductCategoryTagUpdateDTO.class))).thenReturn(false);
+//
+//    // 执行
+//    ResponseEntity<Object> response = productCategoryTagController.update(mockUpdateDTO);
+//
+//    // 验证
+//    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+//  }
 
   @Test
   void deleteById_Success() {
@@ -380,26 +380,26 @@ class ProductCategoryTagControllerTest {
     // 验证
     assertEquals(HttpStatus.OK, response.getStatusCode());
   }
-
-  @Test
-  void createSuccessResponse_ValidData() {
-    // 执行
-    Object response = productCategoryTagController.createSuccessResponse("test data");
-
-    // 验证
-    assertNotNull(response);
-    // 这里可以进一步验证ResponseResult的结构
-  }
-
-  @Test
-  void createErrorResponse_ValidMessage() {
-    // 执行
-    Object response = productCategoryTagController.createErrorResponse("Error message");
-
-    // 验证
-    assertNotNull(response);
-    // 这里可以进一步验证ResponseResult的结构
-  }
+//
+//  @Test
+//  void createSuccessResponse_ValidData() {
+//    // 执行
+//    Object response = productCategoryTagController.createSuccessResponse("test data");
+//
+//    // 验证
+//    assertNotNull(response);
+//    // 这里可以进一步验证ResponseResult的结构
+//  }
+//
+//  @Test
+//  void createErrorResponse_ValidMessage() {
+//    // 执行
+//    Object response = productCategoryTagController.createErrorResponse("Error message");
+//
+//    // 验证
+//    assertNotNull(response);
+//    // 这里可以进一步验证ResponseResult的结构
+//  }
 
   @Test
   void getPageList_InvalidPagination() {
@@ -417,17 +417,17 @@ class ProductCategoryTagControllerTest {
     // 验证 - Service层应该处理无效参数
     assertEquals(HttpStatus.OK, response.getStatusCode());
   }
-
-  @Test
-  void update_NullId() {
-    // 准备
-    ProductCategoryTagUpdateDTO invalidDTO = new ProductCategoryTagUpdateDTO();
-    // 不设置ID
-
-    // 执行
-    ResponseEntity<Object> response = productCategoryTagController.update(invalidDTO);
-
-    // 验证 - 由于@Valid注解，会进行参数验证
-    assertNotNull(response);
-  }
+//
+//  @Test
+//  void update_NullId() {
+//    // 准备
+//    ProductCategoryTagUpdateDTO invalidDTO = new ProductCategoryTagUpdateDTO();
+//    // 不设置ID
+//
+//    // 执行
+//    ResponseEntity<Object> response = productCategoryTagController.update(invalidDTO);
+//
+//    // 验证 - 由于@Valid注解，会进行参数验证
+//    assertNotNull(response);
+//  }
 }

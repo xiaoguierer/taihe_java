@@ -5,6 +5,7 @@ import com.cn.taihe.back.product.dto.ProductSkuQueryDTO;
 import com.cn.taihe.back.product.dto.ProductSkuUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductSku;
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,12 +24,14 @@ public interface ProductSkuService {
   /**
    * 新增数据
    */
-  boolean create(ProductSkuCreateDTO createDTO);
+  boolean create(ProductSkuCreateDTO createDTO, MultipartFile mainImagefile,MultipartFile image1file,MultipartFile image2file,
+                 MultipartFile image3file,MultipartFile image4file,MultipartFile image5file);
 
   /**
    * 修改数据
    */
-  boolean update(ProductSkuUpdateDTO updateDTO);
+  boolean update(ProductSkuUpdateDTO updateDTO,MultipartFile mainImagefile,MultipartFile image1file,MultipartFile image2file,
+                 MultipartFile image3file,MultipartFile image4file,MultipartFile image5file);
 
   /**
    * 根据主键删除数据
