@@ -48,11 +48,17 @@ public class ProductSpuIntent implements Serializable {
   @ApiModelProperty(value = "情感意图ID", required = true)
   private String intentId;
 
-  @ApiModelProperty(value = "是否主要意图", required = true)
-  private Integer isPrimary;
+  @ApiModelProperty(value = "关联级别")
+  private String associationLevel;
+
+  @ApiModelProperty(value = "产品特定的情感描述")
+  private String customMessageZh;
 
   @ApiModelProperty(value = "排序值", required = true)
   private Integer sortOrder;
+
+  @ApiModelProperty(value = "是否启用：1启用/0停用")
+  private Integer isActive;
 
   @CreatedDate
   @ApiModelProperty(value = "创建时间")

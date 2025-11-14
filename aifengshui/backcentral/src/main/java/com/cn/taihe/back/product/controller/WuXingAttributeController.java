@@ -1,5 +1,6 @@
 package com.cn.taihe.back.product.controller;
 
+import com.cn.taihe.back.product.dto.CreateRelationsRequest;
 import com.cn.taihe.back.product.dto.WuXingAttributeCreateDTO;
 import com.cn.taihe.back.product.dto.WuXingAttributeQueryDTO;
 import com.cn.taihe.back.product.dto.WuXingAttributeUpdateDTO;
@@ -118,6 +119,20 @@ public class WuXingAttributeController {
       logger.error("更新五行属性异常 - 操作人: {}, 参数: {}, 异常信息: {}", OPERATOR, updateDTO, e.getMessage(), e);
       return ResponseEntity.ok(Result.error(e.getMessage()));
     }
+  }
+
+  /**
+   * 新增数据
+   */
+  @PostMapping(value = "/createRealiations")
+  @ApiOperation(value = "新增SPU-情感意图关系")
+  public ResponseEntity<Object> createRealiations(
+    @RequestBody @Valid CreateRelationsRequest request) {
+    logger.info("开始处理新增SPU-情感意图关系请求, 操作人: {}, 参数: {}", OPERATOR, request);
+    int result = wuXingAttributeService.createRealiations(request.getSpuId(),request.getIntentIds());
+    logger.info("新增SPU-情感意图关系请求处理完成, 操作人: {}, 参数: {}, 影响行数: {}",
+      OPERATOR, result);
+    return ResponseEntity.ok(Result.success(result));
   }
 
   @DeleteMapping("/del/{id}")

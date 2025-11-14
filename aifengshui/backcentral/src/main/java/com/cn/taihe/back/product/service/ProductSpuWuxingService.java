@@ -46,7 +46,15 @@ public interface ProductSpuWuxingService {
    * @return 影响行数
    */
   int saveBatch(List<ProductSpuWuxing> productSpuWuxingList);
+  /**
+   * @description:
+   * @author: 商品spu与五行元素建立关系
+   * @date: 2025/11/15 01:09
+   * @param: [spuId, list]
+   * @return: [java.lang.String, java.util.List]
+   **/
 
+  int createRealiations(String spuId, List list);
   /**
    * 根据主键删除数据
    * @param id 主键ID

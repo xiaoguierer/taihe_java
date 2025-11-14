@@ -1,7 +1,6 @@
 package com.cn.taihe.back.product.controller;
 import com.cn.taihe.back.product.entity.Product;
 import com.cn.taihe.back.product.service.ProductService;
-import com.cn.taihe.back.user.entity.User;
 import com.cn.taihe.common.ApiResponse;
 import com.cn.taihe.common.ResponseBuilder;
 import com.cn.taihe.common.ResponseUtil;

@@ -1,5 +1,6 @@
 package com.cn.taihe.back.product.controller;
 
+import com.cn.taihe.back.product.dto.CreateRelationsRequest;
 import com.cn.taihe.back.product.dto.EmotionalIntentCreateDTO;
 import com.cn.taihe.back.product.dto.EmotionalIntentQueryDTO;
 import com.cn.taihe.back.product.dto.EmotionalIntentUpdateDTO;
@@ -116,6 +117,7 @@ public class EmotionalIntentController {
 
     try {
       List<EmotionalIntent> result = emotionalIntentService.getAll();
+      logger.info(String.valueOf(ResponseEntity.ok(Result.success(result))));
       logger.info("查询所有情感意图列表接口调用成功，操作人：{}，记录数：{}", OPERATOR, result.size());
       return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
@@ -208,6 +210,20 @@ public class EmotionalIntentController {
       logger.error("更新情感意图信息接口异常，操作人：{}，参数：{}，异常信息：", OPERATOR, updateDTO, e);
       return ResponseEntity.badRequest().body(Result.error("更新情感意图信息失败"));
     }
+  }
+
+  /**
+   * 新增数据
+   */
+  @PostMapping(value = "/createRealiations")
+  @ApiOperation(value = "新增SPU-情感意图关系")
+  public ResponseEntity<Object> createRealiations(
+    @RequestBody @Valid CreateRelationsRequest request) {
+    logger.info("开始处理新增SPU-情感意图关系请求, 操作人: {}, 参数: {}", OPERATOR, request);
+    int result = emotionalIntentService.createRealiations(request.getSpuId(),request.getIntentIds());
+    logger.info("新增SPU-情感意图关系请求处理完成, 操作人: {}, 参数: {}, 影响行数: {}",
+      OPERATOR, result);
+    return ResponseEntity.ok(Result.success(result));
   }
 
   /**

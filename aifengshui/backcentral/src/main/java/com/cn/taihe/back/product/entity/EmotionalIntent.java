@@ -45,7 +45,7 @@ public class EmotionalIntent implements Serializable {
   @TableId
   @ApiModelProperty(value = "主键ID", example = "1234567890", required = true)
   @NotBlank(message = "主键ID不能为空")
-  @Size(max = 32, message = "主键ID长度不能超过32个字符")
+  @Size(max = 50, message = "主键ID长度不能超过32个字符")
   private String id;
 
   // ==================== 基础标识字段 ====================

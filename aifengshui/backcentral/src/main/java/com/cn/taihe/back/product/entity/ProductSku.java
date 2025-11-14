@@ -38,20 +38,20 @@ public class ProductSku {
   @ApiModelProperty(value = "主键ID", example = "12345678-1234-1234-1234-123456789012")
   private String id;
 
-  @Column(name = "spu_id", nullable = false)
-  @ApiModelProperty(value = "SPU ID", required = true)
+  @Column(name = "spu_id")
+  @ApiModelProperty(value = "SPU ID")
   private String spuId;
 
-  @Column(name = "sku_code", nullable = false)
-  @ApiModelProperty(value = "SKU编码", required = true)
+  @Column(name = "sku_code")
+  @ApiModelProperty(value = "SKU编码")
   private String skuCode;
 
-  @Column(name = "sku_name_en", nullable = false)
-  @ApiModelProperty(value = "英文SKU名称", required = true)
+  @Column(name = "sku_name_en")
+  @ApiModelProperty(value = "英文SKU名称")
   private String skuNameEn;
 
-  @Column(name = "sku_name_zh", nullable = false)
-  @ApiModelProperty(value = "中文SKU名称", required = true)
+  @Column(name = "sku_name_zh")
+  @ApiModelProperty(value = "中文SKU名称")
   private String skuNameZh;
 
   @Column(name = "sku_name_ar")
@@ -82,8 +82,8 @@ public class ProductSku {
   @ApiModelProperty(value = "阿拉伯语寓意描述")
   private String variantYuyiAr;
 
-  @Column(name = "primary_material", nullable = false)
-  @ApiModelProperty(value = "主要材质", required = true)
+  @Column(name = "primary_material")
+  @ApiModelProperty(value = "主要材质")
   private String primaryMaterial;
 
   @Column(name = "material_purity")
@@ -150,8 +150,8 @@ public class ProductSku {
   @ApiModelProperty(value = "吊坠尺寸(mm)")
   private BigDecimal pendantSizeMm;
 
-  @Column(name = "total_weight_g", nullable = false)
-  @ApiModelProperty(value = "总重量(克)", required = true)
+  @Column(name = "total_weight_g")
+  @ApiModelProperty(value = "总重量(克)")
   private BigDecimal totalWeightG;
 
   @Column(name = "metal_weight_g")
@@ -222,12 +222,12 @@ public class ProductSku {
   @ApiModelProperty(value = "最后库存更新")
   private LocalDateTime lastStockUpdate;
 
-  @Column(name = "cost_price", nullable = false)
-  @ApiModelProperty(value = "成本价", required = true)
+  @Column(name = "cost_price")
+  @ApiModelProperty(value = "成本价")
   private BigDecimal costPrice;
 
-  @Column(name = "retail_price", nullable = false)
-  @ApiModelProperty(value = "零售价", required = true)
+  @Column(name = "retail_price")
+  @ApiModelProperty(value = "零售价")
   private BigDecimal retailPrice;
 
   @Column(name = "sale_price")
@@ -318,8 +318,8 @@ public class ProductSku {
   @ApiModelProperty(value = "图片5 url")
   private String image5Url;
 
-  @Column(name = "available_date", nullable = false)
-  @ApiModelProperty(value = "可售开始日期", required = true)
+  @Column(name = "available_date")
+  @ApiModelProperty(value = "可售开始日期")
   private LocalDate availableDate;
 
   @Column(name = "available_end_date")
@@ -355,22 +355,22 @@ public class ProductSku {
   private Integer visibility;
 
   @CreatedBy
-  @Column(name = "created_by", nullable = false, updatable = false)
+  @Column(name = "created_by")
   @ApiModelProperty(value = "创建人ID")
   private Long createdBy;
 
   @LastModifiedBy
-  @Column(name = "updated_by", nullable = false)
+  @Column(name = "updated_by")
   @ApiModelProperty(value = "更新人ID")
   private Long updatedBy;
 
   @CreatedDate
-  @Column(name = "created_time", nullable = false, updatable = false)
+  @Column(name = "created_time")
   @ApiModelProperty(value = "创建时间")
   private LocalDateTime createdTime;
 
   @LastModifiedDate
-  @Column(name = "updated_time", nullable = false)
+  @Column(name = "updated_time")
   @ApiModelProperty(value = "更新时间")
   private LocalDateTime updatedTime;
 

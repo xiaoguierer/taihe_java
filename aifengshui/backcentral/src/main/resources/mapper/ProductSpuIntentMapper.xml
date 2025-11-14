@@ -2,32 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.taihe.back.product.mapper.ProductSpuIntentMapper">
 
-  <!-- 通用查询结果列 -->
-  <sql id="Base_Column_List">
-    id, spu_id, intent_id, is_primary, sort_order, created_time
-  </sql>
+  <!-- 通用结果映射 -->
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.product.entity.ProductSpuIntent">
+    <id column="id" property="id" />
+    <result column="spu_id" property="spuId" />
+    <result column="intent_id" property="intentId" />
+    <result column="association_level" property="associationLevel" />
+    <result column="custom_message_zh" property="customMessageZh" />
+    <result column="sort_order" property="sortOrder" />
+    <result column="is_active" property="isActive" />
+    <result column="created_time" property="createdTime" />
+  </resultMap>
 
   <!-- 根据主键查找 -->
-  <select id="selectById" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuIntent">
+  <select id="selectById" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List" />
+      id,
+      spu_id,
+      intent_id,
+      association_level,
+      custom_message_zh,
+      sort_order,
+      is_active,
+      created_time
     FROM product_spu_intent
     WHERE id = #{id}
   </select>
 
   <!-- 根据SPU ID查找 -->
-  <select id="selectBySpuId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuIntent">
+  <select id="selectBySpuId" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List" />
+      id,
+      spu_id,
+      intent_id,
+      association_level,
+      custom_message_zh,
+      sort_order,
+      is_active,
+      created_time
     FROM product_spu_intent
     WHERE spu_id = #{spuId}
     ORDER BY sort_order ASC, created_time DESC
   </select>
 
   <!-- 根据情感意图ID查找 -->
-  <select id="selectByIntentId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuIntent">
+  <select id="selectByIntentId" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List" />
+      id,
+      spu_id,
+      intent_id,
+      association_level,
+      custom_message_zh,
+      sort_order,
+      is_active,
+      created_time
     FROM product_spu_intent
     WHERE intent_id = #{intentId}
     ORDER BY sort_order ASC, created_time DESC
@@ -35,55 +63,61 @@
 
   <!-- 新增数据 -->
   <insert id="insert" parameterType="com.cn.taihe.back.product.entity.ProductSpuIntent">
-    INSERT INTO product_spu_intent
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null and id != ''">id,</if>
+    INSERT INTO product_spu_intent (
+      id,
       spu_id,
       intent_id,
-      is_primary,
+      association_level,
+      custom_message_zh,
       sort_order,
+      is_active,
       created_time
-    </trim>
-    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-      <if test="id != null and id != ''">#{id},</if>
-      #{spuId},
-      #{intentId},
-      #{isPrimary},
-      #{sortOrder},
-      #{createdTime}
-    </trim>
+    ) VALUES (
+               #{id},
+               #{spuId},
+               #{intentId},
+               #{associationLevel},
+               #{customMessageZh},
+               #{sortOrder},
+               #{isActive},
+               #{createdTime}
+             )
   </insert>
 
   <!-- 批量新增数据 -->
   <insert id="insertBatch" parameterType="java.util.List">
-    INSERT INTO product_spu_intent (id, spu_id, intent_id, is_primary, sort_order, created_time)
-    VALUES
-    <foreach collection="list" item="item" index="index" separator=",">
+    INSERT INTO product_spu_intent (
+    id,
+    spu_id,
+    intent_id,
+    association_level,
+    custom_message_zh,
+    sort_order,
+    is_active,
+    created_time
+    ) VALUES
+    <foreach collection="list" item="item" separator=",">
       (
-      <choose>
-        <when test="item.id != null and item.id != ''">#{item.id},</when>
-        <otherwise>UUID(),</otherwise>
-      </choose>
+      #{item.id},
       #{item.spuId},
       #{item.intentId},
-      #{item.isPrimary},
+      #{item.associationLevel},
+      #{item.customMessageZh},
       #{item.sortOrder},
-      <choose>
-        <when test="item.createdTime != null">#{item.createdTime},</when>
-        <otherwise>NOW()</otherwise>
-      </choose>
+      #{item.isActive},
+      #{item.createdTime}
       )
     </foreach>
   </insert>
 
   <!-- 根据主键删除数据 -->
-  <delete id="deleteById" parameterType="java.lang.String">
+  <delete id="deleteById">
     DELETE FROM product_spu_intent
     WHERE id = #{id}
   </delete>
 
   <!-- 根据主键集合批量删除 -->
-  <delete id="deleteBatchIds" parameterType="java.util.List">
+  <delete id="deleteBatchIds">
     DELETE FROM product_spu_intent
     WHERE id IN
     <foreach collection="ids" item="id" open="(" separator="," close=")">
@@ -92,15 +126,110 @@
   </delete>
 
   <!-- 根据SPU ID批量删除 -->
-  <delete id="deleteBySpuId" parameterType="java.lang.String">
+  <delete id="deleteBySpuId">
     DELETE FROM product_spu_intent
     WHERE spu_id = #{spuId}
   </delete>
 
   <!-- 根据情感意图ID批量删除 -->
-  <delete id="deleteByIntentId" parameterType="java.lang.String">
+  <delete id="deleteByIntentId">
     DELETE FROM product_spu_intent
     WHERE intent_id = #{intentId}
+  </delete>
+
+  <!-- 以下为业务扩展方法 -->
+
+  <!-- 根据SPU ID和情感意图ID查找 -->
+  <select id="selectBySpuIdAndIntentId" resultMap="BaseResultMap">
+    SELECT
+      id,
+      spu_id,
+      intent_id,
+      association_level,
+      custom_message_zh,
+      sort_order,
+      is_active,
+      created_time
+    FROM product_spu_intent
+    WHERE spu_id = #{spuId}
+      AND intent_id = #{intentId}
+  </select>
+
+  <!-- 检查是否存在相同的关联关系 -->
+  <select id="existsBySpuIdAndIntentId" resultType="boolean">
+    SELECT COUNT(1) > 0
+    FROM product_spu_intent
+    WHERE spu_id = #{spuId}
+      AND intent_id = #{intentId}
+  </select>
+
+  <!-- 根据SPU ID查询最大的排序值 -->
+  <select id="selectMaxSortOrderBySpuId" resultType="java.lang.Integer">
+    SELECT MAX(sort_order)
+    FROM product_spu_intent
+    WHERE spu_id = #{spuId}
+  </select>
+
+  <!-- 根据SPU ID统计关联数量 -->
+  <select id="countBySpuId" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM product_spu_intent
+    WHERE spu_id = #{spuId}
+  </select>
+
+  <!-- 根据SPU ID和关联级别查询 -->
+  <select id="selectBySpuIdAndLevel" resultMap="BaseResultMap">
+    SELECT
+      id,
+      spu_id,
+      intent_id,
+      association_level,
+      custom_message_zh,
+      sort_order,
+      is_active,
+      created_time
+    FROM product_spu_intent
+    WHERE spu_id = #{spuId}
+      AND association_level = #{associationLevel}
+    ORDER BY sort_order ASC
+  </select>
+
+  <!-- 更新排序值 -->
+  <update id="updateSortOrder">
+    UPDATE product_spu_intent
+    SET sort_order = #{sortOrder}
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新自定义描述 -->
+  <update id="updateCustomMessage">
+    UPDATE product_spu_intent
+    SET custom_message_zh = #{customMessageZh}
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新关联级别 -->
+  <update id="updateAssociationLevel">
+    UPDATE product_spu_intent
+    SET association_level = #{associationLevel}
+    WHERE id = #{id}
+  </update>
+
+  <!-- 批量更新关联状态 -->
+  <update id="updateBatchStatus">
+    UPDATE product_spu_intent
+    SET is_active = #{isActive}
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+
+  <!-- 根据SPU ID和情感意图ID删除关联 -->
+  <delete id="deleteBySpuIdAndIntentId">
+    DELETE FROM product_spu_intent
+    WHERE spu_id = #{spuId}
+      AND intent_id = #{intentId}
   </delete>
 
 </mapper>

@@ -42,6 +42,14 @@ public interface WuXingAttributeService {
   boolean update(WuXingAttributeUpdateDTO updateDTO,MultipartFile symbolIconfile,MultipartFile philosophyImagefile,MultipartFile energyFlowImagefile);
 
   /**
+   * @description:
+   * @author: 新建和商品SPU的关联关系
+   * @date: 2025/11/14 13:33
+   * @param: [spuId, arrays]
+   * @return: [java.lang.String, java.util.Arrays]
+   **/
+  public int createRealiations(String spuId, List list);
+  /**
    * 根据主键删除五行属性
    *
    * @param id 主键ID

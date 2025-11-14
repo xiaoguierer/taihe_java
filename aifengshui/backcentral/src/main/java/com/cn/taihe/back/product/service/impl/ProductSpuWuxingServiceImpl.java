@@ -1,5 +1,6 @@
 package com.cn.taihe.back.product.service.impl;
 
+import com.cn.taihe.back.product.entity.ProductSpuIntent;
 import com.cn.taihe.back.product.entity.ProductSpuWuxing;
 import com.cn.taihe.back.product.mapper.ProductSpuWuxingMapper;
 import com.cn.taihe.back.product.service.ProductSpuWuxingService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -98,7 +100,34 @@ public class ProductSpuWuxingServiceImpl implements ProductSpuWuxingService {
       OPERATOR, productSpuWuxingList != null ? productSpuWuxingList.size() : 0, result);
     return result;
   }
-
+  /**
+   * @description:
+   * @author: 商品spu与五行元素建立关系
+   * @date: 2025/11/15 01:09
+   * @param: [spuId, list]
+   * @return: [java.lang.String, java.util.List]
+   **/
+  @Override
+  @Transactional(rollbackFor = Exception.class)
+  public  int createRealiations(String spuId, List list){
+    logger.info("开始根据SPU ID查找SPU-情感意图关系, 操作人: {}, 参数: spuId={}", OPERATOR, spuId);
+    int del_result  = productSpuWuxingMapper.deleteBySpuId(spuId);
+    Date date = new Date();
+    if(list!=null && list.size()>0){
+      for (Object item : list) {
+        ProductSpuWuxing productSpuWuxing = new ProductSpuWuxing();
+        productSpuWuxing.setId(String.valueOf(SnowflakeIdGenerator.nextId()));
+        productSpuWuxing.setSpuId(spuId);
+        productSpuWuxing.setWuXingId(String.valueOf(item));
+        productSpuWuxing.setCreatedTime(date);
+        productSpuWuxing.setSortOrder(1);
+        productSpuWuxing.setElementStrength("100");
+        productSpuWuxing.setIsPrimary(1);
+        productSpuWuxingMapper.insert(productSpuWuxing);
+      }
+    }
+    return del_result;
+  }
   /**
    * 根据主键删除数据
    */

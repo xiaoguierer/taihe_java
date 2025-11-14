@@ -1,0 +1,81 @@
+
+b	java:S112A"FDefine and throw a dedicated exception instead of using a generic one.(˜º·ƒ8ƒëÂã¥3
+g	java:S112T"FDefine and throw a dedicated exception instead of using a generic one.(øÒ®»ûÿÿÿÿ8ƒëÂã¥3
+h	java:S112‚"FDefine and throw a dedicated exception instead of using a generic one.(¶Û™øÿÿÿÿ8ƒëÂã¥3
+c	java:S112–"FDefine and throw a dedicated exception instead of using a generic one.(•Ûç8„ëÂã¥3
+h	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(øÒ®»ûÿÿÿÿ8Œ¡Ù³§3
+c	java:S112ò"FDefine and throw a dedicated exception instead of using a generic one.(Ğ÷8Œ¡Ù³§3
+c	java:S112‡"FDefine and throw a dedicated exception instead of using a generic one.(•Ûç8¡Ù³§3
+c	java:S112’"FDefine and throw a dedicated exception instead of using a generic one.(æ£Õ8¡Ù³§3
+c	java:S112­"FDefine and throw a dedicated exception instead of using a generic one.(˜º·ƒ8¡Ù³§3
+h	java:S112¾"FDefine and throw a dedicated exception instead of using a generic one.(§¯é¸üÿÿÿÿ8¡Ù³§3
+h	java:S112×"FDefine and throw a dedicated exception instead of using a generic one.(Ş±’úÿÿÿÿ8¡Ù³§3
+c	java:S112ì"FDefine and throw a dedicated exception instead of using a generic one.(•Ûç8¡Ù³§3
+h	java:S112ø"FDefine and throw a dedicated exception instead of using a generic one.(íû¬Ñûÿÿÿÿ8‘¡Ù³§3
+c	java:S112’"FDefine and throw a dedicated exception instead of using a generic one.(šàÙ‰8‘¡Ù³§3
+b	java:S112¨"FDefine and throw a dedicated exception instead of using a generic one.(½î®8’¡Ù³§3
+c	java:S112¿"FDefine and throw a dedicated exception instead of using a generic one.(ğ­ãª8’¡Ù³§3
+L
+java:S3740]"/Provide the parametrized type for this generic.(Ôõßö8»½¥³§3
+L
+java:S3740b"/Provide the parametrized type for this generic.(Ş¸Ö‹8òü§³§3
+L
+java:S3740g"/Provide the parametrized type for this generic.(üËºÚ8óü§³§3
+Q
+java:S3740l"/Provide the parametrized type for this generic.(ßï­Áøÿÿÿÿ8óü§³§3
+L
+java:S3740q"/Provide the parametrized type for this generic.(ÊÛî8ôü§³§3
+K
+java:S3740v"/Provide the parametrized type for this generic.(¥ìØM8‘­Û³§3
+M
+java:S3740Í"/Provide the parametrized type for this generic.(Ôõßö8‘­Û³§3
+M
+java:S3740Ò"/Provide the parametrized type for this generic.(Ş¸Ö‹8‘­Û³§3
+M
+java:S3740×"/Provide the parametrized type for this generic.(üËºÚ8’­Û³§3
+R
+java:S3740Ü"/Provide the parametrized type for this generic.(ßï­Áøÿÿÿÿ8’­Û³§3
+M
+java:S3740á"/Provide the parametrized type for this generic.(ÊÛî8Äùñ³§3
+L
+java:S3740æ"/Provide the parametrized type for this generic.(¥ìØM8ë¯ô³§3
+…
+java:S1192•"bDefine a constant instead of duplicating this literal "å•†å“SPUæ•°æ®ä¸å­˜åœ¨ï¼Œid: {}" 3 times.(üÏ„úÿÿÿÿ8‡ëÂã¥3
+i
+java:S1192§"KDefine a constant instead of duplicating this literal "/api/files" 6 times.(’ï“ñ8õáİ³§3
+j
+java:S1192_"HDefine a constant instead of duplicating this literal "jdpath" 12 times.(Å³¥şÿÿÿÿ8öü§³§3
+w
+java:S1192–"YDefine a constant instead of duplicating this literal "å•†å“SPUæ•°æ®ä¸å­˜åœ¨" 3 times.(•Ûç8ˆëÂã¥3
+M
+java:S1066›"/Merge this if statement with the enclosing one.(Óá¼ş8”¡Ù³§3
+u
+java:S2139?"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ÂìÂã¥3
+n
+java:S3776J"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(×ô8ÿ³ô³§3
+v
+java:S2139€"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ÖìÂã¥3
+u
+java:S3776‹"RRefactor this method to reduce its Cognitive Complexity from 45 to the 15 allowed.(öŠ¬ÿÿÿÿÿ8›Ú³§3
+v
+java:S2139ğ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8¼Ú³§3
+v
+java:S2139"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ÁÚ³§3
+r
+java:S3252¤"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(çø¤ÿÿÿÿÿ8ÃÚ³§3
+v
+java:S2139«"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ÄÚ³§3
+v
+java:S2139¼"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ÆÚ³§3
+v
+java:S2139Õ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ÈÚ³§3
+v
+java:S2139õ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ØÚ³§3
+v
+java:S2139"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ßÚ³§3
+v
+java:S2139¦"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8æÚ³§3
+v
+java:S2139½"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8èÚ³§3
+\
+java:S3400È"9Remove this method and declare a constant for this value.(ä«Æúÿÿÿÿ8éÚ³§3

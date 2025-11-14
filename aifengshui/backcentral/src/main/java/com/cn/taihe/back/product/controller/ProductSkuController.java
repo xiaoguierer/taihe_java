@@ -53,7 +53,7 @@ public class ProductSkuController {
         return ResponseEntity.notFound().build();
       }
       logger.info("根据主键查找商品SKU成功，返回结果：{}, operator={}", result, OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("根据主键查找商品SKU异常，id={}, operator={}, error={}", id, OPERATOR, e.getMessage(), e);
       return ResponseEntity.badRequest().body(Result.error("失败"));
@@ -68,15 +68,15 @@ public class ProductSkuController {
   public ResponseEntity<Object> create(
     @ApiParam(value = "商品SKU新增参数", required = true)
     @RequestPart("createDTO") @Valid  ProductSkuCreateDTO createDTO,
-    @RequestPart(value = "mainImagefile", required = false) MultipartFile mainImagefile,
     @RequestPart(value = "image1file", required = false) MultipartFile image1file,
-    @RequestPart(value = "image2File", required = false) MultipartFile image2File,
-    @RequestPart(value = "image3File", required = false) MultipartFile image3File,
-    @RequestPart(value = "image4File", required = false) MultipartFile image4File,
-    @RequestPart(value = "image5File", required = false) MultipartFile image5File) {
+    @RequestPart(value = "image2file", required = false) MultipartFile image2file,
+    @RequestPart(value = "image3file", required = false) MultipartFile image3file,
+    @RequestPart(value = "image4file", required = false) MultipartFile image4file,
+    @RequestPart(value = "image5file", required = false) MultipartFile image5file,
+    @RequestPart(value = "image6file", required = false) MultipartFile image6file) {
     logger.info("新增商品SKU，请求参数：{}, operator={}", createDTO, OPERATOR);
     try {
-      boolean result = productSkuService.create(createDTO,mainImagefile,image1file,image2File,image3File,image4File,image5File);
+      boolean result = productSkuService.create(createDTO,image1file,image2file,image3file,image4file,image5file,image6file);
       if (!result) {
         logger.warn("新增商品SKU失败，可能SKU编码已存在，createDTO={}, operator={}", createDTO, OPERATOR);
         return ResponseEntity.badRequest().body(false);
@@ -97,21 +97,21 @@ public class ProductSkuController {
   public ResponseEntity<Object> update(
     @ApiParam(value = "商品SKU更新参数", required = true)
     @RequestPart("updateDTO") @Valid ProductSkuUpdateDTO updateDTO,
-    @RequestPart(value = "mainImagefile", required = false) MultipartFile mainImagefile,
     @RequestPart(value = "image1file", required = false) MultipartFile image1file,
-    @RequestPart(value = "image2File", required = false) MultipartFile image2File,
-    @RequestPart(value = "image3File", required = false) MultipartFile image3File,
-    @RequestPart(value = "image4File", required = false) MultipartFile image4File,
-    @RequestPart(value = "image5File", required = false) MultipartFile image5File) {
+    @RequestPart(value = "image2file", required = false) MultipartFile image2file,
+    @RequestPart(value = "image3file", required = false) MultipartFile image3file,
+    @RequestPart(value = "image4file", required = false) MultipartFile image4file,
+    @RequestPart(value = "image5file", required = false) MultipartFile image5file,
+    @RequestPart(value = "image6file", required = false) MultipartFile image6file) {
     logger.info("修改商品SKU，请求参数：{}, operator={}", updateDTO, OPERATOR);
     try {
-      boolean result = productSkuService.update(updateDTO,mainImagefile,image1file,image2File,image3File,image4File,image5File);
+      boolean result = productSkuService.update(updateDTO,image1file,image2file,image3file,image4file,image5file,image6file);
       if (!result) {
         logger.warn("修改商品SKU失败，可能记录不存在或SKU编码冲突，updateDTO={}, operator={}", updateDTO, OPERATOR);
         return ResponseEntity.badRequest().body(false);
       }
       logger.info("修改商品SKU成功，operator={}", OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("修改商品SKU异常，updateDTO={}, operator={}, error={}", updateDTO, OPERATOR, e.getMessage(), e);
       return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
@@ -133,7 +133,7 @@ public class ProductSkuController {
         return ResponseEntity.badRequest().body(false);
       }
       logger.info("删除商品SKU成功，id={}, operator={}", id, OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("删除商品SKU异常，id={}, operator={}, error={}", id, OPERATOR, e.getMessage(), e);
       return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
@@ -156,7 +156,7 @@ public class ProductSkuController {
     try {
       PageInfo<ProductSku> result = productSkuService.findByCondition(queryDTO, page, size);
       logger.info("条件分页查询商品SKU成功，总记录数：{}, operator={}", result.getTotal(), OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("条件分页查询商品SKU异常，queryDTO={}, page={}, size={}, operator={}, error={}",
         queryDTO, page, size, OPERATOR, e.getMessage(), e);
@@ -174,7 +174,7 @@ public class ProductSkuController {
     try {
       List<ProductSku> result = productSkuService.findAll();
       logger.info("查询所有商品SKU成功，记录数：{}, operator={}", result.size(), OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("查询所有商品SKU异常，operator={}, error={}", OPERATOR, e.getMessage(), e);
       return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
@@ -196,7 +196,7 @@ public class ProductSkuController {
         return ResponseEntity.badRequest().body(false);
       }
       logger.info("批量删除商品SKU成功，删除记录数：{}, operator={}", ids.size(), OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("批量删除商品SKU异常，ids={}, operator={}, error={}", ids, OPERATOR, e.getMessage(), e);
       return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
@@ -220,7 +220,7 @@ public class ProductSkuController {
         return ResponseEntity.badRequest().body(false);
       }
       logger.info("更新商品SKU状态成功，id={}, status={}, operator={}", id, status, OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("更新商品SKU状态异常，id={}, status={}, updatedBy={}, operator={}, error={}",
         id, status, updatedBy, OPERATOR, e.getMessage(), e);
@@ -246,7 +246,7 @@ public class ProductSkuController {
         return ResponseEntity.badRequest().body(false);
       }
       logger.info("更新商品SKU可售状态成功，id={}, isAvailable={}, operator={}", id, isAvailable, OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("更新商品SKU可售状态异常，id={}, isAvailable={}, updatedBy={}, operator={}, error={}",
         id, isAvailable, updatedBy, OPERATOR, e.getMessage(), e);
@@ -271,7 +271,7 @@ public class ProductSkuController {
         return ResponseEntity.badRequest().body(false);
       }
       logger.info("批量更新商品SKU状态成功，更新记录数：{}, status={}, operator={}", ids.size(), status, OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("批量更新商品SKU状态异常，ids={}, status={}, updatedBy={}, operator={}, error={}",
         ids, status, updatedBy, OPERATOR, e.getMessage(), e);
@@ -297,7 +297,7 @@ public class ProductSkuController {
         return ResponseEntity.badRequest().body(false);
       }
       logger.info("批量更新商品SKU可售状态成功，更新记录数：{}, isAvailable={}, operator={}", ids.size(), isAvailable, OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("批量更新商品SKU可售状态异常，ids={}, isAvailable={}, updatedBy={}, operator={}, error={}",
         ids, isAvailable, updatedBy, OPERATOR, e.getMessage(), e);
@@ -316,7 +316,7 @@ public class ProductSkuController {
     try {
       List<ProductSku> result = productSkuService.findBySpuId(spuId);
       logger.info("根据SPU ID查询商品SKU成功，记录数：{}, operator={}", result.size(), OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("根据SPU ID查询商品SKU异常，spuId={}, operator={}, error={}", spuId, OPERATOR, e.getMessage(), e);
       return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
@@ -338,7 +338,7 @@ public class ProductSkuController {
         return ResponseEntity.notFound().build();
       }
       logger.info("根据SKU编码查询商品SKU成功，返回结果：{}, operator={}", result, OPERATOR);
-      return ResponseEntity.ok(result);
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("根据SKU编码查询商品SKU异常，skuCode={}, operator={}, error={}", skuCode, OPERATOR, e.getMessage(), e);
       return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
@@ -357,7 +357,7 @@ public class ProductSkuController {
     try {
       boolean exists = productSkuService.isSkuCodeExists(skuCode, excludeId);
       logger.info("检查SKU编码是否存在，结果：{}, operator={}", exists, OPERATOR);
-      return ResponseEntity.ok(exists);
+      return ResponseEntity.ok(Result.success(exists));
     } catch (Exception e) {
       logger.error("检查SKU编码是否存在异常，skuCode={}, excludeId={}, operator={}, error={}",
         skuCode, excludeId, OPERATOR, e.getMessage(), e);

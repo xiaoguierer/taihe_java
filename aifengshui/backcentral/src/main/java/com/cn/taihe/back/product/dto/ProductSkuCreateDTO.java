@@ -4,8 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -19,20 +17,16 @@ import java.time.LocalDate;
 @ApiModel(value = "ProductSkuCreateDTO", description = "商品SKU新增DTO")
 public class ProductSkuCreateDTO {
 
-  @NotBlank(message = "SPU ID不能为空")
-  @ApiModelProperty(value = "SPU ID", required = true)
+  @ApiModelProperty(value = "SPU ID")
   private String spuId;
 
-  @NotBlank(message = "SKU编码不能为空")
-  @ApiModelProperty(value = "SKU编码", required = true)
+  @ApiModelProperty(value = "SKU编码")
   private String skuCode;
 
-  @NotBlank(message = "英文SKU名称不能为空")
-  @ApiModelProperty(value = "英文SKU名称", required = true)
+  @ApiModelProperty(value = "英文SKU名称")
   private String skuNameEn;
 
-  @NotBlank(message = "中文SKU名称不能为空")
-  @ApiModelProperty(value = "中文SKU名称", required = true)
+  @ApiModelProperty(value = "中文SKU名称")
   private String skuNameZh;
 
   @ApiModelProperty(value = "阿拉伯语SKU名称")
@@ -56,8 +50,7 @@ public class ProductSkuCreateDTO {
   @ApiModelProperty(value = "阿拉伯语寓意描述")
   private String variantYuyiAr;
 
-  @NotBlank(message = "主要材质不能为空")
-  @ApiModelProperty(value = "主要材质", required = true)
+  @ApiModelProperty(value = "主要材质")
   private String primaryMaterial;
 
   @ApiModelProperty(value = "材质纯度")
@@ -108,8 +101,7 @@ public class ProductSkuCreateDTO {
   @ApiModelProperty(value = "吊坠尺寸(mm)")
   private BigDecimal pendantSizeMm;
 
-  @NotNull(message = "总重量不能为空")
-  @ApiModelProperty(value = "总重量(克)", required = true)
+  @ApiModelProperty(value = "总重量(克)")
   private BigDecimal totalWeightG;
 
   @ApiModelProperty(value = "金属重量(克)")
@@ -160,12 +152,10 @@ public class ProductSkuCreateDTO {
   @ApiModelProperty(value = "低库存预警")
   private Boolean lowStockAlert;
 
-  @NotNull(message = "成本价不能为空")
-  @ApiModelProperty(value = "成本价", required = true)
+  @ApiModelProperty(value = "成本价")
   private BigDecimal costPrice;
 
-  @NotNull(message = "零售价不能为空")
-  @ApiModelProperty(value = "零售价", required = true)
+  @ApiModelProperty(value = "零售价")
   private BigDecimal retailPrice;
 
   @ApiModelProperty(value = "促销价")
@@ -231,8 +221,7 @@ public class ProductSkuCreateDTO {
   @ApiModelProperty(value = "图片5 url")
   private String image5Url;
 
-  @NotNull(message = "可售开始日期不能为空")
-  @ApiModelProperty(value = "可售开始日期", required = true)
+  @ApiModelProperty(value = "可售开始日期")
   private LocalDate availableDate;
 
   @ApiModelProperty(value = "可售结束日期")
@@ -259,11 +248,9 @@ public class ProductSkuCreateDTO {
   @ApiModelProperty(value = "可见性:1 公开,2 隐藏")
   private Integer visibility;
 
-  @NotNull(message = "创建人ID不能为空")
-  @ApiModelProperty(value = "创建人ID", required = true)
+  @ApiModelProperty(value = "创建人ID")
   private Long createdBy;
 
-  @NotNull(message = "更新人ID不能为空")
-  @ApiModelProperty(value = "更新人ID", required = true)
+  @ApiModelProperty(value = "更新人ID")
   private Long updatedBy;
 }

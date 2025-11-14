@@ -24,14 +24,14 @@ public interface ProductSkuService {
   /**
    * 新增数据
    */
-  boolean create(ProductSkuCreateDTO createDTO, MultipartFile mainImagefile,MultipartFile image1file,MultipartFile image2file,
-                 MultipartFile image3file,MultipartFile image4file,MultipartFile image5file);
+  boolean create(ProductSkuCreateDTO createDTO,MultipartFile image1file,MultipartFile image2file,
+                 MultipartFile image3file,MultipartFile image4file,MultipartFile image5file,MultipartFile image6file);
 
   /**
    * 修改数据
    */
-  boolean update(ProductSkuUpdateDTO updateDTO,MultipartFile mainImagefile,MultipartFile image1file,MultipartFile image2file,
-                 MultipartFile image3file,MultipartFile image4file,MultipartFile image5file);
+  boolean update(ProductSkuUpdateDTO updateDTO,MultipartFile image1file,MultipartFile image2file,
+                 MultipartFile image3file,MultipartFile image4file,MultipartFile image5file,MultipartFile image6file);
 
   /**
    * 根据主键删除数据

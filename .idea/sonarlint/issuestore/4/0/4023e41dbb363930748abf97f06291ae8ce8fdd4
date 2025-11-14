@@ -1,0 +1,61 @@
+
+E
+java:S3740R"/Provide the parametrized type for this generic.(ëŸ„
+J
+java:S3740W"/Provide the parametrized type for this generic.(¦ğìåÿÿÿÿÿ
+J
+java:S3740\"/Provide the parametrized type for this generic.(š˜©”ıÿÿÿÿ
+E
+java:S3740a"/Provide the parametrized type for this generic.(¹ÃÍÈ
+E
+java:S3740f"/Provide the parametrized type for this generic.(ÛÇÙŠ
+J
+java:S3740k"/Provide the parametrized type for this generic.(ÃÆÌÿÿÿÿÿ
+F
+java:S3740¼"/Provide the parametrized type for this generic.(ëŸ„
+K
+java:S3740Á"/Provide the parametrized type for this generic.(¦ğìåÿÿÿÿÿ
+K
+java:S3740Æ"/Provide the parametrized type for this generic.(š˜©”ıÿÿÿÿ
+F
+java:S3740Ë"/Provide the parametrized type for this generic.(¹ÃÍÈ
+M
+java:S3740Ğ"/Provide the parametrized type for this generic.(ÛÇÙŠ8ï·ß§3
+R
+java:S3740Õ"/Provide the parametrized type for this generic.(ÃÆÌÿÿÿÿÿ8°ù»ß§3
+g
+java:S1192–"KDefine a constant instead of duplicating this literal "/api/files" 6 times.(™»“¤üÿÿÿÿ
+e
+java:S1192T"HDefine a constant instead of duplicating this literal "jdpath" 12 times.(ËÊ¾Ú8™è¶ß§3
+n
+java:S21397"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+u
+java:S2139s"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Æ‘·ß§3
+o
+java:S3776~"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(æŸÜÈ8Æ‘·ß§3
+v
+java:S2139Ş"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Ó‘·ß§3
+v
+java:S2139ğ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Õ‘·ß§3
+r
+java:S3252ı"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(‹‹¥®úÿÿÿÿ8Ö‘·ß§3
+v
+java:S2139‚"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Ö‘·ß§3
+v
+java:S2139“"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8×‘·ß§3
+v
+java:S2139ª"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Ù‘·ß§3
+v
+java:S2139¼"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Ú‘·ß§3
+v
+java:S2139Ñ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Û‘·ß§3
+v
+java:S2139é"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Ü‘·ß§3
+v
+java:S2139‚"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8İ‘·ß§3
+v
+java:S2139“"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Ş‘·ß§3
+v
+java:S2139£"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8à‘·ß§3
+v
+java:S2139´"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8â‘·ß§3

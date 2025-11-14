@@ -2,6 +2,7 @@ package com.cn.taihe.back.product.service;
 
 import com.cn.taihe.back.product.entity.ProductSpuIntent;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -38,6 +39,14 @@ public interface ProductSpuIntentService {
    * @return 影响行数
    */
   int save(ProductSpuIntent productSpuIntent);
+  /**
+   * @description:
+   * @author: 新建关联关系
+   * @date: 2025/11/14 13:33
+   * @param: [spuId, arrays]
+   * @return: [java.lang.String, java.util.Arrays]
+   **/
+  int createRealiations(String spuId, List list);
 
   /**
    * 批量新增数据

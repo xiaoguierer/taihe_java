@@ -2,12 +2,15 @@ package com.cn.taihe.back.product.service.impl;
 import com.cn.taihe.back.product.entity.ProductSpuIntent;
 import com.cn.taihe.back.product.mapper.ProductSpuIntentMapper;
 import com.cn.taihe.back.product.service.ProductSpuIntentService;
+import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,6 +84,35 @@ public class ProductSpuIntentServiceImpl implements ProductSpuIntentService {
     return result;
   }
 
+  /**
+   * @description:
+   * @author: 大咖
+   * @date: 新建关系，逻辑 先删除之前的数据再重新新建
+   * @param: [spuId, arrays]
+   * @return: [java.lang.String, java.util.Arrays]
+   **/
+  @Override
+  @Transactional(rollbackFor = Exception.class)
+  public int createRealiations(String spuId, List list){
+    logger.info("开始根据SPU ID查找SPU-情感意图关系, 操作人: {}, 参数: spuId={}", OPERATOR, spuId);
+    int del_result  = productSpuIntentMapper.deleteBySpuId(spuId);
+    Date date = new Date();
+    if(list!=null && list.size()>0){
+      for (Object item : list) {
+        ProductSpuIntent productSpuIntent = new ProductSpuIntent();
+        productSpuIntent.setId(String.valueOf(SnowflakeIdGenerator.nextId()));
+        productSpuIntent.setSpuId(spuId);
+        productSpuIntent.setIntentId(String.valueOf(item));
+        productSpuIntent.setCreatedTime(date);
+        productSpuIntent.setSortOrder(1);
+        productSpuIntent.setIsActive(1);
+        productSpuIntent.setAssociationLevel("1");
+        productSpuIntent.setCustomMessageZh("default");
+        productSpuIntentMapper.insert(productSpuIntent);
+      }
+    }
+    return del_result;
+  }
   /**
    * 批量新增数据
    */

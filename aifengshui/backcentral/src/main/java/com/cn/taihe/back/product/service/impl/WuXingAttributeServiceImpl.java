@@ -7,6 +7,8 @@ import com.cn.taihe.back.product.dto.WuXingAttributeQueryDTO;
 import com.cn.taihe.back.product.dto.WuXingAttributeUpdateDTO;
 import com.cn.taihe.back.product.entity.WuXingAttribute;
 import com.cn.taihe.back.product.mapper.WuXingAttributeMapper;
+import com.cn.taihe.back.product.service.ProductSpuIntentService;
+import com.cn.taihe.back.product.service.ProductSpuWuxingService;
 import com.cn.taihe.back.product.service.WuXingAttributeService;
 import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
@@ -44,6 +46,8 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
   private ProductImageService productImageService;
   @Autowired
   private FileStorageService fileStorageService;
+  @Autowired
+  private ProductSpuWuxingService productSpuWuxingService;
 
   @Override
   public WuXingAttribute getById(String id) {
@@ -175,6 +179,19 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
       throw new RuntimeException("更新五行属性失败", e);
     }
   }
+
+
+  /**
+   * @description:
+   * @author: 新建和商品SPU的关联关系
+   * @date: 2025/11/14 13:33
+   * @param: [spuId, arrays]
+   * @return: [java.lang.String, java.util.Arrays]
+   **/
+  public int createRealiations(String spuId, List list){
+    return productSpuWuxingService.createRealiations(spuId,list);
+  }
+
 
   @Override
   @Transactional(rollbackFor = Exception.class)

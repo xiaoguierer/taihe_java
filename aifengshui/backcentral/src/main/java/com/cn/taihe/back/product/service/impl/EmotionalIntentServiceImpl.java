@@ -8,6 +8,7 @@ import com.cn.taihe.back.product.dto.EmotionalIntentUpdateDTO;
 import com.cn.taihe.back.product.entity.EmotionalIntent;
 import com.cn.taihe.back.product.mapper.EmotionalIntentMapper;
 import com.cn.taihe.back.product.service.EmotionalIntentService;
+import com.cn.taihe.back.product.service.ProductSpuIntentService;
 import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
@@ -45,6 +46,8 @@ public class EmotionalIntentServiceImpl implements EmotionalIntentService {
   private ProductImageService productImageService;
   @Autowired
   private FileStorageService fileStorageService;
+  @Autowired
+  private ProductSpuIntentService productSpuIntentService;
 
   /**
    * 根据ID查询情感意图详情
@@ -315,6 +318,17 @@ public class EmotionalIntentServiceImpl implements EmotionalIntentService {
       logger.error("更新情感意图信息异常，操作人：{}，参数：{}，异常信息：", OPERATOR, updateDTO, e);
       throw new RuntimeException("更新情感意图信息失败", e);
     }
+  }
+
+  /**
+   * @description:
+   * @author: 新建关联关系
+   * @date: 2025/11/14 13:33
+   * @param: [spuId, arrays]
+   * @return: [java.lang.String, java.util.Arrays]
+   **/
+  public int createRealiations(String spuId, List list){
+    return productSpuIntentService.createRealiations(spuId,list);
   }
 
   /**

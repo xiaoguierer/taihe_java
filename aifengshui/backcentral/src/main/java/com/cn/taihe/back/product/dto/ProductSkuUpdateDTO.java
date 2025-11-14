@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -252,7 +251,6 @@ public class ProductSkuUpdateDTO {
   @ApiModelProperty(value = "可见性:1 公开,2 隐藏")
   private Integer visibility;
 
-  @NotNull(message = "更新人ID不能为空")
   @ApiModelProperty(value = "更新人ID", required = true)
   private Long updatedBy;
 }

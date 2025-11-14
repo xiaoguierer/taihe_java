@@ -63,8 +63,8 @@ public class ProductSkuServiceImpl implements ProductSkuService {
    */
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean create(ProductSkuCreateDTO createDTO, MultipartFile mainImagefile,MultipartFile image1file,MultipartFile image2file,
-                        MultipartFile image3file,MultipartFile image4file,MultipartFile image5file){
+  public boolean create(ProductSkuCreateDTO createDTO,MultipartFile image1file,MultipartFile image2file,
+                        MultipartFile image3file,MultipartFile image4file,MultipartFile image5file,MultipartFile image6file){
     logger.info("新增商品SKU，请求参数：{}, operator={}", createDTO, OPERATOR);
     try {
       // 检查SKU编码是否已存在
@@ -78,11 +78,6 @@ public class ProductSkuServiceImpl implements ProductSkuService {
       // 设置主键
       productSku.setId(String.valueOf(SnowflakeIdGenerator.nextId()));
 
-      if(mainImagefile != null && !mainImagefile.isEmpty()){
-        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,mainImagefile);
-        productSku.setMainImageId((String) map.get("key"));
-        productSku.setMainImageUrl((String) map.get("jdpath"));
-      }
       if(image1file != null && !image1file.isEmpty()){
         Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image1file);
         productSku.setImage1Id((String) map.get("key"));
@@ -108,6 +103,11 @@ public class ProductSkuServiceImpl implements ProductSkuService {
         productSku.setImage5Id((String) map.get("key"));
         productSku.setImage5Url((String) map.get("jdpath"));
       }
+      if(image6file != null && !image6file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image6file);
+        productSku.setMainImageId((String) map.get("key"));
+        productSku.setMainImageUrl((String) map.get("jdpath"));
+      }
       int result = productSkuMapper.insert(productSku);
       boolean success = result > 0;
       logger.info("新增商品SKU{}，id={}, operator={}", success ? "成功" : "失败", productSku.getId(), OPERATOR);
@@ -123,8 +123,8 @@ public class ProductSkuServiceImpl implements ProductSkuService {
    */
   @Override
   @Transactional(rollbackFor = Exception.class)
-  public boolean update(ProductSkuUpdateDTO updateDTO, MultipartFile mainImagefile,MultipartFile image1file,MultipartFile image2file,
-                        MultipartFile image3file,MultipartFile image4file,MultipartFile image5file){
+  public boolean update(ProductSkuUpdateDTO updateDTO,MultipartFile image1file,MultipartFile image2file,
+                        MultipartFile image3file,MultipartFile image4file,MultipartFile image5file,MultipartFile image6file){
     logger.info("修改商品SKU，请求参数：{}, operator={}", updateDTO, OPERATOR);
     try {
       // 检查数据是否存在
@@ -184,11 +184,6 @@ public class ProductSkuServiceImpl implements ProductSkuService {
         productImageService.deleteProductImageById(productSku.getImage5Id());
       }
       //新增图片和图片表数据
-      if(mainImagefile != null && !mainImagefile.isEmpty()){
-        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,mainImagefile);
-        productSku.setMainImageId((String) map.get("key"));
-        productSku.setMainImageUrl((String) map.get("jdpath"));
-      }
       if(image1file != null && !image1file.isEmpty()){
         Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image1file);
         productSku.setImage1Id((String) map.get("key"));
@@ -213,6 +208,11 @@ public class ProductSkuServiceImpl implements ProductSkuService {
         Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image5file);
         productSku.setImage5Id((String) map.get("key"));
         productSku.setImage5Url((String) map.get("jdpath"));
+      }
+      if(image6file != null && !image6file.isEmpty()){
+        Map map =productImageService.createProductImageWhithOpen(AppCommonConstants.IMAGE_PRODUCT_DETAIL_File_PATH,image6file);
+        productSku.setMainImageId((String) map.get("key"));
+        productSku.setMainImageUrl((String) map.get("jdpath"));
       }
 
       int result = productSkuMapper.updateById(productSku);

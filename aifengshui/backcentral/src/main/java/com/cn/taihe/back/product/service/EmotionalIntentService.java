@@ -77,6 +77,16 @@ public interface EmotionalIntentService {
   Boolean update(@Valid EmotionalIntentUpdateDTO updateDTO, MultipartFile iconfile,MultipartFile symbolImageFile,MultipartFile energyImageFile,
                  MultipartFile applicationImageFile,MultipartFile meditationImageFile);
 
+
+  /**
+   * @description:
+   * @author: 新建关联关系
+   * @date: 2025/11/14 13:33
+   * @param: [spuId, arrays]
+   * @return: [java.lang.String, java.util.Arrays]
+   **/
+  int createRealiations(String spuId, List list);
+
   /**
    * 根据ID删除情感意图（逻辑删除）
    *
