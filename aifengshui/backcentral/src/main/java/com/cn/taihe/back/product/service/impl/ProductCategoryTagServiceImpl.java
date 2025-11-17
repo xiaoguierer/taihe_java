@@ -8,6 +8,7 @@ import com.cn.taihe.back.product.dto.ProductCategoryTagUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductCategoryTag;
 import com.cn.taihe.back.product.mapper.ProductCategoryTagMapper;
 import com.cn.taihe.back.product.service.ProductCategoryTagService;
+import com.cn.taihe.back.product.service.ProductSpuCategoryTagService;
 import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
@@ -43,6 +44,8 @@ public class ProductCategoryTagServiceImpl implements ProductCategoryTagService 
   private ProductImageService productImageService;
   @Autowired
   private FileStorageService fileStorageService;
+  @Autowired
+  private ProductSpuCategoryTagService productSpuCategoryTagService;
 
   /**
    * 根据主键查询商品品类标签
@@ -191,7 +194,16 @@ public class ProductCategoryTagServiceImpl implements ProductCategoryTagService 
       throw new RuntimeException("更新商品品类标签失败", e);
     }
   }
-
+  /**
+   * @description:
+   * @author: 创建产品呢spu和分类标签之间的关系
+   * @date: 2025/11/15 15:19
+   * @param: [spuId, list]
+   * @return: [java.lang.String, java.util.List]
+   **/
+  public int createRealiations(String spuId, List list){
+    return productSpuCategoryTagService.createRealiations(spuId,list);
+  }
   /**
    * 根据主键删除商品品类标签
    */

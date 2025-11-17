@@ -8,6 +8,7 @@ import com.cn.taihe.back.product.dto.ProductSkuUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductSku;
 import com.cn.taihe.back.product.mapper.ProductSkuMapper;
 import com.cn.taihe.back.product.service.ProductSkuService;
+import com.cn.taihe.back.product.service.ProductSpuSkuRelService;
 import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
@@ -41,6 +42,8 @@ public class ProductSkuServiceImpl implements ProductSkuService {
   private ProductImageService productImageService;
   @Autowired
   private FileStorageService fileStorageService;
+  @Autowired
+  private ProductSpuSkuRelService productSpuSkuRelService;
 
   /**
    * 根据主键查找
@@ -225,6 +228,16 @@ public class ProductSkuServiceImpl implements ProductSkuService {
     }
   }
 
+  /**
+   * @description:
+   * @author: 新建关联关系
+   * @date: 2025/11/14 13:33
+   * @param: [spuId, arrays]
+   * @return: [java.lang.String, java.util.Arrays]
+   **/
+  public int createRealiations(String spuId, List list){
+    return productSpuSkuRelService.createRealiations(spuId,list);
+  }
   /**
    * 根据主键删除数据
    */

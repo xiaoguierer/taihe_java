@@ -1,5 +1,6 @@
 package com.cn.taihe.back.product.controller;
 
+import com.cn.taihe.back.product.dto.CreateRelationsRequest;
 import com.cn.taihe.back.product.dto.ProductSkuCreateDTO;
 import com.cn.taihe.back.product.dto.ProductSkuQueryDTO;
 import com.cn.taihe.back.product.dto.ProductSkuUpdateDTO;
@@ -116,6 +117,20 @@ public class ProductSkuController {
       logger.error("修改商品SKU异常，updateDTO={}, operator={}, error={}", updateDTO, OPERATOR, e.getMessage(), e);
       return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));
     }
+  }
+
+  /**
+   * 新增数据
+   */
+  @PostMapping(value = "/createRealiations")
+  @ApiOperation(value = "新增SPU-情感意图关系")
+  public ResponseEntity<Object> createRealiations(
+    @RequestBody @Valid CreateRelationsRequest request) {
+    logger.info("开始处理新增SPU-情感意图关系请求, 操作人: {}, 参数: {}", OPERATOR, request);
+    int result = productSkuService.createRealiations(request.getSpuId(),request.getIntentIds());
+    logger.info("新增SPU-情感意图关系请求处理完成, 操作人: {}, 参数: {}, 影响行数: {}",
+      OPERATOR, result);
+    return ResponseEntity.ok(Result.success(result));
   }
 
   /**

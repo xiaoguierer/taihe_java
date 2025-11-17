@@ -1,4 +1,5 @@
 package com.cn.taihe.back.product.controller;
+import com.cn.taihe.back.product.dto.CreateRelationsRequest;
 import com.cn.taihe.back.product.dto.ProductCategoryTagCreateDTO;
 import com.cn.taihe.back.product.dto.ProductCategoryTagQueryDTO;
 import com.cn.taihe.back.product.dto.ProductCategoryTagUpdateDTO;
@@ -113,7 +114,19 @@ public class ProductCategoryTagController {
       return ResponseEntity.ok(Result.error(e.getMessage()));
     }
   }
-
+  /**
+   * 新增数据
+   */
+  @PostMapping(value = "/createRealiations")
+  @ApiOperation(value = "新增SPU-商品标签")
+  public ResponseEntity<Object> createRealiations(
+    @RequestBody @Valid CreateRelationsRequest request) {
+    logger.info("开始处理新增SPU-商品标签关系请求, 操作人: {}, 参数: {}", OPERATOR, request.getSpuId());
+    int result = productCategoryTagService.createRealiations(request.getSpuId(),request.getIntentIds());
+    logger.info("新增SPU-商品标签关系请求处理完成, 操作人: {}, 参数: {}, 影响行数: {}",
+      OPERATOR, result);
+    return ResponseEntity.ok(Result.success(result));
+  }
   /**
    * 根据主键删除商品品类标签
    */

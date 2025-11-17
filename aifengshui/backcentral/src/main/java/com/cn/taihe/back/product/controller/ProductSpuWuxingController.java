@@ -55,11 +55,8 @@ public class ProductSpuWuxingController {
   public ResponseEntity<Object> getBySpuId(
     @ApiParam(value = "SPU ID", required = true)
     @PathVariable String spuId) {
-
     logger.info("开始处理根据SPU ID查找请求, 操作人: {}, 参数: spuId={}", OPERATOR, spuId);
-
     List<ProductSpuWuxing> result = productSpuWuxingService.findBySpuId(spuId);
-
     logger.info("根据SPU ID查找请求处理完成, 操作人: {}, 参数: spuId={}, 结果数量: {}",
       OPERATOR, spuId, result != null ? result.size() : 0);
     return ResponseEntity.ok(Result.success(result));

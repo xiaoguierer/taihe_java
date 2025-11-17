@@ -32,7 +32,14 @@ public interface ProductSkuService {
    */
   boolean update(ProductSkuUpdateDTO updateDTO,MultipartFile image1file,MultipartFile image2file,
                  MultipartFile image3file,MultipartFile image4file,MultipartFile image5file,MultipartFile image6file);
-
+  /**
+   * @description:
+   * @author: 新建关联关系
+   * @date: 2025/11/14 13:33
+   * @param: [spuId, arrays]
+   * @return: [java.lang.String, java.util.Arrays]
+   **/
+  int createRealiations(String spuId, List list);
   /**
    * 根据主键删除数据
    */

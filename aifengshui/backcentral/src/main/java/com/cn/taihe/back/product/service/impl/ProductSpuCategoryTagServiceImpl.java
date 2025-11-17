@@ -1,5 +1,6 @@
 package com.cn.taihe.back.product.service.impl;
 import com.cn.taihe.back.product.entity.ProductSpuCategoryTag;
+import com.cn.taihe.back.product.entity.ProductSpuIntent;
 import com.cn.taihe.back.product.mapper.ProductSpuCategoryTagMapper;
 import com.cn.taihe.back.product.service.ProductSpuCategoryTagService;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -97,6 +99,35 @@ public class ProductSpuCategoryTagServiceImpl implements ProductSpuCategoryTagSe
       OPERATOR, productSpuCategoryTagList != null ? productSpuCategoryTagList.size() : 0, result);
     return result;
   }
+
+  /**
+   * @description:
+   * @author: 创建产品呢spu和分类标签之间的关系
+   * @date: 2025/11/15 15:19
+   * @param: [spuId, list]
+   * @return: [java.lang.String, java.util.List]
+   **/
+  @Override
+  @Transactional(rollbackFor = Exception.class)
+  public int createRealiations(String spuId, List list){
+    logger.info("开始根据SPU ID查找SPU-情感意图关系, 操作人: {}, 参数: spuId={}", OPERATOR, spuId);
+    int del_result  = productSpuCategoryTagMapper.deleteBySpuId(spuId);
+    Date date = new Date();
+    if(list!=null && list.size()>0){
+      for (Object item : list) {
+        ProductSpuCategoryTag productSpuCategoryTag = new ProductSpuCategoryTag();
+        productSpuCategoryTag.setId(String.valueOf(SnowflakeIdGenerator.nextId()));
+        productSpuCategoryTag.setSpuId(spuId);
+        productSpuCategoryTag.setCategoryTagId(String.valueOf(item));
+        productSpuCategoryTag.setCreatedTime(date);
+        productSpuCategoryTag.setSortOrder(1);
+        productSpuCategoryTag.setIsPrimary(1);
+        productSpuCategoryTagMapper.insert(productSpuCategoryTag);
+      }
+    }
+    return del_result;
+  };
+
 
   /**
    * 根据主键删除数据

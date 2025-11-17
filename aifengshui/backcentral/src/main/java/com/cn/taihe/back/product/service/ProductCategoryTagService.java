@@ -47,6 +47,14 @@ public interface ProductCategoryTagService {
     coverimagefile,MultipartFile hoverimagefile);
 
   /**
+   * @description:
+   * @author: 创建产品呢spu和分类标签之间的关系
+   * @date: 2025/11/15 15:19
+   * @param: [spuId, list]
+   * @return: [java.lang.String, java.util.List]
+   **/
+  int createRealiations(String spuId, List list);
+  /**
    * 根据主键删除商品品类标签
    *
    * @param id 主键ID

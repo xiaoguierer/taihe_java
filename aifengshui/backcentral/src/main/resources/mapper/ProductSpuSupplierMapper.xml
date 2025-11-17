@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.product.mapper.ProductSpuSupplierMapper">
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    id, spu_id, supplier_id, created_time
+  </sql>
+
+  <!-- 根据主键查找 -->
+  <select id="selectById" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuSupplier">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu_supplier
+    WHERE id = #{id}
+  </select>
+
+  <!-- 根据SPU ID查找 -->
+  <select id="selectBySpuId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuSupplier">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu_supplier
+    WHERE spu_id = #{spuId}
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 根据供应商ID查找 -->
+  <select id="selectBySupplierId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuSupplier">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu_supplier
+    WHERE supplier_id = #{supplierId}
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 条件查询数据 -->
+  <select id="selectByCondition" parameterType="com.cn.taihe.back.product.entity.ProductSpuSupplier"
+          resultType="com.cn.taihe.back.product.entity.ProductSpuSupplier">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu_supplier
+    <where>
+      <if test="id != null and id != ''">
+        AND id = #{id}
+      </if>
+      <if test="spuId != null and spuId != ''">
+        AND spu_id = #{spuId}
+      </if>
+      <if test="supplierId != null and supplierId != ''">
+        AND supplier_id = #{supplierId}
+      </if>
+      <if test="createdTime != null">
+        AND created_time = #{createdTime}
+      </if>
+    </where>
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.cn.taihe.back.product.entity.ProductSpuSupplier">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_spu_supplier
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 新增数据 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.product.entity.ProductSpuSupplier">
+    INSERT INTO product_spu_supplier
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">id,</if>
+      spu_id,
+      supplier_id,
+      created_time
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">#{id},</if>
+      #{spuId},
+      #{supplierId},
+      <choose>
+        <when test="createdTime != null">#{createdTime}</when>
+        <otherwise>NOW()</otherwise>
+      </choose>
+    </trim>
+  </insert>
+
+  <!-- 修改数据（只更新非空字段） -->
+  <update id="updateById" parameterType="com.cn.taihe.back.product.entity.ProductSpuSupplier">
+    UPDATE product_spu_supplier
+    <set>
+      <if test="spuId != null and spuId != ''">
+        spu_id = #{spuId},
+      </if>
+      <if test="supplierId != null and supplierId != ''">
+        supplier_id = #{supplierId},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 根据主键删除数据 -->
+  <delete id="deleteById" parameterType="java.lang.String">
+    DELETE FROM product_spu_supplier
+    WHERE id = #{id}
+  </delete>
+
+  <!-- 根据主键集合批量删除 -->
+  <delete id="deleteBatchIds" parameterType="java.util.List">
+    DELETE FROM product_spu_supplier
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <!-- 根据SPU ID批量删除 -->
+  <delete id="deleteBySpuId" parameterType="java.lang.String">
+    DELETE FROM product_spu_supplier
+    WHERE spu_id = #{spuId}
+  </delete>
+
+  <!-- 根据供应商ID批量删除 -->
+  <delete id="deleteBySupplierId" parameterType="java.lang.String">
+    DELETE FROM product_spu_supplier
+    WHERE supplier_id = #{supplierId}
+  </delete>
+
+  <!-- 检查SPU和供应商关联是否存在 -->
+  <select id="checkExists" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM product_spu_supplier
+    WHERE spu_id = #{spuId} AND supplier_id = #{supplierId}
+  </select>
+
+</mapper>

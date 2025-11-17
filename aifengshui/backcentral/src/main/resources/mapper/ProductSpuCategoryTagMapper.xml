@@ -11,7 +11,7 @@
   <select id="selectById" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuCategoryTag">
     SELECT
     <include refid="Base_Column_List" />
-    FROM product_spu_category_tag
+    FROM product_spu_categorytag
     WHERE id = #{id}
   </select>
 
@@ -19,7 +19,7 @@
   <select id="selectBySpuId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuCategoryTag">
     SELECT
     <include refid="Base_Column_List" />
-    FROM product_spu_category_tag
+    FROM product_spu_categorytag
     WHERE spu_id = #{spuId}
     ORDER BY sort_order ASC, created_time DESC
   </select>
@@ -28,14 +28,14 @@
   <select id="selectByCategoryTagId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSpuCategoryTag">
     SELECT
     <include refid="Base_Column_List" />
-    FROM product_spu_category_tag
+    FROM product_spu_categorytag
     WHERE category_tag_id = #{categoryTagId}
     ORDER BY sort_order ASC, created_time DESC
   </select>
 
   <!-- 新增数据 -->
   <insert id="insert" parameterType="com.cn.taihe.back.product.entity.ProductSpuCategoryTag">
-    INSERT INTO product_spu_category_tag
+    INSERT INTO product_spu_categorytag
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null and id != ''">id,</if>
       spu_id,
@@ -56,7 +56,7 @@
 
   <!-- 批量新增数据 -->
   <insert id="insertBatch" parameterType="java.util.List">
-    INSERT INTO product_spu_category_tag (id, spu_id, category_tag_id, is_primary, sort_order, created_time)
+    INSERT INTO product_spu_categorytag (id, spu_id, category_tag_id, is_primary, sort_order, created_time)
     VALUES
     <foreach collection="list" item="item" index="index" separator=",">
       (
@@ -78,13 +78,13 @@
 
   <!-- 根据主键删除数据 -->
   <delete id="deleteById" parameterType="java.lang.String">
-    DELETE FROM product_spu_category_tag
+    DELETE FROM product_spu_categorytag
     WHERE id = #{id}
   </delete>
 
   <!-- 根据主键集合批量删除 -->
   <delete id="deleteBatchIds" parameterType="java.util.List">
-    DELETE FROM product_spu_category_tag
+    DELETE FROM product_spu_categorytag
     WHERE id IN
     <foreach collection="ids" item="id" open="(" separator="," close=")">
       #{id}
@@ -93,13 +93,13 @@
 
   <!-- 根据SPU ID批量删除 -->
   <delete id="deleteBySpuId" parameterType="java.lang.String">
-    DELETE FROM product_spu_category_tag
+    DELETE FROM product_spu_categorytag
     WHERE spu_id = #{spuId}
   </delete>
 
   <!-- 根据品类标签ID批量删除 -->
   <delete id="deleteByCategoryTagId" parameterType="java.lang.String">
-    DELETE FROM product_spu_category_tag
+    DELETE FROM product_spu_categorytag
     WHERE category_tag_id = #{categoryTagId}
   </delete>
 
