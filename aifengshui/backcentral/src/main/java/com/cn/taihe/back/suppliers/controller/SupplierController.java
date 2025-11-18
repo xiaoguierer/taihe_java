@@ -103,6 +103,20 @@ public class SupplierController {
     return ResponseEntity.ok(Result.success(result));
   }
 
+
+  /**
+   * 新增数据
+   */
+  @PostMapping(value = "/createSupplierProductSkuRealiations")
+  @ApiOperation(value = "新增SkU-供应商")
+  public ResponseEntity<Object> createSupplierProductSkuRealiations(
+    @RequestBody @Valid CreateRelationsRequest request) {
+    logger.info("开始处理新增SkU-供应商关系请求, 操作人: {}, 参数: {}", request.getSpuId());
+    int result = supplierService.createSupplierProductSkuRealiations(request.getSpuId(), request.getIntentIds());
+    logger.info("新增SkU-供应商系请求处理完成, 操作人: {}, 参数: {}, 影响行数: {}", result);
+    return ResponseEntity.ok(Result.success(result));
+  }
+
   /**
    * 根据ID获取供应商详情
    */
@@ -117,6 +131,24 @@ public class SupplierController {
       return ResponseEntity.ok(buildSuccessResponse("查询成功", result.get()));
     } catch (Exception e) {
       logger.error("获取供应商详情失败，ID：{}, 错误：{}", id, e.getMessage(), e);
+      return ResponseEntity.badRequest().body(buildErrorResponse(e.getMessage()));
+    }
+  }
+
+  /**
+   * 根据ID获取供应商详情
+   */
+  @GetMapping("/getBySkuId/{skuid}")
+  @ApiOperation(value = "获取供应商详情", notes = "根据ID获取供应商详细信息")
+  @ApiImplicitParam(name = "skuid", value = "产品sku id", required = true, paramType = "path", example = "uuid")
+  public ResponseEntity<?> getSupplierByskuId(@PathVariable String skuid) {
+    logger.info("获取供应商详情请求商品spu，ID：{}", skuid);
+    try {
+      List<Supplier> result = supplierService.getBySkuId(skuid);
+      logger.info("获取供应商列表，ID：{}", skuid);
+      return ResponseEntity.ok(Result.success(result));
+    } catch (Exception e) {
+      logger.error("获取供应商列表失败，ID：{}, 错误：{}", skuid, e.getMessage(), e);
       return ResponseEntity.badRequest().body(buildErrorResponse(e.getMessage()));
     }
   }

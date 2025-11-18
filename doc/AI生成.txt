@@ -127,6 +127,20 @@ com.cn.taihe.back.product
    统一响应格式 ✅
 
 
-
+ 提供的API接口：
+GET /api/product-spu-sku-rel/{id}- 根据主键查找
+GET /api/product-spu-sku-rel/spu/{spuId}- 根据SPU ID查找
+GET /api/product-spu-sku-rel/sku/{skuId}- 根据SKU ID查找
+POST /api/product-spu-sku-rel/condition- 条件查询
+POST /api/product-spu-sku-rel/condition/page- 条件分页查询
+GET /api/product-spu-sku-rel/all- 查询所有
+GET /api/product-spu-sku-rel/all/page- 分页查询所有
+POST /api/product-spu-sku-rel- 新增数据
+POST /api/product-spu-sku-rel/batch- 批量新增
+POST /api/product-spu-sku-rel/relations/{spuId}- 创建关联关系（先删后增）
+DELETE /api/product-spu-sku-rel/{id}- 根据主键删除
+DELETE /api/product-spu-sku-rel/batch- 批量删除
+DELETE /api/product-spu-sku-rel/spu/{spuId}- 根据SPU ID批量删除
+DELETE /api/product-spu-sku-rel/sku/{skuId}- 根据SKU ID批量删除
 
 测试：先进行接口测试，在进行单元测试，最后进行集成测试

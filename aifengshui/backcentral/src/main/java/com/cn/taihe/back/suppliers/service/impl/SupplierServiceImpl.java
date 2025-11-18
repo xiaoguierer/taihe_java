@@ -1,5 +1,6 @@
 package com.cn.taihe.back.suppliers.service.impl;
 
+import com.cn.taihe.back.product.service.ProductSkuSupplierService;
 import com.cn.taihe.back.product.service.ProductSpuSupplierService;
 import com.cn.taihe.back.suppliers.dto.request.SupplierCreateDTO;
 import com.cn.taihe.back.suppliers.dto.request.SupplierQueryDTO;
@@ -32,6 +33,9 @@ public class SupplierServiceImpl implements SupplierService {
   private SupplierMapper supplierMapper;
   @Autowired
   private ProductSpuSupplierService productSpuSupplierService;
+
+  @Autowired
+  private ProductSkuSupplierService productSkuSupplierService;
 
   @Override
   @Transactional(rollbackFor = Exception.class)
@@ -91,6 +95,10 @@ public class SupplierServiceImpl implements SupplierService {
     return productSpuSupplierService.createRealiations(spuId, list);
   }
 
+  public int createSupplierProductSkuRealiations(String skuId, List list){
+    return productSkuSupplierService.createRealiations(skuId,list);
+  }
+
   @Override
   @Cacheable(value = "supplier", key = "#id")
   public Supplier getSupplierById(String id) {
@@ -102,6 +110,14 @@ public class SupplierServiceImpl implements SupplierService {
     }
     logger.info("获取供应商详情成功，ID：{}", id);
     return supplier;
+  }
+
+  /**
+   * 根据中间表产品spuID查询已经关联的供应商集合
+   **/
+  public List<Supplier> getBySkuId(String skuid){
+    List<Supplier> list = supplierMapper.selectBySkuId(skuid);
+    return  list;
   }
 
   @Override

@@ -5,6 +5,7 @@ import com.cn.taihe.back.suppliers.dto.request.SupplierQueryDTO;
 import com.cn.taihe.back.suppliers.dto.request.SupplierUpdateDTO;
 import com.cn.taihe.back.suppliers.entity.Supplier;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -31,9 +32,19 @@ public interface SupplierService {
   int createRealiations(String spuId, List list);
 
   /**
+   * 新建商品sKu-供应商关系
+   **/
+
+  int createSupplierProductSkuRealiations(String skuId, List list);
+
+  /**
    * 根据ID获取供应商详情
    */
   Supplier getSupplierById(String id);
+  /**
+   * 根据中间表产品skuID查询已经关联的供应商集合
+   **/
+  List<Supplier> getBySkuId(String skuId);
 
   /**
    * 根据ID删除供应商

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.product.mapper.ProductSkuSupplierMapper">
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    id, sku_id, supplier_id, sort_order, created_time
+  </sql>
+
+  <!-- 根据主键查找 -->
+  <select id="selectById" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSkuSupplier">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_sku_supplier
+    WHERE id = #{id}
+  </select>
+
+  <!-- 根据SKU ID查找 -->
+  <select id="selectBySkuId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSkuSupplier">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_sku_supplier
+    WHERE sku_id = #{skuId}
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 根据供应商ID查找 -->
+  <select id="selectBySupplierId" parameterType="java.lang.String" resultType="com.cn.taihe.back.product.entity.ProductSkuSupplier">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_sku_supplier
+    WHERE supplier_id = #{supplierId}
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.cn.taihe.back.product.entity.ProductSkuSupplier">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product_sku_supplier
+    ORDER BY sort_order ASC, created_time DESC
+  </select>
+
+  <!-- 新增数据 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.product.entity.ProductSkuSupplier">
+    INSERT INTO product_sku_supplier
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">id,</if>
+      sku_id,
+      supplier_id,
+      sort_order,
+      created_time
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">#{id},</if>
+      #{skuId},
+      #{supplierId},
+      #{sortOrder},
+      <choose>
+        <when test="createdTime != null">#{createdTime}</when>
+        <otherwise>NOW()</otherwise>
+      </choose>
+    </trim>
+  </insert>
+
+  <!-- 批量新增数据 -->
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO product_sku_supplier (id, sku_id, supplier_id, sort_order, created_time)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      <choose>
+        <when test="item.id != null and item.id != ''">#{item.id},</when>
+        <otherwise>UUID(),</otherwise>
+      </choose>
+      #{item.skuId},
+      #{item.supplierId},
+      #{item.sortOrder},
+      <choose>
+        <when test="item.createdTime != null">#{item.createdTime}</when>
+        <otherwise>NOW()</otherwise>
+      </choose>
+      )
+    </foreach>
+  </insert>
+
+  <!-- 修改数据（只更新非空字段） -->
+  <update id="updateById" parameterType="com.cn.taihe.back.product.entity.ProductSkuSupplier">
+    UPDATE product_sku_supplier
+    <set>
+      <if test="skuId != null and skuId != ''">
+        sku_id = #{skuId},
+      </if>
+      <if test="supplierId != null and supplierId != ''">
+        supplier_id = #{supplierId},
+      </if>
+      <if test="sortOrder != null">
+        sort_order = #{sortOrder},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 根据主键删除数据 -->
+  <delete id="deleteById" parameterType="java.lang.String">
+    DELETE FROM product_sku_supplier
+    WHERE id = #{id}
+  </delete>
+
+  <!-- 根据主键集合批量删除 -->
+  <delete id="deleteBatchIds" parameterType="java.util.List">
+    DELETE FROM product_sku_supplier
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <!-- 根据SKU ID批量删除 -->
+  <delete id="deleteBySkuId" parameterType="java.lang.String">
+    DELETE FROM product_sku_supplier
+    WHERE sku_id = #{skuId}
+  </delete>
+
+  <!-- 根据供应商ID批量删除 -->
+  <delete id="deleteBySupplierId" parameterType="java.lang.String">
+    DELETE FROM product_sku_supplier
+    WHERE supplier_id = #{supplierId}
+  </delete>
+
+</mapper>

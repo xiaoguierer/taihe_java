@@ -1,0 +1,15 @@
+
+J
+java:S3740h"/Provide the parametrized type for this generic.(’ã¯¿ÿÿÿÿÿ
+b
+java:S4684X"@Replace this persistent entity with a simple POJO or DTO object.(ìºè§şÿÿÿÿ8×ùÜæ¨3
++
+java:S3457k"Not enough arguments.(ã·¤·
+k
+java:S1128"NRemove this unused import 'com.cn.taihe.back.product.dto.ProductSpuCreateDTO'.(ÀÄ•8±úÜæ¨3
+n
+java:S1128"LRemove this unused import 'org.springframework.web.multipart.MultipartFile'.(ôŸœÿÿÿÿÿ8²úÜæ¨3
+U
+java:S1128"3Remove this unused import 'javax.validation.Valid'.(æ¤ñ÷úÿÿÿÿ8³úÜæ¨3
+O
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8³úÜæ¨3

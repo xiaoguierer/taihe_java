@@ -40,6 +40,14 @@ public interface ProductSkuService {
    * @return: [java.lang.String, java.util.Arrays]
    **/
   int createRealiations(String spuId, List list);
+
+  /**
+   * 创建SKU与供应商关联关系（先删除后新增）
+   * @param skuId SKU ID
+   * @param supplierIds 供应商ID集合
+   * @return 影响行数
+   */
+  int createSku_suppliy_Realiations(String skuId, List<String> supplierIds);
   /**
    * 根据主键删除数据
    */

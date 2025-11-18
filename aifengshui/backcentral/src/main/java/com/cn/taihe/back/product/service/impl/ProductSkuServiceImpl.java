@@ -8,6 +8,7 @@ import com.cn.taihe.back.product.dto.ProductSkuUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductSku;
 import com.cn.taihe.back.product.mapper.ProductSkuMapper;
 import com.cn.taihe.back.product.service.ProductSkuService;
+import com.cn.taihe.back.product.service.ProductSkuSupplierService;
 import com.cn.taihe.back.product.service.ProductSpuSkuRelService;
 import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
@@ -44,6 +45,8 @@ public class ProductSkuServiceImpl implements ProductSkuService {
   private FileStorageService fileStorageService;
   @Autowired
   private ProductSpuSkuRelService productSpuSkuRelService;
+  @Autowired
+  private ProductSkuSupplierService productSkuSupplierService;
 
   /**
    * 根据主键查找
@@ -237,6 +240,16 @@ public class ProductSkuServiceImpl implements ProductSkuService {
    **/
   public int createRealiations(String spuId, List list){
     return productSpuSkuRelService.createRealiations(spuId,list);
+  }
+
+  /**
+   * 创建SKU与供应商关联关系（先删除后新增）
+   * @param skuId SKU ID
+   * @param supplierIds 供应商ID集合
+   * @return 影响行数
+   */
+  public  int createSku_suppliy_Realiations(String skuId, List<String> supplierIds){
+    return productSkuSupplierService.createRealiations(skuId,supplierIds);
   }
   /**
    * 根据主键删除数据

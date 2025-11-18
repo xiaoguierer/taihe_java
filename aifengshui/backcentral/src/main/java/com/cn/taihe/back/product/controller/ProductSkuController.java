@@ -134,6 +134,20 @@ public class ProductSkuController {
   }
 
   /**
+   * 新增数据
+   */
+  @PostMapping(value = "/createSku_suppliy_Realiations")
+  @ApiOperation(value = "新增SPU-情感意图关系")
+  public ResponseEntity<Object> createSkusuppliyRealiations(
+    @RequestBody @Valid CreateRelationsRequest request) {
+    logger.info("开始处理新增SPU-情感意图关系请求, 操作人: {}, 参数: {}", OPERATOR, request);
+    int result = productSkuService.createSku_suppliy_Realiations(request.getSpuId(),request.getIntentIds());
+    logger.info("新增SPU-情感意图关系请求处理完成, 操作人: {}, 参数: {}, 影响行数: {}",
+      OPERATOR, result);
+    return ResponseEntity.ok(Result.success(result));
+  }
+
+  /**
    * 根据主键删除数据
    */
   @DeleteMapping("/del/{id}")

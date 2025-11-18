@@ -1,0 +1,27 @@
+
+q
+java:S1192“"UDefine a constant instead of duplicating this literal "IDåˆ—è¡¨ä¸èƒ½ä¸ºç©º" 3 times.(ù³Ù‰úÿÿÿÿ
+e
+java:S1192>"ODefine a constant instead of duplicating this literal "IDä¸èƒ½ä¸ºç©º" 7 times.(‡§Ğ…
+~
+java:S2629d"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(÷«¸ÿşÿÿÿÿ8áö¡­¨3
+A
+java:S2629x"$Invoke method(s) only conditionally.( šçş8âö¡­¨3
+?
+java:S5411Ä"(Use a primitive boolean expression here.(€‘¨Ä
+?
+java:S5411ô"(Use a primitive boolean expression here.(€‘¨Ä
+?
+java:S5411·"(Use a primitive boolean expression here.(€‘¨Ä
+?
+java:S5411Ş"(Use a primitive boolean expression here.(€‘¨Ä
+?
+java:S5411Å"(Use a primitive boolean expression here.(€‘¨Ä
+?
+java:S5411ğ"(Use a primitive boolean expression here.(€‘¨Ä
+?
+java:S5411›"(Use a primitive boolean expression here.(€‘¨Ä
+c
+java:S3457d"AFormat specifiers should be used instead of string concatenation.(÷«¸ÿşÿÿÿÿ8‚‚¢­¨3
+,
+java:S3457à"Not enough arguments.(ã·¤·
