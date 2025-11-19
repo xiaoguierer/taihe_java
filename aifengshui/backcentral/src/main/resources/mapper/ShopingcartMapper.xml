@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.shoppingcart.mapper.ShopingcartMapper">
+
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.shoppingcart.entity.Shopingcart">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+    <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+    <result column="selected" property="selected" jdbcType="TINYINT"/>
+    <result column="unit_price" property="unitPrice" jdbcType="DECIMAL"/>
+    <result column="currency" property="currency" jdbcType="VARCHAR"/>
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP"/>
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, sku_id, quantity, selected, unit_price, currency, added_time, updated_time
+  </sql>
+
+  <!-- 根据主键查找数据 -->
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM shopingcart
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </select>
+
+  <!-- 新增数据 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.shoppingcart.entity.Shopingcart">
+    INSERT INTO shopingcart (
+      id, user_id, sku_id, quantity, selected, unit_price, currency, added_time, updated_time
+    ) VALUES (
+               #{id, jdbcType=VARCHAR},
+               #{userId, jdbcType=VARCHAR},
+               #{skuId, jdbcType=VARCHAR},
+               #{quantity, jdbcType=INTEGER},
+               #{selected, jdbcType=TINYINT},
+               #{unitPrice, jdbcType=DECIMAL},
+               #{currency, jdbcType=VARCHAR},
+               #{addedTime, jdbcType=TIMESTAMP},
+               #{updatedTime, jdbcType=TIMESTAMP}
+             )
+  </insert>
+
+  <!-- 修改数据（只更新非空字段） -->
+  <update id="updateByIdSelective" parameterType="com.cn.taihe.back.shoppingcart.entity.Shopingcart">
+    UPDATE shopingcart
+    <set>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId, jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null and skuId != ''">
+        sku_id = #{skuId, jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity, jdbcType=INTEGER},
+      </if>
+      <if test="selected != null">
+        selected = #{selected, jdbcType=TINYINT},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice, jdbcType=DECIMAL},
+      </if>
+      <if test="currency != null and currency != ''">
+        currency = #{currency, jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime, jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 根据主键删除数据 -->
+  <delete id="deleteById" parameterType="java.lang.String">
+    DELETE FROM shopingcart
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </delete>
+
+  <!-- 条件分页查询数据 -->
+  <select id="selectByPage" parameterType="com.cn.taihe.back.shoppingcart.entity.Shopingcart" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM shopingcart
+    <where>
+      <if test="id != null and id != ''">
+        AND id = #{id, jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != ''">
+        AND user_id = #{userId, jdbcType=VARCHAR}
+      </if>
+      <if test="skuId != null and skuId != ''">
+        AND sku_id = #{skuId, jdbcType=VARCHAR}
+      </if>
+      <if test="selected != null">
+        AND selected = #{selected, jdbcType=TINYINT}
+      </if>
+      <if test="currency != null and currency != ''">
+        AND currency = #{currency, jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY added_time DESC
+  </select>
+
+  <!-- 根据主键集合批量删除数据 -->
+  <delete id="deleteBatchIds" parameterType="java.util.List">
+    DELETE FROM shopingcart
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id, jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+
+  <!-- 更新选中状态（冻结功能） -->
+  <update id="updateSelectedStatus">
+    UPDATE shopingcart
+    SET selected = #{selected, jdbcType=TINYINT},
+        updated_time = NOW()
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 根据用户ID查询购物车列表 -->
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM shopingcart
+    WHERE user_id = #{userId, jdbcType=VARCHAR}
+    ORDER BY added_time DESC
+  </select>
+
+</mapper>

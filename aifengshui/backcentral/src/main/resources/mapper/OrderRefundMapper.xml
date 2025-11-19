@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.order.mapper.OrderRefundMapper">
+
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.order.entity.OrderRefund">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="refund_sn" property="refundSn" jdbcType="VARCHAR"/>
+    <result column="order_id" property="orderId" jdbcType="VARCHAR"/>
+    <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <result column="refund_type" property="refundType" jdbcType="TINYINT"/>
+    <result column="refund_reason" property="refundReason" jdbcType="VARCHAR"/>
+    <result column="apply_amount" property="applyAmount" jdbcType="DECIMAL"/>
+    <result column="actual_amount" property="actualAmount" jdbcType="DECIMAL"/>
+    <result column="refund_items" property="refundItems" jdbcType="VARCHAR"/>
+    <result column="refund_status" property="refundStatus" jdbcType="TINYINT"/>
+    <result column="approver_id" property="approverId" jdbcType="VARCHAR"/>
+    <result column="approver_notes" property="approverNotes" jdbcType="VARCHAR"/>
+    <result column="return_logistics" property="returnLogistics" jdbcType="VARCHAR"/>
+    <result column="return_tracking_no" property="returnTrackingNo" jdbcType="VARCHAR"/>
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP"/>
+    <result column="review_time" property="reviewTime" jdbcType="TIMESTAMP"/>
+    <result column="refund_time" property="refundTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, refund_sn, order_id, user_id, refund_type, refund_reason, apply_amount, actual_amount,
+        refund_items, refund_status, approver_id, approver_notes, return_logistics, return_tracking_no,
+        apply_time, review_time, refund_time
+  </sql>
+
+  <!-- 根据主键查询订单退单 -->
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_refund
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </select>
+
+  <!-- 根据退单号查询订单退单 -->
+  <select id="selectByRefundSn" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_refund
+    WHERE refund_sn = #{refundSn, jdbcType=VARCHAR}
+  </select>
+
+  <!-- 根据订单ID查询订单退单列表 -->
+  <select id="selectByOrderId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_refund
+    WHERE order_id = #{orderId, jdbcType=VARCHAR}
+    ORDER BY apply_time DESC
+  </select>
+
+  <!-- 根据用户ID查询订单退单列表 -->
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_refund
+    WHERE user_id = #{userId, jdbcType=VARCHAR}
+    ORDER BY apply_time DESC
+  </select>
+
+  <!-- 根据退单状态查询订单退单列表 -->
+  <select id="selectByRefundStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_refund
+    WHERE refund_status = #{refundStatus, jdbcType=TINYINT}
+    ORDER BY apply_time DESC
+  </select>
+
+  <!-- 新增订单退单 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.order.entity.OrderRefund">
+    INSERT INTO order_refund (
+      id, refund_sn, order_id, user_id, refund_type, refund_reason, apply_amount, actual_amount,
+      refund_items, refund_status, approver_id, approver_notes, return_logistics, return_tracking_no,
+      apply_time, review_time, refund_time
+    ) VALUES (
+               #{id, jdbcType=VARCHAR},
+               #{refundSn, jdbcType=VARCHAR},
+               #{orderId, jdbcType=VARCHAR},
+               #{userId, jdbcType=VARCHAR},
+               #{refundType, jdbcType=TINYINT},
+               #{refundReason, jdbcType=VARCHAR},
+               #{applyAmount, jdbcType=DECIMAL},
+               #{actualAmount, jdbcType=DECIMAL},
+               #{refundItems, jdbcType=VARCHAR},
+               #{refundStatus, jdbcType=TINYINT},
+               #{approverId, jdbcType=VARCHAR},
+               #{approverNotes, jdbcType=VARCHAR},
+               #{returnLogistics, jdbcType=VARCHAR},
+               #{returnTrackingNo, jdbcType=VARCHAR},
+               #{applyTime, jdbcType=TIMESTAMP},
+               #{reviewTime, jdbcType=TIMESTAMP},
+               #{refundTime, jdbcType=TIMESTAMP}
+             )
+  </insert>
+
+  <!-- 根据主键更新订单退单（只更新非空字段） -->
+  <update id="updateById" parameterType="com.cn.taihe.back.order.entity.OrderRefund">
+    UPDATE order_refund
+    <set>
+      <if test="refundSn != null and refundSn != ''">
+        refund_sn = #{refundSn, jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null and orderId != ''">
+        order_id = #{orderId, jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId, jdbcType=VARCHAR},
+      </if>
+      <if test="refundType != null">
+        refund_type = #{refundType, jdbcType=TINYINT},
+      </if>
+      <if test="refundReason != null and refundReason != ''">
+        refund_reason = #{refundReason, jdbcType=VARCHAR},
+      </if>
+      <if test="applyAmount != null">
+        apply_amount = #{applyAmount, jdbcType=DECIMAL},
+      </if>
+      <if test="actualAmount != null">
+        actual_amount = #{actualAmount, jdbcType=DECIMAL},
+      </if>
+      <if test="refundItems != null and refundItems != ''">
+        refund_items = #{refundItems, jdbcType=VARCHAR},
+      </if>
+      <if test="refundStatus != null">
+        refund_status = #{refundStatus, jdbcType=TINYINT},
+      </if>
+      <if test="approverId != null and approverId != ''">
+        approver_id = #{approverId, jdbcType=VARCHAR},
+      </if>
+      <if test="approverNotes != null and approverNotes != ''">
+        approver_notes = #{approverNotes, jdbcType=VARCHAR},
+      </if>
+      <if test="returnLogistics != null and returnLogistics != ''">
+        return_logistics = #{returnLogistics, jdbcType=VARCHAR},
+      </if>
+      <if test="returnTrackingNo != null and returnTrackingNo != ''">
+        return_tracking_no = #{returnTrackingNo, jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewTime != null">
+        review_time = #{reviewTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundTime != null">
+        refund_time = #{refundTime, jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 条件查询订单退单列表（支持分页） -->
+  <select id="selectByCondition" parameterType="com.cn.taihe.back.order.dto.OrderRefundQueryDTO" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_refund
+    <where>
+      <if test="refundSn != null and refundSn != ''">
+        AND refund_sn LIKE CONCAT('%', #{refundSn, jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="orderId != null and orderId != ''">
+        AND order_id = #{orderId, jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != ''">
+        AND user_id = #{userId, jdbcType=VARCHAR}
+      </if>
+      <if test="refundType != null">
+        AND refund_type = #{refundType, jdbcType=TINYINT}
+      </if>
+      <if test="refundReason != null and refundReason != ''">
+        AND refund_reason LIKE CONCAT('%', #{refundReason, jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="minApplyAmount != null">
+        AND apply_amount >= #{minApplyAmount, jdbcType=DECIMAL}
+      </if>
+      <if test="maxApplyAmount != null">
+        AND apply_amount &lt;= #{maxApplyAmount, jdbcType=DECIMAL}
+      </if>
+      <if test="minActualAmount != null">
+        AND actual_amount >= #{minActualAmount, jdbcType=DECIMAL}
+      </if>
+      <if test="maxActualAmount != null">
+        AND actual_amount &lt;= #{maxActualAmount, jdbcType=DECIMAL}
+      </if>
+      <if test="refundStatus != null">
+        AND refund_status = #{refundStatus, jdbcType=TINYINT}
+      </if>
+      <if test="approverId != null and approverId != ''">
+        AND approver_id = #{approverId, jdbcType=VARCHAR}
+      </if>
+      <if test="returnLogistics != null and returnLogistics != ''">
+        AND return_logistics = #{returnLogistics, jdbcType=VARCHAR}
+      </if>
+      <if test="returnTrackingNo != null and returnTrackingNo != ''">
+        AND return_tracking_no = #{returnTrackingNo, jdbcType=VARCHAR}
+      </if>
+      <if test="applyTimeStart != null">
+        AND apply_time >= #{applyTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="applyTimeEnd != null">
+        AND apply_time &lt;= #{applyTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+      <if test="reviewTimeStart != null">
+        AND review_time >= #{reviewTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="reviewTimeEnd != null">
+        AND review_time &lt;= #{reviewTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+      <if test="refundTimeStart != null">
+        AND refund_time >= #{refundTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="refundTimeEnd != null">
+        AND refund_time &lt;= #{refundTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    ORDER BY apply_time DESC
+  </select>
+
+  <!-- 根据主键更新退单状态 -->
+  <update id="updateRefundStatusById">
+    UPDATE order_refund
+    SET refund_status = #{refundStatus, jdbcType=TINYINT}
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 审核退单申请 -->
+  <update id="updateRefundReview">
+    UPDATE order_refund
+    SET approver_id = #{approverId, jdbcType=VARCHAR},
+        approver_notes = #{approverNotes, jdbcType=VARCHAR},
+        refund_status = #{refundStatus, jdbcType=TINYINT},
+        review_time = #{reviewTime, jdbcType=TIMESTAMP}
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 更新退款信息 -->
+  <update id="updateRefundInfo">
+    UPDATE order_refund
+    SET actual_amount = #{actualAmount, jdbcType=DECIMAL},
+        refund_status = #{refundStatus, jdbcType=TINYINT},
+        refund_time = #{refundTime, jdbcType=TIMESTAMP}
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 更新退货物流信息 -->
+  <update id="updateReturnLogistics">
+    UPDATE order_refund
+    SET return_logistics = #{returnLogistics, jdbcType=VARCHAR},
+        return_tracking_no = #{returnTrackingNo, jdbcType=VARCHAR}
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+</mapper>

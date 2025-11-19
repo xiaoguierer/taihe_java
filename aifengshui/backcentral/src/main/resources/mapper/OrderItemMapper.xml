@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.order.mapper.OrderItemMapper">
+
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.order.entity.OrderItem">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="order_id" property="orderId" jdbcType="VARCHAR"/>
+    <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+    <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+    <result column="unit_price" property="unitPrice" jdbcType="DECIMAL"/>
+    <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+    <result column="total_price" property="totalPrice" jdbcType="DECIMAL"/>
+    <result column="refund_quantity" property="refundQuantity" jdbcType="INTEGER"/>
+    <result column="refund_amount" property="refundAmount" jdbcType="DECIMAL"/>
+    <result column="refund_status" property="refundStatus" jdbcType="TINYINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, order_id, sku_id, product_name, unit_price, quantity, total_price,
+        refund_quantity, refund_amount, refund_status, created_time
+  </sql>
+
+  <!-- 根据主键查询订单商品 -->
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_item
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </select>
+
+  <!-- 根据订单ID查询订单商品列表 -->
+  <select id="selectByOrderId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_item
+    WHERE order_id = #{orderId, jdbcType=VARCHAR}
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 根据SKU ID查询订单商品列表 -->
+  <select id="selectBySkuId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_item
+    WHERE sku_id = #{skuId, jdbcType=VARCHAR}
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 新增订单商品 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.order.entity.OrderItem">
+    INSERT INTO order_item (
+      id, order_id, sku_id, product_name, unit_price, quantity, total_price,
+      refund_quantity, refund_amount, refund_status, created_time
+    ) VALUES (
+               #{id, jdbcType=VARCHAR},
+               #{orderId, jdbcType=VARCHAR},
+               #{skuId, jdbcType=VARCHAR},
+               #{productName, jdbcType=VARCHAR},
+               #{unitPrice, jdbcType=DECIMAL},
+               #{quantity, jdbcType=INTEGER},
+               #{totalPrice, jdbcType=DECIMAL},
+               #{refundQuantity, jdbcType=INTEGER},
+               #{refundAmount, jdbcType=DECIMAL},
+               #{refundStatus, jdbcType=TINYINT},
+               #{createdTime, jdbcType=TIMESTAMP}
+             )
+  </insert>
+
+  <!-- 根据主键更新订单商品（只更新非空字段） -->
+  <update id="updateById" parameterType="com.cn.taihe.back.order.entity.OrderItem">
+    UPDATE order_item
+    <set>
+      <if test="orderId != null and orderId != ''">
+        order_id = #{orderId, jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null and skuId != ''">
+        sku_id = #{skuId, jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null and productName != ''">
+        product_name = #{productName, jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice, jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity, jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice, jdbcType=DECIMAL},
+      </if>
+      <if test="refundQuantity != null">
+        refund_quantity = #{refundQuantity, jdbcType=INTEGER},
+      </if>
+      <if test="refundAmount != null">
+        refund_amount = #{refundAmount, jdbcType=DECIMAL},
+      </if>
+      <if test="refundStatus != null">
+        refund_status = #{refundStatus, jdbcType=TINYINT},
+      </if>
+    </set>
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 根据主键删除订单商品 -->
+  <delete id="deleteById" parameterType="java.lang.String">
+    DELETE FROM order_item
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </delete>
+
+  <!-- 条件查询订单商品列表（支持分页） -->
+  <select id="selectByCondition" parameterType="com.cn.taihe.back.order.dto.OrderItemQueryDTO" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_item
+    <where>
+      <if test="orderId != null and orderId != ''">
+        AND order_id = #{orderId, jdbcType=VARCHAR}
+      </if>
+      <if test="skuId != null and skuId != ''">
+        AND sku_id = #{skuId, jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''">
+        AND product_name LIKE CONCAT('%', #{productName, jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="minUnitPrice != null">
+        AND unit_price >= #{minUnitPrice, jdbcType=DECIMAL}
+      </if>
+      <if test="maxUnitPrice != null">
+        AND unit_price &lt;= #{maxUnitPrice, jdbcType=DECIMAL}
+      </if>
+      <if test="minQuantity != null">
+        AND quantity >= #{minQuantity, jdbcType=INTEGER}
+      </if>
+      <if test="maxQuantity != null">
+        AND quantity &lt;= #{maxQuantity, jdbcType=INTEGER}
+      </if>
+      <if test="minTotalPrice != null">
+        AND total_price >= #{minTotalPrice, jdbcType=DECIMAL}
+      </if>
+      <if test="maxTotalPrice != null">
+        AND total_price &lt;= #{maxTotalPrice, jdbcType=DECIMAL}
+      </if>
+      <if test="refundStatus != null">
+        AND refund_status = #{refundStatus, jdbcType=TINYINT}
+      </if>
+      <if test="createdTimeStart != null">
+        AND created_time >= #{createdTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="createdTimeEnd != null">
+        AND created_time &lt;= #{createdTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 根据主键集合批量删除订单商品 -->
+  <delete id="deleteBatchIds" parameterType="java.util.List">
+    DELETE FROM order_item
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id, jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+
+  <!-- 根据订单ID批量删除订单商品 -->
+  <delete id="deleteByOrderId" parameterType="java.lang.String">
+    DELETE FROM order_item
+    WHERE order_id = #{orderId, jdbcType=VARCHAR}
+  </delete>
+
+  <!-- 根据主键更新退款状态 -->
+  <update id="updateRefundStatusById">
+    UPDATE order_item
+    SET refund_status = #{refundStatus, jdbcType=TINYINT}
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 更新退款信息 -->
+  <update id="updateRefundInfoById">
+    UPDATE order_item
+    SET refund_quantity = #{refundQuantity, jdbcType=INTEGER},
+        refund_amount = #{refundAmount, jdbcType=DECIMAL},
+        refund_status = #{refundStatus, jdbcType=TINYINT}
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+</mapper>

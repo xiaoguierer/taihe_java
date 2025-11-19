@@ -66,6 +66,9 @@ springfox:
       path: /swagger-ui.html
     api-docs:
       path: /v3/api-docs
+        # Swagger  启动时通过参数控制： 配置 java -jar your-app.jar --swagger.enabled=true
+      #Swagger 原生界面: http://localhost:8080/api/swagger-ui/index.html
+      #Swagger JSON: http://localhost:8080/api/v3/api-docs
 
 server:
   port: 8080

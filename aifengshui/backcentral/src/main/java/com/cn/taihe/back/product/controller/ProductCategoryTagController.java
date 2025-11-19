@@ -5,6 +5,7 @@ import com.cn.taihe.back.product.dto.ProductCategoryTagQueryDTO;
 import com.cn.taihe.back.product.dto.ProductCategoryTagUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductCategoryTag;
 import com.cn.taihe.back.product.service.ProductCategoryTagService;
+import com.cn.taihe.back.product.vo.ProductCategoryTagCountDTO;
 import com.cn.taihe.common.Result;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -350,6 +351,57 @@ public class ProductCategoryTagController {
       return ResponseEntity.ok(Result.error(e.getMessage()));
     }
   }
-
-
+  /**
+   * @description:
+   * 获取品类标签（首饰类型）
+   * 根据情感意图id查询商品spu所属标签及数量
+   **/
+  @GetMapping("/JewelryTagByIntentId/{intentId}")
+  @ApiOperation(value = "根据情感意图intentId查找所属商品的标签以及数量", notes = "根据情感意图查询商品品类标签详情")
+  public ResponseEntity<Object> JewelryTagByIntentId(
+    @ApiParam(value = "情感意图主键ID", required = true, example = "1234567890abcdef")
+    @PathVariable String intentId) {
+    logger.info("根据情感意图intentId查找所属商品的标签开始，操作人：{}，参数：id={}", OPERATOR, intentId);
+    try {
+      List<ProductCategoryTagCountDTO> result = productCategoryTagService.selectJewelryTagByIntentId(intentId);
+      if (result == null) {
+        logger.warn("根据情感意图intentId查找所属商品的标签失败，记录不存在，操作人：{}，ID：{}", OPERATOR, intentId);
+        return ResponseEntity.notFound().build();
+      }
+      logger.info("根据情感意图intentId查找所属商品的标签成功，操作人：{}，ID：{}", OPERATOR, intentId);
+      return ResponseEntity.ok(Result.success(result));
+    } catch (Exception e) {
+      logger.error("根据情感意图intentId查找所属商品的标签异常，操作人：{}，参数：id={}，异常信息：", OPERATOR, intentId, e);
+      return ResponseEntity.ok(Result.error(e.getMessage()));
+    }
+  }
+  /**
+   * @description:
+   * 根据情感意图id查询能量标签及数量
+   * -- 获取能量属性标签（五行属性） ----------------------------------------
+   * 	-- 逻辑关系：
+   * -- 通过 product_spu_intent和 product_spu_categorytag的联合查询
+   * -- 找到同时具有特定情感意图和特定品类/能量标签的SPU
+   * -- 再通过 product_spu_sku_rel关联到具体的SKU
+   * -- 对有效的SKU进行计数，得到每个标签的商品数量
+   **/
+  @GetMapping("/JEnergyInfoByIntentId/{intentId}")
+  @ApiOperation(value = "根据情感意图intentId查找所属商品的标签以及数量", notes = "根据情感意图intentId查找所属商品的标签以及数量")
+  public ResponseEntity<Object> JEnergyInfoByIntentId(
+    @ApiParam(value = "情感意图主键ID", required = true, example = "1234567890abcdef")
+    @PathVariable String intentId) {
+    logger.info("根据情感意图intentId查找所属商品的标签以及数量开始，操作人：{}，参数：id={}", OPERATOR, intentId);
+    try {
+      List<ProductCategoryTagCountDTO> result = productCategoryTagService.selectEnergyInfoByIntentId(intentId);
+      if (result == null) {
+        logger.warn("根据情感意图intentId查找所属商品的标签以及数量失败，记录不存在，操作人：{}，ID：{}", OPERATOR, intentId);
+        return ResponseEntity.notFound().build();
+      }
+      logger.info("根据情感意图intentId查找所属商品的标签以及数量成功，操作人：{}，ID：{}", OPERATOR, intentId);
+      return ResponseEntity.ok(Result.success(result));
+    } catch (Exception e) {
+      logger.error("根据情感意图intentId查找所属商品的标签以及数量标签异常，操作人：{}，参数：id={}，异常信息：", OPERATOR, intentId, e);
+      return ResponseEntity.ok(Result.error(e.getMessage()));
+    }
+  }
 }

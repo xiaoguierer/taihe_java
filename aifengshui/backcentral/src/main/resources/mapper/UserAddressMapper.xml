@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.user.mapper.UserAddressMapper">
+
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.user.entity.UserAddress">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <result column="address_name" property="addressName" jdbcType="VARCHAR"/>
+    <result column="is_default" property="isDefault" jdbcType="TINYINT"/>
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR"/>
+    <result column="phone_country_code" property="phoneCountryCode" jdbcType="VARCHAR"/>
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR"/>
+    <result column="email" property="email" jdbcType="VARCHAR"/>
+    <result column="country" property="country" jdbcType="VARCHAR"/>
+    <result column="state_province" property="stateProvince" jdbcType="VARCHAR"/>
+    <result column="city" property="city" jdbcType="VARCHAR"/>
+    <result column="district" property="district" jdbcType="VARCHAR"/>
+    <result column="street_address" property="streetAddress" jdbcType="VARCHAR"/>
+    <result column="postal_code" property="postalCode" jdbcType="VARCHAR"/>
+    <result column="is_active" property="isActive" jdbcType="TINYINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR"/>
+    <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, address_name, is_default, receiver_name, phone_country_code, phone_number,
+        email, country, state_province, city, district, street_address, postal_code, is_active,
+        created_time, updated_time, created_by, updated_by, deleted
+  </sql>
+
+  <!-- 根据主键查找数据 -->
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM user_address
+    WHERE id = #{id} AND deleted = 0
+  </select>
+
+  <!-- 新增数据 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.user.entity.UserAddress">
+    INSERT INTO user_address (
+      id, user_id, address_name, is_default, receiver_name,
+      phone_country_code, phone_number, email, country, state_province,
+      city, district, street_address, postal_code, is_active,
+      created_by, updated_by
+    ) VALUES (
+               #{id}, #{userId}, #{addressName}, #{isDefault}, #{receiverName},
+               #{phoneCountryCode}, #{phoneNumber}, #{email}, #{country}, #{stateProvince},
+               #{city}, #{district}, #{streetAddress}, #{postalCode}, #{isActive},
+               #{createdBy}, #{updatedBy}
+             )
+  </insert>
+
+  <!-- 修改数据（更新非空字段） -->
+  <update id="updateByIdSelective" parameterType="com.cn.taihe.back.user.entity.UserAddress">
+    UPDATE user_address
+    <set>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId},
+      </if>
+      <if test="addressName != null and addressName != ''">
+        address_name = #{addressName},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault},
+      </if>
+      <if test="receiverName != null and receiverName != ''">
+        receiver_name = #{receiverName},
+      </if>
+      <if test="phoneCountryCode != null and phoneCountryCode != ''">
+        phone_country_code = #{phoneCountryCode},
+      </if>
+      <if test="phoneNumber != null and phoneNumber != ''">
+        phone_number = #{phoneNumber},
+      </if>
+      <if test="email != null and email != ''">
+        email = #{email},
+      </if>
+      <if test="country != null and country != ''">
+        country = #{country},
+      </if>
+      <if test="stateProvince != null and stateProvince != ''">
+        state_province = #{stateProvince},
+      </if>
+      <if test="city != null and city != ''">
+        city = #{city},
+      </if>
+      <if test="district != null and district != ''">
+        district = #{district},
+      </if>
+      <if test="streetAddress != null and streetAddress != ''">
+        street_address = #{streetAddress},
+      </if>
+      <if test="postalCode != null and postalCode != ''">
+        postal_code = #{postalCode},
+      </if>
+      <if test="isActive != null">
+        is_active = #{isActive},
+      </if>
+      <if test="updatedBy != null and updatedBy != ''">
+        updated_by = #{updatedBy},
+      </if>
+      updated_time = NOW()
+    </set>
+    WHERE id = #{id} AND deleted = 0
+  </update>
+
+  <!-- 根据主键逻辑删除数据 -->
+  <update id="logicDeleteById" parameterType="java.lang.String">
+    UPDATE user_address
+    SET deleted = 1, updated_time = NOW()
+    WHERE id = #{id} AND deleted = 0
+  </update>
+
+  <!-- 根据用户ID查询地址列表 -->
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM user_address
+    WHERE user_id = #{userId} AND deleted = 0
+    ORDER BY is_default DESC, created_time DESC
+  </select>
+
+  <!-- 根据用户ID查询有效地址列表 -->
+  <select id="selectActiveByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM user_address
+    WHERE user_id = #{userId} AND is_active = 1 AND deleted = 0
+    ORDER BY is_default DESC, created_time DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM user_address
+    WHERE deleted = 0
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 更新地址状态（冻结/解冻） -->
+  <update id="updateStatus">
+    UPDATE user_address
+    SET is_active = #{isActive}, updated_time = NOW()
+    WHERE id = #{id} AND deleted = 0
+  </update>
+
+  <!-- 设置用户的所有地址为非默认 -->
+  <update id="updateAllNotDefault" parameterType="java.lang.String">
+    UPDATE user_address
+    SET is_default = 0, updated_time = NOW()
+    WHERE user_id = #{userId} AND deleted = 0 AND is_default = 1
+  </update>
+
+</mapper>

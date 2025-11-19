@@ -132,7 +132,7 @@ CREATE TABLE `product_categorytag` (
   `cover_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '封面图ID',
   `hover_image_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '悬停图访问URL',
   `hover_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '悬停图id',
-  `tag_type` tinyint NOT NULL COMMENT '标签类型:1首饰类型,2材质,3宝石类型,4风格,5场合,6工艺,7人群,8五行属性',
+  `tag_type` tinyint NOT NULL COMMENT '标签类型',
   `parent_tag_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '父标签ID',
   `color_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标签代表色(用于UI)',
   `sort_order` int NOT NULL DEFAULT '0' COMMENT '排序值',

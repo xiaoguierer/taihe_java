@@ -238,7 +238,7 @@ public class ProductSkuServiceImpl implements ProductSkuService {
    * @param: [spuId, arrays]
    * @return: [java.lang.String, java.util.Arrays]
    **/
-  public int createRealiations(String spuId, List list){
+  public int createRealiations(String spuId, List<String> list){
     return productSpuSkuRelService.createRealiations(spuId,list);
   }
 

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.order.mapper.OrderPaymentMapper">
+
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.order.entity.OrderPayment">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="order_id" property="orderId" jdbcType="VARCHAR"/>
+    <result column="payment_method" property="paymentMethod" jdbcType="VARCHAR"/>
+    <result column="payment_amount" property="paymentAmount" jdbcType="DECIMAL"/>
+    <result column="payment_status" property="paymentStatus" jdbcType="VARCHAR"/>
+    <result column="gateway_trade_no" property="gatewayTradeNo" jdbcType="VARCHAR"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="paid_time" property="paidTime" jdbcType="TIMESTAMP"/>
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, order_id, payment_method, payment_amount, payment_status,
+        gateway_trade_no, created_time, paid_time, updated_time
+  </sql>
+
+  <!-- 根据主键查询订单支付 -->
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_payment
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </select>
+
+  <!-- 根据订单ID查询订单支付列表 -->
+  <select id="selectByOrderId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_payment
+    WHERE order_id = #{orderId, jdbcType=VARCHAR}
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 根据支付状态查询订单支付列表 -->
+  <select id="selectByPaymentStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_payment
+    WHERE payment_status = #{paymentStatus, jdbcType=VARCHAR}
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 根据支付平台交易号查询订单支付 -->
+  <select id="selectByGatewayTradeNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_payment
+    WHERE gateway_trade_no = #{gatewayTradeNo, jdbcType=VARCHAR}
+  </select>
+
+  <!-- 新增订单支付 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.order.entity.OrderPayment">
+    INSERT INTO order_payment (
+      id, order_id, payment_method, payment_amount, payment_status,
+      gateway_trade_no, created_time, paid_time, updated_time
+    ) VALUES (
+               #{id, jdbcType=VARCHAR},
+               #{orderId, jdbcType=VARCHAR},
+               #{paymentMethod, jdbcType=VARCHAR},
+               #{paymentAmount, jdbcType=DECIMAL},
+               #{paymentStatus, jdbcType=VARCHAR},
+               #{gatewayTradeNo, jdbcType=VARCHAR},
+               #{createdTime, jdbcType=TIMESTAMP},
+               #{paidTime, jdbcType=TIMESTAMP},
+               #{updatedTime, jdbcType=TIMESTAMP}
+             )
+  </insert>
+
+  <!-- 条件查询订单支付列表（支持分页） -->
+  <select id="selectByCondition" parameterType="com.cn.taihe.back.order.dto.OrderPaymentQueryDTO" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_payment
+    <where>
+      <if test="orderId != null and orderId != ''">
+        AND order_id = #{orderId, jdbcType=VARCHAR}
+      </if>
+      <if test="paymentMethod != null and paymentMethod != ''">
+        AND payment_method = #{paymentMethod, jdbcType=VARCHAR}
+      </if>
+      <if test="minPaymentAmount != null">
+        AND payment_amount >= #{minPaymentAmount, jdbcType=DECIMAL}
+      </if>
+      <if test="maxPaymentAmount != null">
+        AND payment_amount &lt;= #{maxPaymentAmount, jdbcType=DECIMAL}
+      </if>
+      <if test="paymentStatus != null and paymentStatus != ''">
+        AND payment_status = #{paymentStatus, jdbcType=VARCHAR}
+      </if>
+      <if test="gatewayTradeNo != null and gatewayTradeNo != ''">
+        AND gateway_trade_no = #{gatewayTradeNo, jdbcType=VARCHAR}
+      </if>
+      <if test="createdTimeStart != null">
+        AND created_time >= #{createdTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="createdTimeEnd != null">
+        AND created_time &lt;= #{createdTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+      <if test="paidTimeStart != null">
+        AND paid_time >= #{paidTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="paidTimeEnd != null">
+        AND paid_time &lt;= #{paidTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+      <if test="updatedTimeStart != null">
+        AND updated_time >= #{updatedTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="updatedTimeEnd != null">
+        AND updated_time &lt;= #{updatedTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 根据主键更新支付状态 -->
+  <update id="updatePaymentStatusById">
+    UPDATE order_payment
+    SET payment_status = #{paymentStatus, jdbcType=VARCHAR},
+        updated_time = CURRENT_TIMESTAMP
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 更新支付成功信息 -->
+  <update id="updatePaymentSuccess">
+    UPDATE order_payment
+    SET gateway_trade_no = #{gatewayTradeNo, jdbcType=VARCHAR},
+        paid_time = #{paidTime, jdbcType=TIMESTAMP},
+        payment_status = #{paymentStatus, jdbcType=VARCHAR},
+        updated_time = CURRENT_TIMESTAMP
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+</mapper>

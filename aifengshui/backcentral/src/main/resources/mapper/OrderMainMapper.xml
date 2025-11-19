@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.taihe.back.order.mapper.OrderMainMapper">
+
+  <resultMap id="BaseResultMap" type="com.cn.taihe.back.order.entity.OrderMain">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR"/>
+    <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <result column="status" property="status" jdbcType="TINYINT"/>
+    <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
+    <result column="currency" property="currency" jdbcType="VARCHAR"/>
+    <result column="address_id" property="addressId" jdbcType="VARCHAR"/>
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR"/>
+    <result column="receiver_phone" property="receiverPhone" jdbcType="VARCHAR"/>
+    <result column="receiver_address" property="receiverAddress" jdbcType="VARCHAR"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="payment_time" property="paymentTime" jdbcType="TIMESTAMP"/>
+    <result column="shipping_time" property="shippingTime" jdbcType="TIMESTAMP"/>
+    <result column="completed_time" property="completedTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, order_sn, user_id, status, total_amount, currency, address_id,
+        receiver_name, receiver_phone, receiver_address, created_time,
+        payment_time, shipping_time, completed_time
+  </sql>
+
+  <!-- 根据主键查询订单 -->
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_main
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </select>
+
+  <!-- 根据用户ID查询订单列表 -->
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_main
+    WHERE user_id = #{userId, jdbcType=VARCHAR}
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 新增订单 -->
+  <insert id="insert" parameterType="com.cn.taihe.back.order.entity.OrderMain">
+    INSERT INTO order_main (
+      id, order_sn, user_id, status, total_amount, currency,
+      address_id, receiver_name, receiver_phone, receiver_address,
+      created_time, payment_time, shipping_time, completed_time
+    ) VALUES (
+               #{id, jdbcType=VARCHAR},
+               #{orderSn, jdbcType=VARCHAR},
+               #{userId, jdbcType=VARCHAR},
+               #{status, jdbcType=TINYINT},
+               #{totalAmount, jdbcType=DECIMAL},
+               #{currency, jdbcType=VARCHAR},
+               #{addressId, jdbcType=VARCHAR},
+               #{receiverName, jdbcType=VARCHAR},
+               #{receiverPhone, jdbcType=VARCHAR},
+               #{receiverAddress, jdbcType=VARCHAR},
+               #{createdTime, jdbcType=TIMESTAMP},
+               #{paymentTime, jdbcType=TIMESTAMP},
+               #{shippingTime, jdbcType=TIMESTAMP},
+               #{completedTime, jdbcType=TIMESTAMP}
+             )
+  </insert>
+
+  <!-- 根据主键更新订单（只更新非空字段） -->
+  <update id="updateById" parameterType="com.cn.taihe.back.order.entity.OrderMain">
+    UPDATE order_main
+    <set>
+      <if test="orderSn != null and orderSn != ''">
+        order_sn = #{orderSn, jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId, jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status, jdbcType=TINYINT},
+      </if>
+      <if test="totalAmount != null">
+        total_amount = #{totalAmount, jdbcType=DECIMAL},
+      </if>
+      <if test="currency != null and currency != ''">
+        currency = #{currency, jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null and addressId != ''">
+        address_id = #{addressId, jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null and receiverName != ''">
+        receiver_name = #{receiverName, jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null and receiverPhone != ''">
+        receiver_phone = #{receiverPhone, jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAddress != null and receiverAddress != ''">
+        receiver_address = #{receiverAddress, jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTime != null">
+        payment_time = #{paymentTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="shippingTime != null">
+        shipping_time = #{shippingTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="completedTime != null">
+        completed_time = #{completedTime, jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+  <!-- 根据主键删除订单 -->
+  <delete id="deleteById" parameterType="java.lang.String">
+    DELETE FROM order_main
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </delete>
+
+  <!-- 条件查询订单列表（支持分页） -->
+  <select id="selectByCondition" parameterType="com.cn.taihe.back.order.dto.OrderMainQueryDTO" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM order_main
+    <where>
+      <if test="orderSn != null and orderSn != ''">
+        AND order_sn LIKE CONCAT('%', #{orderSn, jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="userId != null and userId != ''">
+        AND user_id = #{userId, jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        AND status = #{status, jdbcType=TINYINT}
+      </if>
+      <if test="minTotalAmount != null">
+        AND total_amount >= #{minTotalAmount, jdbcType=DECIMAL}
+      </if>
+      <if test="maxTotalAmount != null">
+        AND total_amount &lt;= #{maxTotalAmount, jdbcType=DECIMAL}
+      </if>
+      <if test="currency != null and currency != ''">
+        AND currency = #{currency, jdbcType=VARCHAR}
+      </if>
+      <if test="receiverName != null and receiverName != ''">
+        AND receiver_name LIKE CONCAT('%', #{receiverName, jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="receiverPhone != null and receiverPhone != ''">
+        AND receiver_phone LIKE CONCAT('%', #{receiverPhone, jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="createdTimeStart != null">
+        AND created_time >= #{createdTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="createdTimeEnd != null">
+        AND created_time &lt;= #{createdTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+      <if test="paymentTimeStart != null">
+        AND payment_time >= #{paymentTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="paymentTimeEnd != null">
+        AND payment_time &lt;= #{paymentTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+      <if test="shippingTimeStart != null">
+        AND shipping_time >= #{shippingTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="shippingTimeEnd != null">
+        AND shipping_time &lt;= #{shippingTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+      <if test="completedTimeStart != null">
+        AND completed_time >= #{completedTimeStart, jdbcType=TIMESTAMP}
+      </if>
+      <if test="completedTimeEnd != null">
+        AND completed_time &lt;= #{completedTimeEnd, jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    ORDER BY created_time DESC
+  </select>
+
+  <!-- 根据主键集合批量删除订单 -->
+  <delete id="deleteBatchIds" parameterType="java.util.List">
+    DELETE FROM order_main
+    WHERE id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      #{id, jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+
+  <!-- 根据主键更新订单状态 -->
+  <update id="updateStatusById">
+    UPDATE order_main
+    SET status = #{status, jdbcType=TINYINT}
+    WHERE id = #{id, jdbcType=VARCHAR}
+  </update>
+
+</mapper>

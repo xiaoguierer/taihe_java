@@ -9,6 +9,7 @@ import com.cn.taihe.back.product.entity.ProductCategoryTag;
 import com.cn.taihe.back.product.mapper.ProductCategoryTagMapper;
 import com.cn.taihe.back.product.service.ProductCategoryTagService;
 import com.cn.taihe.back.product.service.ProductSpuCategoryTagService;
+import com.cn.taihe.back.product.vo.ProductCategoryTagCountDTO;
 import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
@@ -472,6 +473,44 @@ public class ProductCategoryTagServiceImpl implements ProductCategoryTagService 
       return result;
     } catch (Exception e) {
       logger.error("根据父标签ID查询子标签列表异常，操作人：{}，参数：parentTagId={}，异常信息：", OPERATOR, parentTagId, e);
+      throw new RuntimeException("根据父标签ID查询子标签列表失败", e);
+    }
+  }
+  //  夸表综合查询
+  /**
+   * 根据情感意图查找所属商品的标签以及数量
+   *
+   * @param intentId 意图ID（前端传输）
+   * @return 标签统计列表，包含标签信息和对应的商品数量
+   */
+  public List<ProductCategoryTagCountDTO> selectJewelryTagByIntentId(String intentId){
+    logger.info("根据情感意图查找所属商品的标签以及数量开始，操作人：{}，参数：parentTagId={}", OPERATOR, intentId);
+    try {
+      List<ProductCategoryTagCountDTO> result = productCategoryTagMapper.selectJewelryTagByIntentId(intentId);
+
+      logger.info("根据父标签ID查询子标签列表成功，操作人：{}，记录数：{}", OPERATOR, result.size());
+      return result;
+    } catch (Exception e) {
+      logger.error("根据父标签ID查询子标签列表异常，操作人：{}，参数：parentTagId={}，异常信息：", OPERATOR, intentId, e);
+      throw new RuntimeException("根据父标签ID查询子标签列表失败", e);
+    }
+  }
+
+  /**
+   * 根据情感意愿ID查询能量信息（tag_type = 8）
+   *
+   * @param intentId 情感意愿ID
+   * @return 能量信息列表
+   */
+  public List<ProductCategoryTagCountDTO> selectEnergyInfoByIntentId(String intentId){
+    logger.info("根据情感意图查找所属商品的标签以及数量开始，操作人：{}，参数：parentTagId={}", OPERATOR, intentId);
+    try {
+      List<ProductCategoryTagCountDTO> result = productCategoryTagMapper.selectEnergyInfoByIntentId(intentId);
+
+      logger.info("根据父标签ID查询子标签列表成功，操作人：{}，记录数：{}", OPERATOR, result.size());
+      return result;
+    } catch (Exception e) {
+      logger.error("根据父标签ID查询子标签列表异常，操作人：{}，参数：parentTagId={}，异常信息：", OPERATOR, intentId, e);
       throw new RuntimeException("根据父标签ID查询子标签列表失败", e);
     }
   }

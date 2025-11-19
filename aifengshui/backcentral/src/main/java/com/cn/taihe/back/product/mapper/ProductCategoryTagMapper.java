@@ -2,6 +2,7 @@ package com.cn.taihe.back.product.mapper;
 
 import com.cn.taihe.back.product.entity.ProductCategoryTag;
 import com.cn.taihe.back.product.dto.ProductCategoryTagQueryDTO;
+import com.cn.taihe.back.product.vo.ProductCategoryTagCountDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -110,4 +111,21 @@ public interface ProductCategoryTagMapper {
    * @return 影响行数
    */
   int updateBatchStatus(@Param("ids") List<String> ids, @Param("isActive") Boolean isActive);
+
+  //  夸表综合查询
+  /**
+   * 根据情感意图查找所属商品的标签以及数量
+   *
+   * @param intentId 意图ID（前端传输）
+   * @return 标签统计列表，包含标签信息和对应的商品数量
+   */
+  List<ProductCategoryTagCountDTO> selectJewelryTagByIntentId(@Param("intentId") String intentId);
+
+  /**
+   * 根据情感意愿ID查询能量信息（tag_type = 8）
+   *
+   * @param intentId 情感意愿ID
+   * @return 能量信息列表
+   */
+  List<ProductCategoryTagCountDTO> selectEnergyInfoByIntentId(@Param("intentId") String intentId);
 }

@@ -3,7 +3,10 @@ import com.cn.taihe.back.product.dto.ProductSpuCreateDTO;
 import com.cn.taihe.back.product.dto.ProductSpuQueryDTO;
 import com.cn.taihe.back.product.dto.ProductSpuUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductSpu;
+import com.cn.taihe.back.product.vo.ProductSpuSkuDTO;
+import com.cn.taihe.back.product.vo.ProductspuByEmotionAndTagId;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -109,4 +112,31 @@ public interface ProductSpuService {
    * @return 是否存在
    */
   boolean isSpuCodeExists(String spuCode, String excludeId);
+
+  /**
+   * 夸表综合查询
+   * 根据情感意图ID查询推荐商品列表（包含主品类信息）
+   *
+   * @param intentId 情感意图ID
+   * @param limit 查询条数
+   * @return 推荐商品列表
+   */
+  List<ProductSpuSkuDTO> getRecommendProducts(String intentId, Integer limit);
+
+  /**
+   * 根据情感意图ID查询关联的SPU列表
+   *
+   * @param intentId 情感意图ID
+   * @return SPU列表
+   */
+  List<ProductSpu> selectSpuByIntentId(String intentId);
+
+  /**
+   * 根据情感意图和标签ID查询商品列表
+   *
+   * @param intentId 情感意图ID
+   * @param tagId 标签ID
+   * @return 商品详情列表
+   */
+  List<ProductspuByEmotionAndTagId> selectProductsByIntentAndTag(String intentId,String tagId);
 }

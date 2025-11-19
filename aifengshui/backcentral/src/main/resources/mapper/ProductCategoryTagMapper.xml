@@ -187,4 +187,64 @@
     </foreach>
   </update>
 
+  <!-- 夸表联合统计查询-->
+  <!-- 根据意图ID查询首饰类型标签的商品数量统计 -->
+  <select id="selectJewelryTagByIntentId" resultType="com.cn.taihe.back.product.vo.ProductCategoryTagCountDTO">
+    SELECT
+      pct.id,
+      pct.tag_name_zh,
+      pct.tag_name_en,
+      pct.tag_name_ar,
+      pct.short_desc_en,
+      pct.short_desc_zh,
+      pct.color_code,
+      COUNT(DISTINCT psk.id) AS product_count
+    FROM
+      product_categorytag pct
+        JOIN product_spu_categorytag psct ON pct.id = psct.category_tag_id
+        JOIN product_spu_intent psi ON psct.spu_id = psi.spu_id
+        JOIN product_spu_sku_rel pssr ON psi.spu_id = pssr.spu_id
+        JOIN product_sku psk ON pssr.sku_id = psk.id
+    WHERE
+      pct.tag_type = 1
+      AND psi.intent_id = #{intentId}
+      AND psk.status = 1
+      AND psk.is_available = 1
+      AND pct.is_active = 1
+    GROUP BY
+      pct.id
+    ORDER BY
+      pct.sort_order ASC
+  </select>
+
+  <!-- 根据情感意愿ID查询能量信息（tag_type = 8） -->
+  <select id="selectEnergyInfoByIntentId" resultType="com.cn.taihe.back.product.vo.ProductCategoryTagCountDTO">
+    SELECT
+      pct.id,
+      pct.tag_key,
+      pct.tag_name_zh,
+      pct.tag_name_en,
+      pct.tag_name_ar,
+      pct.short_desc_en,
+      pct.short_desc_zh,
+      pct.color_code,
+      COUNT(DISTINCT psk.id) AS product_count
+    FROM
+      product_categorytag pct
+        JOIN product_spu_categorytag psct ON pct.id = psct.category_tag_id
+        JOIN product_spu_intent psi ON psct.spu_id = psi.spu_id
+        JOIN product_spu_sku_rel pssr ON psi.spu_id = pssr.spu_id
+        JOIN product_sku psk ON pssr.sku_id = psk.id
+    WHERE
+      pct.tag_type = 8
+      AND psi.intent_id = #{intentId}
+      AND psk.status = 1
+      AND psk.is_available = 1
+      AND pct.is_active = 1
+    GROUP BY
+      pct.id
+    ORDER BY
+      pct.sort_order ASC
+  </select>
+
 </mapper>

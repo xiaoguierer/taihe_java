@@ -39,7 +39,7 @@ public interface ProductSkuService {
    * @param: [spuId, arrays]
    * @return: [java.lang.String, java.util.Arrays]
    **/
-  int createRealiations(String spuId, List list);
+  int createRealiations(String spuId, List<String> list);
 
   /**
    * 创建SKU与供应商关联关系（先删除后新增）

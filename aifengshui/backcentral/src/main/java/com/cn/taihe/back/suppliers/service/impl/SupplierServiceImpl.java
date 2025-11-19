@@ -91,11 +91,11 @@ public class SupplierServiceImpl implements SupplierService {
     return updatedSupplier;
   }
 
-  public int createRealiations(String spuId, List list) {
+  public int createRealiations(String spuId, List<String> list) {
     return productSpuSupplierService.createRealiations(spuId, list);
   }
 
-  public int createSupplierProductSkuRealiations(String skuId, List list){
+  public int createSupplierProductSkuRealiations(String skuId, List<String> list){
     return productSkuSupplierService.createRealiations(skuId,list);
   }
 

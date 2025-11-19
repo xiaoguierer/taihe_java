@@ -21,8 +21,6 @@
 10 CreateDTO没有主键属性，UpdateDTO必须与主键属性
 
 
-
-
 二 MAPPER接口：
 1 所有的mapper接口使用 xml文件配资映射
 2 mapper接口方法包括 主键查找、新增数据、修改数据、根据主键删除数据、条件查询数据、查询所有数据、根据主键集合批量删除和状态更改等方法操作
@@ -49,6 +47,8 @@
 4 Controller层实现类中的service接口使用@Autowired注解注入
 5 Controller层实现类严格遵循RESTFUL API接口特点，每个类以及类中的每个方法要明确给出请求方式和请求路径
 6 Controller接口要严格遵循注解注释规范以及参数要求，接收参数可以为对象，要和DTO严格匹配，返回值均为json
+7 Controller接口统一响应格式：返回类型统一为ResponseEntity<Object>  成功返回return ResponseEntity.ok(Result.success(result));
+失败信息返回return ResponseEntity.badRequest().body(Result.error("查询情感意图详情失败"));Result和ResponseEntity已经封装
 
 五 其他
 1 所有的关键业务节点使用org.slf4j.LoggerFactory输出日志信息，便于调试问题。日志需要最详细的日志，要记录完整的请求参数和返回结果，需要JSON格式，要记录操作人，如没有操作人默认ADMIN
@@ -59,7 +59,9 @@
 6 如有有特定的业务场景或特殊需求需要再次提前明确，如没有默认没有，按照常规处理即可；
 7 已经定义好的统一响应格式或异常处理机制要严格遵循
 8 所有生成过程和结果必须是全量完整的代码，不能有任何省略
-9 包的统一路径为：com.cn.taihe.back.product
+9 包的统一路径为：com.cn.taihe.back.user.entity
+
+
 
 
 

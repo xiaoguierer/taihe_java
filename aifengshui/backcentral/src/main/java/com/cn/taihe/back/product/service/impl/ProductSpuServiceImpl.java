@@ -8,6 +8,8 @@ import com.cn.taihe.back.product.dto.ProductSpuUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductSpu;
 import com.cn.taihe.back.product.mapper.ProductSpuMapper;
 import com.cn.taihe.back.product.service.ProductSpuService;
+import com.cn.taihe.back.product.vo.ProductSpuSkuDTO;
+import com.cn.taihe.back.product.vo.ProductspuByEmotionAndTagId;
 import com.cn.taihe.common.AppCommonConstants;
 import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
@@ -365,7 +367,7 @@ public class ProductSpuServiceImpl implements ProductSpuService {
     }
 
     try {
-      int result = productSpuMapper.updateStatusById(id, isActive, getCurrentOperatorId());
+      int result = productSpuMapper.updateStatusById(id, isActive, Long.parseLong(id));
       boolean success = result > 0;
       logger.info("更新商品SPU状态{}，id: {}, 状态: {}, operator: {}",
         success ? "成功" : "失败", id, isActive, DEFAULT_OPERATOR);
@@ -391,7 +393,7 @@ public class ProductSpuServiceImpl implements ProductSpuService {
     }
 
     try {
-      int result = productSpuMapper.updateStatusBatchIds(ids, isActive, getCurrentOperatorId());
+      int result = productSpuMapper.updateStatusBatchIds(ids, isActive, Long.parseLong(ids.get(0)));
       boolean success = result > 0;
       logger.info("批量更新商品SPU状态{}，更新记录数: {}, 状态: {}, operator: {}",
         success ? "成功" : "失败", result, isActive, DEFAULT_OPERATOR);
@@ -449,10 +451,34 @@ public class ProductSpuServiceImpl implements ProductSpuService {
   }
 
   /**
-   * 获取当前操作人ID（实际项目中应从安全上下文获取）
+   * 夸表综合查询
+   * 根据情感意图ID查询推荐商品列表（包含主品类信息）
+   *
+   * @param intentId 情感意图ID
+   * @param limit 查询条数
+   * @return 推荐商品列表
    */
-  private Long getCurrentOperatorId() {
-    // 这里模拟获取当前操作人ID，实际项目中应从SecurityContext或Token中获取
-    return 1L; // 默认管理员ID
+  public List<ProductSpuSkuDTO> getRecommendProducts(String intentId, Integer limit) {
+    return productSpuMapper.selectRecommendProductsByIntentId(intentId, limit);
+  }
+
+  /**
+   * 根据情感意图ID查询关联的SPU列表
+   *
+   * @param intentId 情感意图ID
+   * @return SPU列表
+   */
+  public List<ProductSpu> selectSpuByIntentId(String intentId){
+    return productSpuMapper.selectSpuByIntentId(intentId);
+  }
+   /**
+   * 根据情感意图和标签ID查询商品列表
+   *
+   * @param intentId 情感意图ID
+   * @param tagId 标签ID
+   * @return 商品详情列表
+   */
+  public List<ProductspuByEmotionAndTagId> selectProductsByIntentAndTag(String intentId, String tagId){
+    return productSpuMapper.selectProductsByIntentAndTag(intentId,tagId);
   }
 }

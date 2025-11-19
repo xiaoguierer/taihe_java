@@ -1,6 +1,8 @@
 package com.cn.taihe.back.product.mapper;
 import com.cn.taihe.back.product.dto.ProductSpuQueryDTO;
 import com.cn.taihe.back.product.entity.ProductSpu;
+import com.cn.taihe.back.product.vo.ProductSpuSkuDTO;
+import com.cn.taihe.back.product.vo.ProductspuByEmotionAndTagId;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -111,6 +113,32 @@ public interface ProductSpuMapper {
    * @param excludeId 排除的主键ID（用于更新时检查）
    * @return 存在数量
    */
-  int countBySpuCode(@Param("spuCode") String spuCode,
-                     @Param("excludeId") String excludeId);
+  int countBySpuCode(@Param("spuCode") String spuCode, @Param("excludeId") String excludeId);
+
+  /**
+   * 夸表综合查询
+   * 根据情感意图ID查询推荐商品列表（包含主品类信息）
+   *
+   * @param intentId 情感意图ID
+   * @param limit 查询条数
+   * @return 推荐商品列表
+   */
+  List<ProductSpuSkuDTO> selectRecommendProductsByIntentId(@Param("intentId") String intentId, @Param("limit") Integer limit);
+
+  /**
+   * 根据情感意图ID查询关联的SPU列表
+   *
+   * @param intentId 情感意图ID
+   * @return SPU列表
+   */
+  List<ProductSpu> selectSpuByIntentId(@Param("intentId") String intentId);
+
+  /**
+   * 根据情感意图和标签ID查询商品列表
+   *
+   * @param intentId 情感意图ID
+   * @param tagId 标签ID
+   * @return 商品详情列表
+   */
+  List<ProductspuByEmotionAndTagId> selectProductsByIntentAndTag(@Param("intentId") String intentId, @Param("tagId") String tagId);
 }

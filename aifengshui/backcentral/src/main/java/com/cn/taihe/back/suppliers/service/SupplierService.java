@@ -29,13 +29,13 @@ public interface SupplierService {
    * 新建商品spu关系
    **/
 
-  int createRealiations(String spuId, List list);
+  int createRealiations(String spuId, List<String> list);
 
   /**
    * 新建商品sKu-供应商关系
    **/
 
-  int createSupplierProductSkuRealiations(String skuId, List list);
+  int createSupplierProductSkuRealiations(String skuId, List<String> list);
 
   /**
    * 根据ID获取供应商详情
