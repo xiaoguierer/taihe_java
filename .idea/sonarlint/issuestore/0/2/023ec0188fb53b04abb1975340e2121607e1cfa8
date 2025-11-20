@@ -1,0 +1,22 @@
+
+[	java:S112;"FDefine and throw a dedicated exception instead of using a generic one.(¿‚Ê”
+[	java:S112K"FDefine and throw a dedicated exception instead of using a generic one.(ï”Œ
+`	java:S112U"FDefine and throw a dedicated exception instead of using a generic one.(¦ıíıÿÿÿÿ
+[	java:S112m"FDefine and throw a dedicated exception instead of using a generic one.(ï”Œ
+\	java:S112ƒ"FDefine and throw a dedicated exception instead of using a generic one.(ï”Œ
+\	java:S112‰"FDefine and throw a dedicated exception instead of using a generic one.(ûåÂË
+a	java:S112«"FDefine and throw a dedicated exception instead of using a generic one.(ËÌ«¸úÿÿÿÿ
+a	java:S112±"FDefine and throw a dedicated exception instead of using a generic one.(¤û‰üÿÿÿÿ
+a	java:S112¾"FDefine and throw a dedicated exception instead of using a generic one.(ËÌ«¸úÿÿÿÿ
+\	java:S112Ã"FDefine and throw a dedicated exception instead of using a generic one.(ˆµøÂ
+a	java:S112É"FDefine and throw a dedicated exception instead of using a generic one.(ªÁûÎøÿÿÿÿ
+s
+java:S1192J"]Define a constant instead of duplicating this literal "ä¾›åº”å•†ä¸å­˜åœ¨ï¼ŒIDï¼š{}" 3 times.(®™ô¬
+i
+java:S1192K"SDefine a constant instead of duplicating this literal "ä¾›åº”å•†ä¸å­˜åœ¨" 3 times.(ï”Œ
+f	java:S117-"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ó™Š
+f	java:S117N"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ó™Š
+w
+java:S1488w"\Immediately return this expression instead of assigning it to the temporary variable "list".(Ûˆóõşÿÿÿÿ
+k
+java:S3252”"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(‹‹¥®úÿÿÿÿ

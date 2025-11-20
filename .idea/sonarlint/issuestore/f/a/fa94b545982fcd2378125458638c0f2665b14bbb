@@ -1,0 +1,34 @@
+
+S
+java:S3655ƒ"5Call "result.isPresent()" before accessing the value.(£á¸Ë8Á”Ç¡©3
+ 
+java:S4449‡"ˆAnnotate the parameter with @javax.annotation.Nullable in method 'ok' declaration, or make sure that null can not be passed as argument.(ş›ÛŒ
+ 
+java:S4449í"ˆAnnotate the parameter with @javax.annotation.Nullable in method 'ok' declaration, or make sure that null can not be passed as argument.(ş›ÛŒ
+A
+java:S14525"&Remove usage of generic wildcard type.(êÌí€ÿÿÿÿÿ
+A
+java:S1452M"&Remove usage of generic wildcard type.(Ó²ˆÕıÿÿÿÿ
+7
+java:S3457d"Not enough arguments.(ƒœ‘¿ûÿÿÿÿ8Ó”Ç¡©3
++
+java:S3457f"Not enough arguments.(ÉÛ»›
+7
+java:S3457r"Not enough arguments.(ó…ˆ¯ÿÿÿÿÿ8ÎòÑ¤©3
+7
+java:S3457t"Not enough arguments.(äÓûÿÿÿÿ8ÏòÑ¤©3
+<
+java:S1452~"&Remove usage of generic wildcard type.(Ç¦Ñæ
+B
+java:S1452"&Remove usage of generic wildcard type.(¾­×¹ùÿÿÿÿ
+=
+java:S1452¥"&Remove usage of generic wildcard type.(Òºä“
+=
+java:S1452º"&Remove usage of generic wildcard type.(ßÂ¹ã
+W	java:S125Â"<This block of commented-out lines of code should be removed.(©È×êúÿÿÿÿ
+B
+java:S1452Ğ"&Remove usage of generic wildcard type.(òÙ¾óøÿÿÿÿ
+=
+java:S1452ä"&Remove usage of generic wildcard type.(³¥Ãó
+=
+java:S1452ü"&Remove usage of generic wildcard type.(§¸µ¦

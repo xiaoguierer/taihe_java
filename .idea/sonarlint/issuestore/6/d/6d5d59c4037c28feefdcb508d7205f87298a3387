@@ -1,0 +1,39 @@
+
+`	java:S1121"FDefine and throw a dedicated exception instead of using a generic one.(İ¹°Ùüÿÿÿÿ
+`	java:S112A"FDefine and throw a dedicated exception instead of using a generic one.(’·„…ûÿÿÿÿ
+`	java:S112Q"FDefine and throw a dedicated exception instead of using a generic one.(ı½»…úÿÿÿÿ
+`	java:S112a"FDefine and throw a dedicated exception instead of using a generic one.(¢ÈŠşÿÿÿÿ
+[	java:S112q"FDefine and throw a dedicated exception instead of using a generic one.(­¤â˜
+\	java:S112ˆ"FDefine and throw a dedicated exception instead of using a generic one.(Åá÷á
+\	java:S112¨"FDefine and throw a dedicated exception instead of using a generic one.(íÔ¬Ÿ
+\	java:S112Á"FDefine and throw a dedicated exception instead of using a generic one.(¼‰·
+\	java:S112×"FDefine and throw a dedicated exception instead of using a generic one.(‘‹¤ 
+a	java:S112î"FDefine and throw a dedicated exception instead of using a generic one.( üë¢ûÿÿÿÿ
+a	java:S112„"FDefine and throw a dedicated exception instead of using a generic one.(“Û§‰ûÿÿÿÿ
+\	java:S112›"FDefine and throw a dedicated exception instead of using a generic one.(ğ›…
+n
+java:S2139/"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+n
+java:S2139?"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+n
+java:S2139O"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+n
+java:S2139_"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+n
+java:S2139o"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+j
+java:S3252~"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(‹‹¥®úÿÿÿÿ
+o
+java:S2139…"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139¥"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139¾"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139Ô"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139ë"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139˜"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾

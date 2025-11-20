@@ -354,8 +354,7 @@
 
   <!-- 根据情感意图ID查询关联的SPU列表 -->
   <select id="selectSpuByIntentId" resultType="com.cn.taihe.back.product.entity.ProductSpu">
-    SELECT
-    <include refid="Base_Column_List"/>
+    SELECT *
     FROM product_spu ps
     INNER JOIN product_spu_intent psi ON ps.id = psi.spu_id
     WHERE psi.intent_id = #{intentId}

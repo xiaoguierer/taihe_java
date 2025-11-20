@@ -1,0 +1,42 @@
+
+[	java:S1128"FDefine and throw a dedicated exception instead of using a generic one.( èüÄ
+Z	java:S112_"FDefine and throw a dedicated exception instead of using a generic one.(–Ø‘W
+`	java:S112c"FDefine and throw a dedicated exception instead of using a generic one.(·›Åêüÿÿÿÿ
+`	java:S112y"FDefine and throw a dedicated exception instead of using a generic one.(©±Â•şÿÿÿÿ
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ä°Øl
+a	java:S112‘"FDefine and throw a dedicated exception instead of using a generic one.(’ïÅûÿÿÿÿ
+[	java:S112°"FDefine and throw a dedicated exception instead of using a generic one.(ƒ‚Ü*
+[	java:S112Æ"FDefine and throw a dedicated exception instead of using a generic one.(£„–`
+[	java:S112ß"FDefine and throw a dedicated exception instead of using a generic one.( ÑßP
+\	java:S112ş"FDefine and throw a dedicated exception instead of using a generic one.(Üú§Ê
+a	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Çëî×ùÿÿÿÿ
+[	java:S112Æ"FDefine and throw a dedicated exception instead of using a generic one.(ô˜À\
+a	java:S112â"FDefine and throw a dedicated exception instead of using a generic one.(ñÔ”¶ùÿÿÿÿ
+
+java:S1192."fDefine a constant instead of duplicating this literal "åœ°å€IDä¸èƒ½ä¸ºç©ºï¼Œæ“ä½œäººï¼š{}" 4 times.(³Ëóùÿÿÿÿ
+n
+java:S21396"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+n
+java:S2139a"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139®"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139Ä"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+k
+java:S3252Ö"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(çø¤ÿÿÿÿÿ
+o
+java:S2139İ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139ü"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139›"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139Ä"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139à"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+V
+java:S1128"4Remove this unused import 'java.time.LocalDateTime'.(æÃ§ƒüÿÿÿÿ8¸§Î¬©3
+M
+java:S1128"+Remove this unused import 'java.util.UUID'.(ÀãÄ£úÿÿÿÿ8¹§Î¬©3
