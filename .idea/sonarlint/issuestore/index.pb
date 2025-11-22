@@ -113,8 +113,6 @@ Zaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/WuXingAtt
 `aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/EmotionalIntentUpdateDTO.java,8/f/8f91b5bc97deb7ce7e3fdec6ea59ff5d9aeb2db6
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-ô
-iaifengshui/backcentral/src/main/java/com/cn/taihe/back/imagefile/service/impl/FileStorageServiceImpl.java,e/d/eda6f1d3013356d4551b5320b82d71c8c277ff9e
 ê
 `aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/WuXingAttributeCreateDTO.java,d/8/d87eb06a4ea11bf63bcfd9fe928f6de09cbadf5d
 É
@@ -143,8 +141,6 @@ Waifengshui/backcentral/src/test/java/com/cn/taihe/product/ProductSkuControllerT
 `aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/EmotionalIntentCreateDTO.java,b/0/b0ca90f81582a5aec8cdd8eb9bbb3f80878ee677
 ã
 [aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/ProductSkuCreateDTO.java,b/d/bd587ec99c92fb5b2577389d60a236f3f36fbde1
-Ö
-Uaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/ProductSku.java,b/6/b6ce3e5f5542fd1b053b651e7a20aa858df48e25
 ã
 [aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/ProductSkuUpdateDTO.java,6/1/618d40ac96a18c8fa2e02eae54fc72d55700cef5
 Ç
@@ -213,8 +209,6 @@ caifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/ProductS
 caifengshui/backcentral/src/main/java/com/cn/taihe/back/product/mapper/ProductSkuSupplierMapper.java,f/1/f17916aa4f7e266d4eee1da22e85670128c038c0
 x
 Hcommon/src/main/java/com/cn/taihe/common/utils/SnowflakeIdGenerator.java,3/1/3181e12c7a0e6a276fdc1ba604b47d3a092dd115
-ì
-caifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/ProductSkuController.java,5/7/57d77037de483f0cbe6bdad0d7c995911f8d33b8
 ò
 haifengshui/backcentral/src/main/java/com/cn/taihe/back/suppliers/service/SupplierCertificateService.java,9/8/983ee9a65a643351780a2f82d7abec50d0daa0dc
 ã
@@ -337,8 +331,6 @@ eaifengshui/backcentral/src/main/java/com/cn/taihe/back/order/service/impl/Order
 faifengshui/backcentral/src/main/java/com/cn/taihe/back/suppliers/service/impl/SupplierServiceImpl.java,0/2/023ec0188fb53b04abb1975340e2121607e1cfa8
 ç
 ]aifengshui/backcentral/src/main/java/com/cn/taihe/back/suppliers/service/SupplierService.java,f/8/f8ad316f7109f35103239c02312289885337abd1
-õ
-kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/WuXingAttributeServiceImpl.java,9/d/9d175c9f2d14628e2c49d2d61cbb713f97f43a8b
 é
 ^aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/CreateRelationsRequest.java,8/9/89421682d6e3d9a8674dd73ae79b7f77cf4c98a6
 û
@@ -361,3 +353,17 @@ aaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductCatego
 kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/ProductCategoryTagController.java,5/d/5d7c6a330b764192dd5bc4e786165379ac7f6ccc
 í
 baifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductspuByEmotionAndTagId.java,9/6/968699a4e29e302cb56b4ba197b6cdfe563bdca8
+ä
+Zaifengshui/backcentral/src/main/java/com/cn/taihe/back/user/controller/UserController.java,e/1/e1118b8856379bcce3246281dd3653a6ae20f782
+ä
+Zaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/EmotionalIntent.java,7/8/78da7eedbdd160f9bf5a0676b127dcb629f865f3
+ã
+[aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/mapper/ProductSpuMapper.java,7/0/70b88c47dde902c99a64f228211eaa36e615c04b
+ñ
+faifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/ProductSpuServiceImpl.java,e/d/edb2c18d4898d6d0f9a7974739dc918ed7dcbd49
+ç
+]aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/ProductSpuService.java,b/4/b463249359f1d34ec15ed517b7b598bd1ab6e38a
+ô
+iaifengshui/backcentral/src/main/java/com/cn/taihe/back/imagefile/service/impl/FileStorageServiceImpl.java,e/d/eda6f1d3013356d4551b5320b82d71c8c277ff9e
+õ
+kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/WuXingAttributeServiceImpl.java,9/d/9d175c9f2d14628e2c49d2d61cbb713f97f43a8b

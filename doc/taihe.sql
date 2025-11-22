@@ -248,18 +248,22 @@ CREATE TABLE `product_sku` (
   `final_price` decimal(10,2) GENERATED ALWAYS AS ((coalesce(`sale_price`,`retail_price`) * (1 - (`discount_rate` / 100)))) VIRTUAL COMMENT '最终售价',
   `price_adjustment_reason` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '价格调整原因',
   `last_price_update` datetime DEFAULT NULL COMMENT '最后价格更新',
+
   `main_image_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '主图ID',
   `image_1_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片1 ID',
   `image_2_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片2 ID',
   `image_3_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片3 ID',
   `image_4_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片4 ID',
   `image_5_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片5 ID',
+
   `main_image_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '主图url',
   `image_1_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片1 url',
   `image_2_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片2 url',
   `image_3_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片3 url',
   `image_4_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片4 url',
   `image_5_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图片5 url',
+
+
   `available_date` date DEFAULT NULL COMMENT '可售开始日期',
   `available_end_date` date DEFAULT NULL COMMENT '可售结束日期',
   `is_new_arrival` tinyint(1) DEFAULT '0' COMMENT '是否新品',
@@ -582,17 +586,21 @@ CREATE TABLE `wu_xing_attribute` (
   `restrained_by_element` varchar(20) DEFAULT NULL COMMENT '被克元素',
   `relationship_meaning_zh` text COMMENT '中文关系意义',
   `relationship_meaning_en` text COMMENT '英文关系意义',
+
+
+  `symbol_icon_id` varchar(50) DEFAULT NULL COMMENT '象征图标ID（用于UI展示的小图标）',
+  `philosophy_image_id` varchar(50) DEFAULT NULL COMMENT '哲学原理图ID（五行相生相克关系图）',
+  `energy_flow_image_id` varchar(50) DEFAULT NULL COMMENT '能量流动图ID（能量流动示意图）',
+
   `symbol_icon_url` varchar(500) DEFAULT NULL COMMENT '象征图标URL',
   `philosophy_image_url` varchar(500) DEFAULT NULL COMMENT '哲学图解URL',
   `energy_flow_image_url` varchar(500) DEFAULT NULL COMMENT '能量流动图URL',
+
   `sort_order` int NOT NULL DEFAULT '0' COMMENT '排序值',
   `element_tier` tinyint NOT NULL DEFAULT '1' COMMENT '元素层级',
   `is_active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否启用',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `symbol_icon_id` varchar(50) DEFAULT NULL COMMENT '象征图标ID（用于UI展示的小图标）',
-  `philosophy_image_id` varchar(50) DEFAULT NULL COMMENT '哲学原理图ID（五行相生相克关系图）',
-  `energy_flow_image_id` varchar(50) DEFAULT NULL COMMENT '能量流动图ID（能量流动示意图）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='五行哲学文化属性表(完整版)';
 

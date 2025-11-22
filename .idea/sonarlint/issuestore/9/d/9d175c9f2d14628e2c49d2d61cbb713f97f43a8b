@@ -38,6 +38,8 @@ n
 java:S2139l"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
 h
 java:S3776t"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(ÈìÆâ
+_
+java:S3457‰"AFormat specifiers should be used instead of string concatenation.(Ï§öÔ8“³‘ª3
 o
 java:S2139±"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
 o
@@ -54,8 +56,12 @@ o
 java:S2139¥"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
 o
 java:S2139³"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+I
+java:S1168¿"+Return an empty collection instead of null.(¥¹ï8ü³‘ª3
 o
 java:S2139Ç"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+I
+java:S1168Ô"+Return an empty collection instead of null.(¥¹ï8‚´‘ª3
 o
 java:S2139Ü"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
 o
@@ -70,3 +76,6 @@ o
 java:S2139Ü"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
 o
 java:S2139ö"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+x
+java:S1128
+"VRemove this unused import 'com.cn.taihe.back.product.service.ProductSpuIntentService'.(™€ÎÆøÿÿÿÿ8¦´‘ª3
