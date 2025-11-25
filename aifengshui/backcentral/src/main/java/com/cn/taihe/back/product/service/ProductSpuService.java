@@ -132,11 +132,12 @@ public interface ProductSpuService {
   List<ProductSpu> selectSpuByIntentId(String intentId);
 
   /**
-   * 根据情感意图和标签ID查询商品列表
-   *
-   * @param intentId 情感意图ID
-   * @param tagId 标签ID
-   * @return 商品详情列表
+   * 根据分类标签和意图查询商品SPU
    */
-  List<ProductspuByEmotionAndTagId> selectProductsByIntentAndTag(String intentId,String tagId);
+  List<ProductSpu> getSpuByCategoryTagAndIntent(String categoryTagId, String intentId);
+
+  /**
+   * 根据五行元素标签和意图查询商品SPU
+   */
+  List<ProductSpu> getSpuByElementTagAndIntent(String elementTagId, String intentId);
 }

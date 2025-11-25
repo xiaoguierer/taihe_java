@@ -332,7 +332,6 @@
       psk.main_image_url,
       psk.is_featured,
       psk.is_best_seller,
-      -- 只需要品类标签（用于显示商品类型）
       (SELECT pct.tag_name_zh
        FROM product_spu_categorytag psct
               INNER JOIN product_categorytag pct ON psct.category_tag_id = pct.id
@@ -361,68 +360,32 @@
     AND ps.is_active = 1
   </select>
 
-  <!-- 根据情感意图和标签ID查询商品列表 -->
-  <select id="selectProductsByIntentAndTag" resultType="com.cn.taihe.back.product.vo.ProductspuByEmotionAndTagId">
-    SELECT
-      psk.id,
-      psk.sku_code,
-      psk.sku_name_zh,
-      psk.sku_name_en,
-      psk.sale_price,
-      psk.retail_price,
-      psk.final_price,
-      psk.main_image_url,
-      psk.image_1_url,
-      psk.image_2_url,
-      psk.stock_status,
-      psk.is_featured,
-      psk.is_best_seller,
-      psk.is_new_arrival,
-
-      ps.id as spu_id,
-      ps.product_name_zh as spu_name_zh,
-      ps.product_name_en as spu_name_en,
-      ps.main_image_url as spu_image_url,
-      ps.full_description_zh,
-      ps.full_description_en,
-
-      -- 商品的情感意图
-      (SELECT GROUP_CONCAT(DISTINCT ei.intent_name_zh SEPARATOR ' / ')
-       FROM product_spu_intent psi2
-              INNER JOIN emotional_intent ei ON psi2.intent_id = ei.id
-       WHERE psi2.spu_id = ps.id) as emotional_intents,
-
-      -- 商品的五行属性
-      (SELECT GROUP_CONCAT(DISTINCT pct2.tag_name_zh SEPARATOR ' / ')
-       FROM product_spu_categorytag psct2
-              INNER JOIN product_categorytag pct2 ON psct2.category_tag_id = pct2.id
-       WHERE psct2.spu_id = ps.id AND pct2.tag_type = 8) as wuxing_tags,
-
-      -- 商品的品类标签
-      (SELECT GROUP_CONCAT(DISTINCT pct3.tag_name_zh SEPARATOR ' / ')
-       FROM product_spu_categorytag psct3
-              INNER JOIN product_categorytag pct3 ON psct3.category_tag_id = pct3.id
-       WHERE psct3.spu_id = ps.id AND pct3.tag_type = 1) as category_tags
-
-    FROM product_sku psk
-           INNER JOIN product_spu_sku_rel pssr ON psk.id = pssr.sku_id
-           INNER JOIN product_spu ps ON pssr.spu_id = ps.id
-           INNER JOIN product_spu_intent psi ON ps.id = psi.spu_id
-           INNER JOIN product_spu_categorytag psct ON ps.id = psct.spu_id
-           INNER JOIN product_categorytag pct ON psct.category_tag_id = pct.id
-    WHERE psi.intent_id = #{intentId}
-      AND pct.id = #{tagId}
-      AND psk.status = 1
-      AND psk.is_available = 1
+  <!-- 根据分类标签和意图查询商品SPU -->
+  <select id="selectByCategoryTagAndIntent" resultMap="BaseResultMap">
+    SELECT DISTINCT ps.*
+    FROM product_categorytag pct
+           JOIN product_spu_categorytag psct ON pct.id = psct.category_tag_id
+           JOIN product_spu_intent psi ON psct.spu_id = psi.spu_id
+           JOIN product_spu ps ON psct.spu_id = ps.id
+    WHERE pct.tag_type = 1
+      AND pct.id = #{categoryTagId}
+      AND psi.intent_id = #{intentId}
       AND pct.is_active = 1
-    GROUP BY psk.id, ps.id
-    ORDER BY
-      psk.is_featured DESC,
-      psk.is_best_seller DESC,
-      psk.is_new_arrival DESC,
-      psk.sort_order ASC,
-      psk.created_time DESC
+    ORDER BY ps.sort_order DESC, ps.created_time DESC
   </select>
 
+  <!-- 根据五行元素标签和意图查询商品SPU -->
+  <select id="selectByElementTagAndIntent" resultMap="BaseResultMap">
+    SELECT DISTINCT ps.*
+    FROM product_categorytag pct
+           JOIN product_spu_categorytag psct ON pct.id = psct.category_tag_id
+           JOIN product_spu_intent psi ON psct.spu_id = psi.spu_id
+           JOIN product_spu ps ON psct.spu_id = ps.id
+    WHERE pct.tag_type = 8
+      AND pct.id = #{elementTagId}
+      AND psi.intent_id = #{intentId}
+      AND pct.is_active = 1
+    ORDER BY ps.sort_order DESC, ps.created_time DESC
+  </select>
 
 </mapper>

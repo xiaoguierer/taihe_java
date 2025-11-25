@@ -471,14 +471,40 @@ public class ProductSpuServiceImpl implements ProductSpuService {
   public List<ProductSpu> selectSpuByIntentId(String intentId){
     return productSpuMapper.selectSpuByIntentId(intentId);
   }
-   /**
-   * 根据情感意图和标签ID查询商品列表
-   *
-   * @param intentId 情感意图ID
-   * @param tagId 标签ID
-   * @return 商品详情列表
+
+  /**
+   * 根据分类标签和意图查询商品SPU
    */
-  public List<ProductspuByEmotionAndTagId> selectProductsByIntentAndTag(String intentId, String tagId){
-    return productSpuMapper.selectProductsByIntentAndTag(intentId,tagId);
+  @Override
+  public List<ProductSpu> getSpuByCategoryTagAndIntent(String categoryTagId, String intentId) {
+    logger.info("根据分类标签和意图查询商品SPU，categoryTagId: {}, intentId: {}",
+      categoryTagId, intentId);
+    try {
+      List<ProductSpu> result = productSpuMapper.selectByCategoryTagAndIntent(categoryTagId, intentId);
+      logger.info("根据分类标签和意图查询商品SPU成功，记录数: {}", result.size());
+      return result;
+    } catch (Exception e) {
+      logger.error("根据分类标签和意图查询商品SPU异常，categoryTagId: {}, intentId: {}",
+        categoryTagId, intentId, e);
+      throw new RuntimeException("查询商品SPU失败", e);
+    }
+  }
+  /**
+   * 根据五行元素标签和意图查询商品SPU
+   */
+  @Override
+  public List<ProductSpu> getSpuByElementTagAndIntent(String elementTagId, String intentId) {
+    logger.info("根据五行元素标签和意图查询商品SPU，elementTagId: {}, intentId: {}",
+      elementTagId, intentId);
+
+    try {
+      List<ProductSpu> result = productSpuMapper.selectByElementTagAndIntent(elementTagId, intentId);
+      logger.info("根据五行元素标签和意图查询商品SPU成功，记录数: {}", result.size());
+      return result;
+    } catch (Exception e) {
+      logger.error("根据五行元素标签和意图查询商品SPU异常，elementTagId: {}, intentId: {}",
+        elementTagId, intentId, e);
+      throw new RuntimeException("查询商品SPU失败", e);
+    }
   }
 }

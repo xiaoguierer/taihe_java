@@ -5,7 +5,6 @@ import com.cn.taihe.back.product.dto.ProductSpuUpdateDTO;
 import com.cn.taihe.back.product.entity.ProductSpu;
 import com.cn.taihe.back.product.service.ProductSpuService;
 import com.cn.taihe.back.product.vo.ProductSpuSkuDTO;
-import com.cn.taihe.back.product.vo.ProductspuByEmotionAndTagId;
 import com.cn.taihe.common.Result;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -351,34 +350,61 @@ public class ProductSpuController {
   }
 
   /**
-   * 根据情感意图和标签ID查询商品列表
+   * 根据情感意图和类型标签ID查询商品列表
    *
    * @param intentId 情感意图ID
    * @param tagId 标签ID
    * @return 商品详情列表
    */
   @GetMapping("/getProductsByIntentAndTag/{intentId}/{tagId}")
-  @ApiOperation(value = "根据情感意图ID和标签ID查询推荐商品列表", notes = "根据情感意图ID和标签ID查询推荐商品列表")
+  @ApiOperation(value = "根据情感意图ID和类型标签ID查询商品列表", notes = "根据情感意图ID和类型标签ID查询商品列表")
   public ResponseEntity<Object> selectProductsByIntentAndTag(
     @ApiParam(value = "情感意图主键", required = true)
     @PathVariable String intentId,
-    @ApiParam(value = "标签主键", required = true)
+    @ApiParam(value = "类型标签主键", required = true)
     @PathVariable String tagId) {
-    logger.info("根据情感意图ID和标签ID查询推荐商品列表，请求参数: id={}, operator={}", intentId, OPERATOR);
+    logger.info("根据情感意图ID和类型标签ID查询商品列表，请求参数: id={}, operator={}", intentId, OPERATOR);
     try {
       if (!StringUtils.hasText(intentId)) {
         return ResponseEntity.badRequest().body(Result.error("参数为空"));
       }
-      List<ProductspuByEmotionAndTagId> productSpu = productSpuService.selectProductsByIntentAndTag(intentId,tagId);
-      if (productSpu == null) {
-        logger.info("根据情感意图ID和标签ID查询推荐商品列表，操作人：{}，ID：{}", OPERATOR, intentId);
+      List<ProductSpu> productSpuList = productSpuService.getSpuByCategoryTagAndIntent(tagId,intentId);
+      if (productSpuList == null) {
+        logger.info("根据情感意图ID和类型标签ID查询商品列表，操作人：{}，ID：{}", OPERATOR, intentId);
         return ResponseEntity.ok(Result.success("未找到对应数据"));
       }
-      logger.info("根据情感意图ID和标签ID查询推荐商品列表，操作人：{}，结果：{}", OPERATOR, productSpu);
-      return ResponseEntity.ok(Result.success(productSpu));
+      logger.info("根据情感意图ID和类型标签ID查询商品列表，操作人：{}，结果：{}", OPERATOR, productSpuList);
+      return ResponseEntity.ok(Result.success(productSpuList));
     } catch (Exception e) {
-      logger.error("根据情感意图ID和标签ID查询推荐商品列表，操作人：{}，参数：id={}，异常信息：", OPERATOR, intentId, e);
+      logger.error("根据情感意图ID和类型标签ID查询商品列表，操作人：{}，参数：id={}，异常信息：", OPERATOR, intentId, e);
       return ResponseEntity.badRequest().body(Result.error("查询失败"));
     }
   }
+
+  /**
+   * 根据五行元素标签和意图查询商品SPU
+   */
+  @GetMapping("/getProductsByIntentAndElementTag/{intentId}/{elementTagId}")
+  @ApiOperation(value = "根据五行元素标签和意图查询商品SPU",
+    notes = "根据五行元素标签ID和意图ID查询关联的商品SPU列表")
+  public ResponseEntity<Object> selectProductsByIntentAndElementTag(
+    @ApiParam(value = "五行元素标签ID", required = true) @PathVariable String elementTagId,
+    @ApiParam(value = "意图ID", required = true) @PathVariable String intentId) {
+    logger.info("根据五行元素标签和意图查询商品SPU，请求参数: id={}, operator={}", intentId, OPERATOR);
+    try {
+      if (!StringUtils.hasText(intentId)) {
+        return ResponseEntity.badRequest().body(Result.error("参数为空"));
+      }
+      List<ProductSpu> productSpuList = productSpuService.getSpuByElementTagAndIntent(elementTagId,intentId);
+      if (productSpuList == null) {
+        logger.info("根据五行元素标签和意图查询商品SPU，操作人：{}，ID：{}", OPERATOR, intentId);
+        return ResponseEntity.ok(Result.success("未找到对应数据"));
+      }
+      logger.info("根据五行元素标签和意图查询商品SPU，操作人：{}，结果：{}", OPERATOR, productSpuList);
+      return ResponseEntity.ok(Result.success(productSpuList));
+    } catch (Exception e) {
+      logger.error("根据五行元素标签和意图查询商品SPU，操作人：{}，参数：id={}，异常信息：", OPERATOR, intentId, e);
+      return ResponseEntity.badRequest().body(Result.error("查询失败"));
+    }
+    }
 }

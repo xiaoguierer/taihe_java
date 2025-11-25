@@ -96,7 +96,12 @@ logging:
     name: logs/taihe_java.log
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-
+#支付凭证配置
+paypal:
+  client:
+    id: YOUR_CLIENT_ID  # 替换为你的Client ID
+    secret: YOUR_SECRET  # 替换为你的Secret
+  mode: sandbox  # 沙盒环境，生产环境改为live
 # 🆕 新增：开发环境配置
 ---
 spring:

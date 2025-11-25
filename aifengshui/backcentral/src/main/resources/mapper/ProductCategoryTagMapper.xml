@@ -198,18 +198,14 @@
       pct.short_desc_en,
       pct.short_desc_zh,
       pct.color_code,
-      COUNT(DISTINCT psk.id) AS product_count
+      COUNT(DISTINCT  psct.spu_id) AS product_count
     FROM
       product_categorytag pct
         JOIN product_spu_categorytag psct ON pct.id = psct.category_tag_id
         JOIN product_spu_intent psi ON psct.spu_id = psi.spu_id
-        JOIN product_spu_sku_rel pssr ON psi.spu_id = pssr.spu_id
-        JOIN product_sku psk ON pssr.sku_id = psk.id
     WHERE
       pct.tag_type = 1
       AND psi.intent_id = #{intentId}
-      AND psk.status = 1
-      AND psk.is_available = 1
       AND pct.is_active = 1
     GROUP BY
       pct.id
@@ -228,18 +224,14 @@
       pct.short_desc_en,
       pct.short_desc_zh,
       pct.color_code,
-      COUNT(DISTINCT psk.id) AS product_count
+      COUNT(DISTINCT  psct.spu_id) AS product_count
     FROM
       product_categorytag pct
         JOIN product_spu_categorytag psct ON pct.id = psct.category_tag_id
         JOIN product_spu_intent psi ON psct.spu_id = psi.spu_id
-        JOIN product_spu_sku_rel pssr ON psi.spu_id = pssr.spu_id
-        JOIN product_sku psk ON pssr.sku_id = psk.id
     WHERE
       pct.tag_type = 8
       AND psi.intent_id = #{intentId}
-      AND psk.status = 1
-      AND psk.is_available = 1
       AND pct.is_active = 1
     GROUP BY
       pct.id

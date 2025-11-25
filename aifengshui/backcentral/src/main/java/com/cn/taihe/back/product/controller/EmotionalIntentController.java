@@ -117,7 +117,7 @@ public class EmotionalIntentController {
 
     try {
       List<EmotionalIntent> result = emotionalIntentService.getAll();
-      logger.info(String.valueOf(ResponseEntity.ok(Result.success(result))));
+      //logger.info(String.valueOf(ResponseEntity.ok(Result.success(result))));
       logger.info("查询所有情感意图列表接口调用成功，操作人：{}，记录数：{}", OPERATOR, result.size());
       return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
