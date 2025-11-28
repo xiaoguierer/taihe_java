@@ -3,6 +3,7 @@ package com.cn.taihe.back.shoppingcart.service.impl;
 import com.cn.taihe.back.shoppingcart.entity.Shopingcart;
 import com.cn.taihe.back.shoppingcart.mapper.ShopingcartMapper;
 import com.cn.taihe.back.shoppingcart.service.ShopingcartService;
+import com.cn.taihe.common.utils.SnowflakeIdGenerator;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,10 +55,8 @@ public class ShopingcartServiceImpl implements ShopingcartService {
     logger.info("新增购物车项开始 - 操作人: {}, 参数: {}", OPERATOR, shopingcart);
     try {
       // 生成主键
-      if (shopingcart.getId() == null) {
-        shopingcart.setId(UUID.randomUUID().toString());
-      }
-
+      shopingcart.setId(String.valueOf(SnowflakeIdGenerator.nextId()));
+      shopingcart.setAddedTime(LocalDateTime.now());
       int affectRows = shopingcartMapper.insert(shopingcart);
       boolean result = affectRows > 0;
       logger.info("新增购物车项完成 - 操作人: {}, 影响行数: {}, 结果: {}", OPERATOR, affectRows, result);
@@ -76,6 +76,7 @@ public class ShopingcartServiceImpl implements ShopingcartService {
     logger.info("修改购物车项开始 - 操作人: {}, 参数: {}", OPERATOR, shopingcart);
     try {
       int affectRows = shopingcartMapper.updateByIdSelective(shopingcart);
+      shopingcart.setUpdatedTime(LocalDateTime.now());
       boolean result = affectRows > 0;
       logger.info("修改购物车项完成 - 操作人: {}, 影响行数: {}, 结果: {}", OPERATOR, affectRows, result);
       return result;

@@ -201,13 +201,13 @@ public class EmotionalIntentController {
         return ResponseEntity.ok(Result.error("更新失败，数据可能不存在"));
       }
     } catch (IllegalArgumentException e) {
-      logger.error("更新情感意图信息接口参数错误，操作人：{}，参数：{}，异常信息：", OPERATOR, updateDTO, e);
+      logger.error("更新情感意图信息接口参数错误，操作人：{}，参数：{}，异常信息：", OPERATOR, updateDTO.getId(), e);
       return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     } catch (RuntimeException e) {
-      logger.error("更新情感意图信息接口业务异常，操作人：{}，参数：{}，异常信息：", OPERATOR, updateDTO, e);
+      logger.error("更新情感意图信息接口业务异常，操作人：{}，参数：{}，异常信息：", OPERATOR, updateDTO.getId(), e);
       return ResponseEntity.badRequest().body(Result.error(e.getMessage()));
     } catch (Exception e) {
-      logger.error("更新情感意图信息接口异常，操作人：{}，参数：{}，异常信息：", OPERATOR, updateDTO, e);
+      logger.error("更新情感意图信息接口异常，操作人：{}，参数：{}，异常信息：", OPERATOR, updateDTO.getId(), e);
       return ResponseEntity.badRequest().body(Result.error("更新情感意图信息失败"));
     }
   }
