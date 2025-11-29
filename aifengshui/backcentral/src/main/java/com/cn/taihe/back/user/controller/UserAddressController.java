@@ -5,6 +5,7 @@ import com.cn.taihe.back.user.dto.UserAddressUpdateDTO;
 import com.cn.taihe.back.user.entity.UserAddress;
 import com.cn.taihe.back.user.service.UserAddressService;
 import com.cn.taihe.common.Result;
+import com.cn.taihe.loginstiats.RequireLogin;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user-address")
 @Api(value = "UserAddressController", tags = "用户收货地址管理接口")
+@RequireLogin
 public class UserAddressController {
 
   private static final Logger logger = LoggerFactory.getLogger(UserAddressController.class);

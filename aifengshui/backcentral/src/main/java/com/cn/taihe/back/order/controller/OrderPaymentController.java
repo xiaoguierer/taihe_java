@@ -5,6 +5,7 @@ import com.cn.taihe.back.order.dto.OrderPaymentCreateDTO;
 import com.cn.taihe.back.order.dto.OrderPaymentQueryDTO;
 import com.cn.taihe.back.order.service.OrderPaymentService;
 import com.cn.taihe.common.Result;
+import com.cn.taihe.loginstiats.RequireLogin;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order-payment")
 @Api(tags = "订单支付管理接口")
+@RequireLogin
 public class OrderPaymentController {
 
   private static final Logger logger = LoggerFactory.getLogger(OrderPaymentController.class);

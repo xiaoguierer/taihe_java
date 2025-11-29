@@ -6,6 +6,7 @@ import com.cn.taihe.back.order.dto.OrderItemQueryDTO;
 import com.cn.taihe.back.order.dto.OrderItemUpdateDTO;
 import com.cn.taihe.back.order.service.OrderItemService;
 import com.cn.taihe.common.Result;
+import com.cn.taihe.loginstiats.RequireLogin;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order-item")
 @Api(tags = "订单商品管理接口")
+@RequireLogin
 public class OrderItemController {
 
   private static final Logger logger = LoggerFactory.getLogger(OrderItemController.class);

@@ -22,6 +22,7 @@
     <mapstruct-processor>1.5.5.Final</mapstruct-processor>
     <fastjson>2.0.34</fastjson>
     <mysql.version>8.0.33</mysql.version>
+    <jsonwebtoken.verson>0.11.5</jsonwebtoken.verson>
   </properties>
 
   <dependencies>
@@ -43,9 +44,9 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql.version}</version>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>8.0.33</version>
     </dependency>
     <dependency>
       <groupId>org.mariadb.jdbc</groupId>
@@ -151,6 +152,22 @@
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
       <optional>true</optional>
+    </dependency>
+    <!-- JWT 依赖 -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>${jsonwebtoken.verson}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>${jsonwebtoken.verson}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>${jsonwebtoken.verson}</version>
     </dependency>
     <!-- 贝宝支付-->
     <dependency>

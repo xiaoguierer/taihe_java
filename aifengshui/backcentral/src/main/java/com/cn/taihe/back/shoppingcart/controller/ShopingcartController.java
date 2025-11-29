@@ -5,6 +5,7 @@ import com.cn.taihe.back.shoppingcart.dto.request.ShopingcartUpdateDTO;
 import com.cn.taihe.back.shoppingcart.entity.Shopingcart;
 import com.cn.taihe.back.shoppingcart.service.ShopingcartService;
 import com.cn.taihe.common.Result;
+import com.cn.taihe.loginstiats.RequireLogin;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/shopingcart")
 @Api(tags = "购物车管理接口")
+@RequireLogin
 public class ShopingcartController {
 
   private static final Logger logger = LoggerFactory.getLogger(ShopingcartController.class);

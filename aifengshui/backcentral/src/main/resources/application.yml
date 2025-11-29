@@ -85,6 +85,9 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
     cache-enabled: true
+jwt:
+  secret: your-super-secret-key-change-in-production-123456
+  expiration: 604800 # 7天，单位秒
 
 logging:
   level:

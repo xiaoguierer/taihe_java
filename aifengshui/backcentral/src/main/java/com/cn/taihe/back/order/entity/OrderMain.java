@@ -27,7 +27,6 @@ public class OrderMain {
 
   @Id
   @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "id", length = 50, nullable = false)
   @ApiModelProperty(value = "订单ID", example = "1234567890abcdef")
   private String id;

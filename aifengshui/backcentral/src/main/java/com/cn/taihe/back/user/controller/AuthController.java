@@ -5,6 +5,8 @@ import com.cn.taihe.back.user.entity.User;
 import com.cn.taihe.back.user.service.UserService;
 import com.cn.taihe.common.BusinessException;
 import com.cn.taihe.common.utils.PasswordUtil;
+import com.cn.taihe.loginstiats.AllowAnonymous;
+import com.cn.taihe.loginstiats.RequireLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +16,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
+@RequireLogin
 public class AuthController {
 
     @Autowired
     private UserService userService;
-
+    @AllowAnonymous
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         try {
@@ -37,6 +40,7 @@ public class AuthController {
         }
     }
 
+    @AllowAnonymous
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
         User userOpt = userService.login(email, password);

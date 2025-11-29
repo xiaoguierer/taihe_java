@@ -6,6 +6,7 @@ import com.cn.taihe.back.order.dto.OrderRefundQueryDTO;
 import com.cn.taihe.back.order.dto.OrderRefundUpdateDTO;
 import com.cn.taihe.back.order.service.OrderRefundService;
 import com.cn.taihe.common.Result;
+import com.cn.taihe.loginstiats.RequireLogin;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order-refund")
 @Api(tags = "订单退单管理接口")
+@RequireLogin
 public class OrderRefundController {
 
   private static final Logger logger = LoggerFactory.getLogger(OrderRefundController.class);

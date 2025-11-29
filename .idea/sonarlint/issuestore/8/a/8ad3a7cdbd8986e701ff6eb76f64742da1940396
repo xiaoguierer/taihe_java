@@ -1,0 +1,24 @@
+
+g	java:S112;"FDefine and throw a dedicated exception instead of using a generic one.(„Á†úÿÿÿÿ8à¤ò¬3
+b	java:S112P"FDefine and throw a dedicated exception instead of using a generic one.(èª›…8á¤ò¬3
+b	java:S112S"FDefine and throw a dedicated exception instead of using a generic one.(…Û¹ö8á¤ò¬3
+b	java:S112V"FDefine and throw a dedicated exception instead of using a generic one.(ºóƒ¿8á¤ò¬3
+g	java:S112Y"FDefine and throw a dedicated exception instead of using a generic one.(ã‹¶úÿÿÿÿ8â¤ò¬3
+h	java:S112…"FDefine and throw a dedicated exception instead of using a generic one.(¼¯„êøÿÿÿÿ8â¤ò¬3
+h	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(ñ‚²úÿÿÿÿ8ã¤ò¬3
+u
+java:S21399"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ğ¤¤ò¬3
+z
+java:S2139N"XEither log this exception and handle it, or rethrow it with some contextual information.(€ñÅÁøÿÿÿÿ8’¥¤ò¬3
+z
+java:S2139Q"XEither log this exception and handle it, or rethrow it with some contextual information.(‹µ×‡øÿÿÿÿ8®¥¤ò¬3
+z
+java:S2139T"XEither log this exception and handle it, or rethrow it with some contextual information.(Èñı¥şÿÿÿÿ8¹¥¤ò¬3
+u
+java:S2139W"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8Å¥¤ò¬3
+v
+java:S2139ƒ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8ƒ¦¤ò¬3
+\
+java:S1117">Rename "expiration" which hides the field declared at line 21.(–•Ø§8«¦¤ò¬3
+v
+java:S2139"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8¾¦¤ò¬3

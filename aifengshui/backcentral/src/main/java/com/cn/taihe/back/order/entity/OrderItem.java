@@ -25,10 +25,8 @@ import java.time.LocalDateTime;
 public class OrderItem {
 
   @Id
-  @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "id", length = 50, nullable = false)
-  @ApiModelProperty(value = "订单商品ID", example = "1234567890abcdef")
+  @ApiModelProperty(value = "订单详情ID", example = "1234567890abcdef")
   private String id;
 
   @Column(name = "order_id", length = 50, nullable = false)

@@ -2,6 +2,7 @@ package com.cn.taihe.back.user.controller;
 
 import com.cn.taihe.back.user.dto.request.RegisterRequest;
 import com.cn.taihe.back.user.dto.request.UserQueryCondition;
+import com.cn.taihe.back.user.dto.response.UserResponse;
 import com.cn.taihe.back.user.entity.User;
 import com.cn.taihe.back.user.service.UserService;
 import com.cn.taihe.common.ApiResponse;
@@ -10,6 +11,9 @@ import com.cn.taihe.common.ResponseBuilder;
 import com.cn.taihe.common.ResponseUtil;
 import com.cn.taihe.common.dateutils.DateTimeParser;
 import com.cn.taihe.common.utils.PasswordUtil;
+import com.cn.taihe.config.JwtUtil;
+import com.cn.taihe.loginstiats.AllowAnonymous;
+import com.cn.taihe.loginstiats.RequireLogin;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,16 +38,22 @@ import java.util.Optional;
 @CrossOrigin(origins = "*") // 允许所有来源
 @RestController
 @RequestMapping("/users")
+@RequireLogin
 public class UserController {
 
   @Autowired
   private UserService userService;
+
+  @Autowired
+  private JwtUtil jwtUtil;
+
   Logger logger = LoggerFactory.getLogger(UserController.class);
 
   /**
    * 用户注册新增
    * POST /api/users/register
    */
+  @AllowAnonymous
   @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<?> register(
     @RequestPart("request") RegisterRequest request,
@@ -60,7 +70,7 @@ public class UserController {
       // 2. 生成盐值和加密密码
       String salt = PasswordUtil.generateSalt();
       String passwordHash = PasswordUtil.hashPassword(request.getPassword(), salt);
-      User user = null;
+      User user = new User();
       // 优先使用文件上传方式
       if (avatarFile != null && !avatarFile.isEmpty()) {
         user = userService.registerWithAvatar(
@@ -84,7 +94,12 @@ public class UserController {
           request.getBirthdaytime()
         );
       }
-      return ResponseEntity.ok(buildSuccessResponse("注册成功", user));
+      // 生成JWT Token
+      String token = jwtUtil.generateToken(user.getId());
+      // 构建响应
+      UserResponse userResponse = new UserResponse(user);
+      logger.info("注册生成的token 是：----------------",token);
+      return ResponseEntity.ok(buildSuccessResponse(token, userResponse));
     } catch (Exception e) {
       return ResponseEntity.badRequest().body(buildErrorResponse(e.getMessage()));
     }
@@ -228,6 +243,7 @@ public class UserController {
    * 用户登录
    * POST /api/users/login
    */
+  @AllowAnonymous
   @PostMapping("/login")
   public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
     User user = userService.findByEmail(email);
@@ -238,8 +254,13 @@ public class UserController {
       throw new BusinessException("密码错误");
     }
     User userOpt = userService.login(email, password);
+    // 生成JWT Token
+    String token = jwtUtil.generateToken(user.getId());
+    // 构建响应
+    UserResponse userResponse = new UserResponse(userOpt);
+    logger.info("登录生成的token 是：----------------",token);
     if (userOpt != null) {
-      return ResponseEntity.ok(buildSuccessResponse("登录成功", userOpt.getEmail()));
+      return ResponseEntity.ok(buildSuccessResponse(token, userResponse));
     }
     return ResponseEntity.status(401).body(buildErrorResponse("邮箱或密码错误"));
   }

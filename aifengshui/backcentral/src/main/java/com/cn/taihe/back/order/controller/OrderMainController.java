@@ -6,6 +6,7 @@ import com.cn.taihe.back.order.dto.OrderMainQueryDTO;
 import com.cn.taihe.back.order.dto.OrderMainUpdateDTO;
 import com.cn.taihe.back.order.service.OrderMainService;
 import com.cn.taihe.common.Result;
+import com.cn.taihe.loginstiats.RequireLogin;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 @Api(tags = "订单管理接口")
+@RequireLogin  // 可以在某个具体的接口上  若某个接口不需要登录状态  在某个接口上添加@AllowAnonymous  // ← 单独放开这个接口
 public class OrderMainController {
 
   private static final Logger logger = LoggerFactory.getLogger(OrderMainController.class);
@@ -76,7 +78,7 @@ public class OrderMainController {
   /**
    * 条件分页查询订单列表
    */
-  @PostMapping("/list")
+  @PostMapping("/page")
   @ApiOperation(value = "条件分页查询订单列表")
   public ResponseEntity<Object> getByCondition(
     @ApiParam(value = "查询条件")
@@ -110,8 +112,7 @@ public class OrderMainController {
       logger.info("新增订单接口调用开始 - 操作人: {}, 参数: {}", OPERATOR, createDTO);
       boolean result = orderMainService.create(createDTO);
       logger.info("新增订单接口调用{} - 操作人: {}", result ? "成功" : "失败", OPERATOR);
-      return result ? ResponseEntity.ok(Result.success("新增订单成功"))
-        : ResponseEntity.badRequest().body(Result.error("新增订单失败"));
+      return ResponseEntity.ok(Result.success(result));
     } catch (Exception e) {
       logger.error("新增订单接口调用失败 - 操作人: {}, 参数: {}, 错误: {}",
         OPERATOR, createDTO, e.getMessage(), e);

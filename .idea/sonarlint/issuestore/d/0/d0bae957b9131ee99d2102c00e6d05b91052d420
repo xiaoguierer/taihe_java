@@ -1,0 +1,83 @@
+
+`	java:S112E"FDefine and throw a dedicated exception instead of using a generic one.(úÏœÙùÿÿÿÿ
+[	java:S112y"FDefine and throw a dedicated exception instead of using a generic one.(ãÒãª
+\	java:S112Ã"FDefine and throw a dedicated exception instead of using a generic one.(‰è¾
+a	java:S112÷"FDefine and throw a dedicated exception instead of using a generic one.(ù’îùûÿÿÿÿ
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ñÛÍk
+\	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(Ä€ˆ‰
+\	java:S112±"FDefine and throw a dedicated exception instead of using a generic one.(†£ìı
+a	java:S112Ë"FDefine and throw a dedicated exception instead of using a generic one.(ÀëÃÕúÿÿÿÿ
+[	java:S112ä"FDefine and throw a dedicated exception instead of using a generic one.(„Ï™a
+[	java:S112ı"FDefine and throw a dedicated exception instead of using a generic one.(³‚—h
+\	java:S112—"FDefine and throw a dedicated exception instead of using a generic one.(š°ô
+a	java:S112±"FDefine and throw a dedicated exception instead of using a generic one.(Ì¢ŞŠûÿÿÿÿ
+a	java:S112È"FDefine and throw a dedicated exception instead of using a generic one.(­×í°ûÿÿÿÿ
+a	java:S112Ü"FDefine and throw a dedicated exception instead of using a generic one.(ÌÃ„—ûÿÿÿÿ
+a	java:S112ï"FDefine and throw a dedicated exception instead of using a generic one.(ÌÃ„—ûÿÿÿÿ
+a	java:S112‚"FDefine and throw a dedicated exception instead of using a generic one.(ÌÃ„—ûÿÿÿÿ
+J
+java:S3740c"/Provide the parametrized type for this generic.(œë—“üÿÿÿÿ
+J
+java:S3740h"/Provide the parametrized type for this generic.(˜ÛıÌûÿÿÿÿ
+J
+java:S3740m"/Provide the parametrized type for this generic.(İÌ¹ÿÿÿÿÿÿ
+K
+java:S3740­"/Provide the parametrized type for this generic.(œë—“üÿÿÿÿ
+K
+java:S3740²"/Provide the parametrized type for this generic.(˜ÛıÌûÿÿÿÿ
+K
+java:S3740·"/Provide the parametrized type for this generic.(İÌ¹ÿÿÿÿÿÿ
+§
+java:S1192Ø"Define a constant instead of duplicating this literal "æ ¹æ®çˆ¶æ ‡ç­¾IDæŸ¥è¯¢å­æ ‡ç­¾åˆ—è¡¨æˆåŠŸï¼Œæ“ä½œäººï¼š{}ï¼Œè®°å½•æ•°ï¼š{}" 3 times.(µ™›ò
+‰
+java:S1192Ü"mDefine a constant instead of duplicating this literal "æ ¹æ®çˆ¶æ ‡ç­¾IDæŸ¥è¯¢å­æ ‡ç­¾åˆ—è¡¨å¤±è´¥" 3 times.(ÌÃ„—ûÿÿÿÿ
+Â
+java:S1192Û"ªDefine a constant instead of duplicating this literal "æ ¹æ®çˆ¶æ ‡ç­¾IDæŸ¥è¯¢å­æ ‡ç­¾åˆ—è¡¨å¼‚å¸¸ï¼Œæ“ä½œäººï¼š{}ï¼Œå‚æ•°ï¼šparentTagId={}ï¼Œå¼‚å¸¸ä¿¡æ¯ï¼š" 3 times.(ÇÌÇñ
+b
+java:S1192™"KDefine a constant instead of duplicating this literal "/api/files" 6 times.(á™¬µ
+]
+java:S1192e"GDefine a constant instead of duplicating this literal "jdpath" 6 times.(×¢®¯
+n
+java:S2139C"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+n
+java:S2139w"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+n
+java:S3776‚"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(ìóÊ¾ÿÿÿÿÿ
+o
+java:S2139Á"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139õ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+k
+java:S3252‡"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(‹‹¥®úÿÿÿÿ
+o
+java:S2139"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139¯"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139É"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139â"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139û"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139•"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139¯"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+S
+java:S1854Â"<Remove this useless assignment to local variable "queryDTO".(¨ÚåÄ
+B
+java:S1168¾"+Return an empty collection instead of null.(¥¹ï
+D
+java:S1481Â"-Remove this unused "queryDTO" local variable.(¨ÚåÄ
+o
+java:S2139Æ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139Ú"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139í"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+o
+java:S2139€"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+F
+java:S1128"+Remove this unused import 'java.util.UUID'.(ÀãÄ£úÿÿÿÿ
