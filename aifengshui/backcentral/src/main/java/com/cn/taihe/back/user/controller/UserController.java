@@ -5,14 +5,11 @@ import com.cn.taihe.back.user.dto.request.UserQueryCondition;
 import com.cn.taihe.back.user.dto.response.UserResponse;
 import com.cn.taihe.back.user.entity.User;
 import com.cn.taihe.back.user.service.UserService;
-import com.cn.taihe.common.ApiResponse;
-import com.cn.taihe.common.BusinessException;
-import com.cn.taihe.common.ResponseBuilder;
-import com.cn.taihe.common.ResponseUtil;
-import com.cn.taihe.common.dateutils.DateTimeParser;
+import com.cn.taihe.common.*;
 import com.cn.taihe.common.utils.PasswordUtil;
 import com.cn.taihe.config.JwtUtil;
 import com.cn.taihe.loginstiats.AllowAnonymous;
+import com.cn.taihe.loginstiats.LogoutService;
 import com.cn.taihe.loginstiats.RequireLogin;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -24,8 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -46,6 +43,10 @@ public class UserController {
 
   @Autowired
   private JwtUtil jwtUtil;
+
+  @Autowired
+  private LogoutService logoutService;
+
 
   Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -150,7 +151,7 @@ public class UserController {
   public ResponseEntity<?> getUserById(@PathVariable String id) {
     Optional<User> userOpt = userService.findById(id);
     if (userOpt.isPresent()) {
-      return ResponseEntity.ok(buildSuccessResponse("查询成功", userOpt.get()));
+      return ResponseEntity.ok(Result.success(userOpt));
     }
     return ResponseEntity.status(404).body(buildErrorResponse("用户不存在"));
   }
@@ -263,6 +264,70 @@ public class UserController {
       return ResponseEntity.ok(buildSuccessResponse(token, userResponse));
     }
     return ResponseEntity.status(401).body(buildErrorResponse("邮箱或密码错误"));
+  }
+
+
+  /**
+   * 退出登录接口
+   */
+  @PostMapping("/logout")
+  public ResponseEntity<?> logout(HttpServletRequest request) {
+    try {
+      String token = extractTokenFromRequest(request);
+      if (token == null) {
+        return ResponseEntity.badRequest().body(buildErrorResponse("未找到token: " + token));
+      }
+      // 执行退出操作
+      logoutService.logout(token);
+      logger.info("用户退出登录成功");
+      return ResponseEntity.ok(Result.success("退出成功"));
+
+    } catch (Exception e) {
+      logger.error("退出登录失败", e);
+      return ResponseEntity.badRequest().body(buildErrorResponse("退出水白: " + e.getMessage()));
+    }
+  }
+
+  /**
+   * 管理员接口：强制清理黑名单
+   */
+  @PostMapping("/logout/cleanup")
+  public ResponseEntity<?> cleanupBlacklist() {
+    try {
+      logoutService.forceLogoutAll();
+      return ResponseEntity.ok(Result.success("黑名单清理完成"));
+    } catch (Exception e) {
+      logger.error("清理黑名单失败", e);
+      return ResponseEntity.badRequest().body(buildErrorResponse("token清理失败: " + e.getMessage()));
+    }
+  }
+
+  /**
+   * 查看黑名单统计信息
+   */
+  @GetMapping("/logout/statistics")
+  public ResponseEntity<?> getStatistics() {
+    try {
+      Object stats = logoutService.getLogoutStatistics();
+      return ResponseEntity.ok(Result.success(stats));
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(buildErrorResponse("获取统计信息失败: " + e.getMessage()));
+    }
+  }
+
+  private String extractTokenFromRequest(HttpServletRequest request) {
+    String bearerToken = request.getHeader("Authorization");
+    if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+      return bearerToken.substring(7);
+    }
+
+    // 也可以从参数中获取（兼容性）
+    String paramToken = request.getParameter("token");
+    if (paramToken != null && !paramToken.trim().isEmpty()) {
+      return paramToken;
+    }
+
+    return null;
   }
 
 

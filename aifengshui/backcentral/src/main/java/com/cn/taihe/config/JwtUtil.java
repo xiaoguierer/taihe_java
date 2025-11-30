@@ -1,10 +1,12 @@
 package com.cn.taihe.config;
 
+import com.cn.taihe.loginstiats.MemoryTokenBlacklist;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,12 @@ public class JwtUtil {
 
   private final String secret;
   private final long expiration;
+
+
+  // 新增：注入内存黑名单服务
+  @Autowired(required = false)
+  private MemoryTokenBlacklist memoryTokenBlacklist;
+
 
   public JwtUtil(@Value("${jwt.secret:mySuperSecretKeyChangeInProduction123!}") String secret,
                  @Value("${jwt.expiration:604800}") long expiration) {
@@ -95,6 +103,13 @@ public class JwtUtil {
    */
   public boolean validateToken(String token) {
     try {
+      // 1. 先检查黑名单（如果黑名单服务存在）
+      if (memoryTokenBlacklist != null && memoryTokenBlacklist.isBlacklisted(token)) {
+        logger.warn("JWT Token已被加入黑名单");
+        return false;
+      }
+
+      // 2. 验证签名和过期时间（原有逻辑）
       Jwts.parserBuilder()
         .setSigningKey(getSigningKey())
         .build()
@@ -117,6 +132,27 @@ public class JwtUtil {
     }
   }
 
+  /**
+   * 安全地获取用户ID（包含黑名单检查）
+   */
+  public String getUserIdFromTokenSafely(String token) {
+    if (!validateToken(token)) {
+      throw new RuntimeException("Token无效或已被撤销");
+    }
+    return getUserIdFromToken(token);
+  }
+  /**
+   * 获取Token剩余有效期（毫秒）
+   */
+  public long getTokenRemainingTime(String token) {
+    try {
+      Date expiration = getExpirationDateFromToken(token);
+      return expiration.getTime() - System.currentTimeMillis();
+    } catch (Exception e) {
+      logger.error("获取Token剩余时间失败", e);
+      return -1;
+    }
+  }
   /**
    * 获取Token的过期时间
    */
