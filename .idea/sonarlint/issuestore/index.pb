@@ -79,8 +79,6 @@ jaifengshui/backcentral/src/main/java/com/cn/taihe/back/filestore/service/impl/P
 aaifengshui/backcentral/src/main/java/com/cn/taihe/back/filestore/service/ProductImageService.java,b/3/b3dd322ae4aace45df2ec907c160fb26323c6871
 É
 Saifengshui/backcentral/src/main/java/com/cn/taihe/config/FileStorageProperties.java,3/2/324bab780318c1025254bda2795ad1ee715d6462
-ç
-]aifengshui/backcentral/src/main/java/com/cn/taihe/back/user/service/impl/UserServiceImpl.java,1/a/1aa7868b3a10e220bb77a962e1b8b8954cf8f2ee
 ä
 Zaifengshui/backcentral/src/main/java/com/cn/taihe/config/FileStorageAutoConfiguration.java,3/9/39eb21c06de39d274c6482ccb750aec08edfcf44
 è
@@ -367,3 +365,9 @@ iaifengshui/backcentral/src/main/java/com/cn/taihe/back/shoppingcart/controller/
 Zaifengshui/backcentral/src/main/java/com/cn/taihe/back/user/controller/AuthController.java,2/2/22f3eb1d48bf8700ffae08135b8e8099869a94dc
 ë
 aaifengshui/backcentral/src/main/java/com/cn/taihe/back/user/controller/UserAddressController.java,e/a/ea1cc606a1cf5fb93f31a9de5111e5ae40569734
+u
+Eaifengshui/backcentral/src/main/java/com/cn/taihe/config/JwtUtil.java,8/a/8ad3a7cdbd8986e701ff6eb76f64742da1940396
+á
+Waifengshui/backcentral/src/main/java/com/cn/taihe/loginstiats/MemoryTokenBlacklist.java,1/f/1f346466fb7f93ec248b5db208ea34547915db86
+Ä
+Paifengshui/backcentral/src/main/java/com/cn/taihe/loginstiats/LogoutService.java,0/b/0b4e92942f86877244481f6fc2dd0f82f868ecc2

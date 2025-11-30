@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     user.setEmail(email);
     user.setPasswordHash(password);
     user.setSalt(salt);
-    user.setNickname(nickname != null ? nickname : "新用户");
+    user.setNickname(nickname != null ? nickname : email);
     user.setStatus(status);
     user.setAvatar(avatar);
     user.setCreatedAt(LocalDateTime.now());
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     user.setEmail(email);
     user.setPasswordHash(passwordHash);
     user.setSalt(salt);
-    user.setNickname(nickname != null ? nickname : "新用户");
+    user.setNickname(nickname != null ? nickname : email);
     user.setStatus(status);
     user.setCreatedAt(LocalDateTime.now());
     user.setUpdatedAt(LocalDateTime.now());

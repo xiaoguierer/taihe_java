@@ -1,0 +1,10 @@
+
+`	java:S112A"FDefine and throw a dedicated exception instead of using a generic one.(î¦œŸøÿÿÿÿ
+P
+java:S1141&"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+:
+java:S2629 "$Invoke method(s) only conditionally.(˜ÍòÏ
+\
+java:S21848"FCast one of the operands of this multiplication operation to a "long".(ÍÆÍâ
+n
+java:S2139?"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
