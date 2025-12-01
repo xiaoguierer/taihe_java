@@ -33,7 +33,6 @@ import java.time.LocalDateTime;
 public class ProductSku {
 
   @Id
-  @GeneratedValue(generator = "system-uuid")
   @TableId(value = "id", type = IdType.ASSIGN_UUID)
   @ApiModelProperty(value = "主键ID", example = "12345678-1234-1234-1234-123456789012")
   private String id;

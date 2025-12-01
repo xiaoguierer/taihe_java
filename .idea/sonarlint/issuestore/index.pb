@@ -253,8 +253,6 @@ faifengshui/backcentral/src/main/java/com/cn/taihe/back/suppliers/service/impl/S
 ]aifengshui/backcentral/src/main/java/com/cn/taihe/back/suppliers/service/SupplierService.java,f/8/f8ad316f7109f35103239c02312289885337abd1
 é
 ^aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/CreateRelationsRequest.java,8/9/89421682d6e3d9a8674dd73ae79b7f77cf4c98a6
-ñ
-faifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/ProductSkuServiceImpl.java,4/0/4023e41dbb363930748abf97f06291ae8ce8fdd4
 ç
 ]aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/ProductSkuService.java,d/4/d4c29905820b6485465e3fb73c7d3bf8d2a02315
 á
@@ -263,14 +261,10 @@ Waifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductSpuSku
 aaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductCategoryTagCountDTO.java,7/f/7f7366eccec8bd8c4f63a81f066965ae7c824ab2
 í
 baifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductspuByEmotionAndTagId.java,9/6/968699a4e29e302cb56b4ba197b6cdfe563bdca8
-Ö
-Uaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/ProductSku.java,b/6/b6ce3e5f5542fd1b053b651e7a20aa858df48e25
 õ
 kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/EmotionalIntentServiceImpl.java,0/c/0c313c6d7ee400c382dc1d1d9e72256480145c43
 ê
 `aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/mapper/EmotionalIntentMapper.java,0/b/0bc94599becb5b30c38b22e2e716a9c5f64c6a48
-ì
-caifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/ProductSkuController.java,5/7/57d77037de483f0cbe6bdad0d7c995911f8d33b8
 ï
 eaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/ProductCategoryTagService.java,d/9/d91661ec2e2a7dff846f0069f71a4c70a95779bd
 û
@@ -281,10 +275,6 @@ caifengshui/backcentral/src/main/java/com/cn/taihe/back/product/mapper/ProductCa
 `aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/ProductSpuCategoryTag.java,9/d/9d0807503cf43122cdd15c1b5f451e58c8727e41
 û
 naifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/ProductSpuCategoryTagController.java,2/7/277aa734bc18cdcf4381266affdba9a6f6916295
-ñ
-faifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/ProductSpuServiceImpl.java,e/d/edb2c18d4898d6d0f9a7974739dc918ed7dcbd49
-ã
-[aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/mapper/ProductSpuMapper.java,7/0/70b88c47dde902c99a64f228211eaa36e615c04b
 ç
 ]aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/ProductSpuService.java,b/4/b463249359f1d34ec15ed517b7b598bd1ab6e38a
 õ
@@ -293,8 +283,6 @@ kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/Produ
 ]aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/ProductCategoryTag.java,2/0/2040e1083df2a254cd8ac9e9141240b25dd9d851
 d
 4common/src/main/java/com/cn/taihe/common/Result.java,0/7/074a15dc97c280a92854de42bd90f1b551b07d5e
-ì
-caifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/ProductSpuController.java,5/8/58b408a533bef5d8adc42b38d5fcd3225b1575a3
 õ
 kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/WuXingAttributeServiceImpl.java,9/d/9d175c9f2d14628e2c49d2d61cbb713f97f43a8b
 ê
@@ -315,8 +303,6 @@ iaifengshui/backcentral/src/main/java/com/cn/taihe/back/shoppingcart/dto/request
 laifengshui/backcentral/src/main/java/com/cn/taihe/back/shoppingcart/service/impl/ShopingcartServiceImpl.java,5/8/5893ad0c7988d3c94eff5e289de0fdf7677ca69d
 ã
 [aifengshui/backcentral/src/main/java/com/cn/taihe/back/shoppingcart/entity/Shopingcart.java,f/2/f21193232187280e1bbf762de9e786520de69059
-ä
-Zaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/EmotionalIntent.java,7/8/78da7eedbdd160f9bf5a0676b127dcb629f865f3
 Ç
 Raifengshui/backcentral/src/main/java/com/cn/taihe/back/order/entity/OrderMain.java,a/3/a3f9de66680ff6a4337fc5588d329a4e59437d36
 á
