@@ -123,6 +123,8 @@ public interface ProductSpuMapper {
    * @param limit 查询条数
    * @return 推荐商品列表
    */
+  List<ProductSpu> selectProductsByIntentIdIndex(@Param("intentId") String intentId, @Param("limit") Integer limit);
+
   List<ProductSpuSkuDTO> selectRecommendProductsByIntentId(@Param("intentId") String intentId, @Param("limit") Integer limit);
 
   /**

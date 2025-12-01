@@ -320,6 +320,18 @@
     </if>
   </select>
   <!--夸表综合查询-->
+
+  <!-- 根据情感意图ID查询推荐商品列表（包含主品类信息） -->
+  <select id="selectProductsByIntentIdIndex" resultType="com.cn.taihe.back.product.entity.ProductSpu">
+
+    SELECT DISTINCT sp.*
+    FROM product_spu as sp
+           INNER JOIN product_spu_intent as zj on sp.id = zj.spu_id
+           INNER JOIN emotional_intent as e on zj.intent_id = e.id
+    WHERE e.id = #{intentId}   LIMIT #{limit}
+  </select>
+
+
   <!-- 根据情感意图ID查询推荐商品列表（包含主品类信息） -->
   <select id="selectRecommendProductsByIntentId" resultType="com.cn.taihe.back.product.vo.ProductSpuSkuDTO">
     SELECT

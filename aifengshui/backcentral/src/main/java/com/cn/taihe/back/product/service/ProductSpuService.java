@@ -122,6 +122,12 @@ public interface ProductSpuService {
    * @return 推荐商品列表
    */
   List<ProductSpuSkuDTO> getRecommendProducts(String intentId, Integer limit);
+  /**
+   * @description:
+   * 首页根据情感查询spu
+   **/
+
+  List<ProductSpu> selectProductsByIntentIdIndex(String intentId, Integer limit);
 
   /**
    * 根据情感意图ID查询关联的SPU列表

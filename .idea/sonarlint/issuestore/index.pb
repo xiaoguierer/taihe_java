@@ -255,8 +255,6 @@ faifengshui/backcentral/src/main/java/com/cn/taihe/back/suppliers/service/impl/S
 ^aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/dto/CreateRelationsRequest.java,8/9/89421682d6e3d9a8674dd73ae79b7f77cf4c98a6
 ç
 ]aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/ProductSkuService.java,d/4/d4c29905820b6485465e3fb73c7d3bf8d2a02315
-á
-Waifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductSpuSkuDTO.java,c/0/c036c686382516c09616fd4ed03d816029a30b6c
 ë
 aaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductCategoryTagCountDTO.java,7/f/7f7366eccec8bd8c4f63a81f066965ae7c824ab2
 í
@@ -275,8 +273,6 @@ caifengshui/backcentral/src/main/java/com/cn/taihe/back/product/mapper/ProductCa
 `aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/ProductSpuCategoryTag.java,9/d/9d0807503cf43122cdd15c1b5f451e58c8727e41
 û
 naifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/ProductSpuCategoryTagController.java,2/7/277aa734bc18cdcf4381266affdba9a6f6916295
-ç
-]aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/ProductSpuService.java,b/4/b463249359f1d34ec15ed517b7b598bd1ab6e38a
 õ
 kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/ProductCategoryTagController.java,5/d/5d7c6a330b764192dd5bc4e786165379ac7f6ccc
 ç
@@ -353,3 +349,9 @@ Eaifengshui/backcentral/src/main/java/com/cn/taihe/config/JwtUtil.java,8/a/8ad3
 Waifengshui/backcentral/src/main/java/com/cn/taihe/loginstiats/MemoryTokenBlacklist.java,1/f/1f346466fb7f93ec248b5db208ea34547915db86
 Ä
 Paifengshui/backcentral/src/main/java/com/cn/taihe/loginstiats/LogoutService.java,0/b/0b4e92942f86877244481f6fc2dd0f82f868ecc2
+ô
+iaifengshui/backcentral/src/main/java/com/cn/taihe/back/imagefile/service/impl/FileStorageServiceImpl.java,e/d/eda6f1d3013356d4551b5320b82d71c8c277ff9e
+ê
+`aifengshui/backcentral/src/main/java/com/cn/taihe/back/imagefile/service/FileStorageService.java,d/7/d7e3e166eb7c4bb9943c513928d7d4df90ff495c
+ç
+]aifengshui/backcentral/src/main/java/com/cn/taihe/back/user/service/impl/UserServiceImpl.java,1/a/1aa7868b3a10e220bb77a962e1b8b8954cf8f2ee

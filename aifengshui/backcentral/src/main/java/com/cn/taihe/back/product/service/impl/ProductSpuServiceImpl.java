@@ -463,6 +463,15 @@ public class ProductSpuServiceImpl implements ProductSpuService {
   }
 
   /**
+   * @description:
+   * 首页根据情感查询spu
+   **/
+
+  public List<ProductSpu> selectProductsByIntentIdIndex(String intentId, Integer limit){
+    return productSpuMapper.selectProductsByIntentIdIndex(intentId,limit);
+  }
+
+  /**
    * 根据情感意图ID查询关联的SPU列表
    *
    * @param intentId 情感意图ID
