@@ -69,8 +69,6 @@ gaifengshui/backcentral/src/main/java/com/cn/taihe/back/filestore/controller/Pro
 \aifengshui/backcentral/src/main/java/com/cn/taihe/back/user/dto/request/RegisterRequest.java,8/c/8ce46ccf39032068821415fa1fd209d88e64c15e
 Ñ
 Taifengshui/backcentral/src/main/java/com/cn/taihe/back/user/service/UserService.java,f/9/f96dc239bcee934daa4872a5df02588512fc27c5
-ê
-`aifengshui/backcentral/src/main/java/com/cn/taihe/back/imagefile/service/FileStorageService.java,d/7/d7e3e166eb7c4bb9943c513928d7d4df90ff495c
 è
 _aifengshui/backcentral/src/main/java/com/cn/taihe/back/filestore/mapper/ProductImageMapper.java,b/2/b2295aae39ec3d396a72b669a99433ab5520cf73
 ö
@@ -265,8 +263,6 @@ Waifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductSpuSku
 aaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductCategoryTagCountDTO.java,7/f/7f7366eccec8bd8c4f63a81f066965ae7c824ab2
 í
 baifengshui/backcentral/src/main/java/com/cn/taihe/back/product/vo/ProductspuByEmotionAndTagId.java,9/6/968699a4e29e302cb56b4ba197b6cdfe563bdca8
-ô
-iaifengshui/backcentral/src/main/java/com/cn/taihe/back/imagefile/service/impl/FileStorageServiceImpl.java,e/d/eda6f1d3013356d4551b5320b82d71c8c277ff9e
 Ö
 Uaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/ProductSku.java,b/6/b6ce3e5f5542fd1b053b651e7a20aa858df48e25
 õ

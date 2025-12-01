@@ -21,8 +21,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 本地文件存储服务实现（修复版）
@@ -374,7 +376,9 @@ public class FileStorageServiceImpl implements FileStorageService {
       fileName = sanitizeFileName(customFileName.trim());
     } else {
       // 使用UUID作为文件名
-      fileName = UUID.randomUUID().toString().replace("-", "");
+      //fileName = UUID.randomUUID().toString().replace("-", "");
+      fileName =  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"))
+        + String.format("%03d", ThreadLocalRandom.current().nextInt(1000));
     }
 
     // 4. 文件扩展名
