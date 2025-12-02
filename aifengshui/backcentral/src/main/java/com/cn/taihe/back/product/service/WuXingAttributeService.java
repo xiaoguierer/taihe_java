@@ -176,4 +176,10 @@ public interface WuXingAttributeService {
    * @return 关键字段列表
    */
   List<WuXingAttribute> getKeyFields();
+  /**
+   * @description:
+   * 根据spuid查询所属五行信息
+   * @return: [java.lang.String]
+   **/
+  List<WuXingAttribute> selectBySpuID(String spuid);
 }

@@ -255,6 +255,20 @@
     ORDER BY sort_order ASC, created_time DESC
   </select>
 
+  <!-- 根据商品id查询所属五行信息 -->
+  <select id="selectBySpuID" parameterType="string" resultType="com.cn.taihe.back.product.entity.WuXingAttribute">
+    SELECT *
+    FROM (
+           SELECT
+             wx.*,
+             ROW_NUMBER() OVER (PARTITION BY wx.element_code ORDER BY wx.id) as rn
+           FROM wu_xing_attribute wx
+                  INNER JOIN product_spu_wuxing zj ON wx.id = zj.wu_xing_id
+           WHERE zj.spu_id = #{spuid}
+         ) t
+    WHERE rn = 1;
+  </select>
+
   <!-- 根据主键集合批量删除五行属性 -->
   <delete id="deleteBatchIds" parameterType="list">
     DELETE FROM wu_xing_attribute

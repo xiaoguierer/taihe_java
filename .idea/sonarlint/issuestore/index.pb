@@ -125,8 +125,6 @@ caifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/ProductS
 [aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/ProductSpuWuxing.java,8/5/858543d4cdef202288ed6fdddf5b1a675e3113d5
 Ь
 laifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/ProductSpuWuxingServiceImpl.java,a/e/aee6312ca6c594216edf3dcd259bae98373e55b5
-Т
-baifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/WuXingAttributeService.java,d/5/d54d10a8c771923f67f373a12f76685e931d12ca
 Ь
 laifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/ProductSpuIntentServiceImpl.java,1/a/1af1da32ca64741cdaa55f0803e2da6c5bb15178
 Ш
@@ -279,20 +277,10 @@ kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/Produ
 ]aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/ProductCategoryTag.java,2/0/2040e1083df2a254cd8ac9e9141240b25dd9d851
 d
 4common/src/main/java/com/cn/taihe/common/Result.java,0/7/074a15dc97c280a92854de42bd90f1b551b07d5e
-Ы
-kaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/service/impl/WuXingAttributeServiceImpl.java,9/d/9d175c9f2d14628e2c49d2d61cbb713f97f43a8b
-Р
-`aifengshui/backcentral/src/main/java/com/cn/taihe/back/product/mapper/WuXingAttributeMapper.java,2/3/230a84d47bee982be6768a01863edf15c0819084
 >
 doc/шо░х╜Х.txt,8/5/85e5ba5634911753eb1bca0fc3e921a6d68332bd
 =
 doc/taihe.sql,9/2/922f1b7358ec67676721f566c05956e228f87f0f
-Ш
-haifengshui/backcentral/src/main/java/com/cn/taihe/back/product/controller/WuXingAttributeController.java,f/d/fde7409b78fa5d42116a4b47e60ed6a43d8af4c1
-К
-Zaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/WuXingAttribute.java,b/e/be1f2a30c7ed10830e3d79d8e1865ed76397552b
-Е
-Uaifengshui/backcentral/src/main/java/com/cn/taihe/back/product/entity/ProductSpu.java,5/a/5ae5de47dfe7cda6f90974ee78b90e207aedc2d1
 Щ
 iaifengshui/backcentral/src/main/java/com/cn/taihe/back/shoppingcart/dto/request/ShopingcartCreateDTO.java,9/1/913d34923a4ce459f073acdc06b62e5876d386aa
 Ь
@@ -329,8 +317,6 @@ Saifengshui/backcentral/src/main/java/com/cn/taihe/loginstiats/LoginInterceptor.
 Qaifengshui/backcentral/src/main/java/com/cn/taihe/loginstiats/AllowAnonymous.java,c/a/ca464710dae18ca8d9ac9f03152140116e9dbeb7
 |
 Laifengshui/backcentral/src/main/java/com/cn/taihe/loginstiats/WebConfig.java,c/3/c35b0ef49c802ba9332b5644afdc5b6fd5c914e8
-Р
-`aifengshui/backcentral/src/main/java/com/cn/taihe/back/order/controller/OrderMainController.java,7/7/77e095d4db07d5db6bce77611a6ef90324042e61
 Р
 `aifengshui/backcentral/src/main/java/com/cn/taihe/back/order/controller/OrderItemController.java,f/2/f273ee542b4ea688accd11d3a49e2784f5fdb348
 У

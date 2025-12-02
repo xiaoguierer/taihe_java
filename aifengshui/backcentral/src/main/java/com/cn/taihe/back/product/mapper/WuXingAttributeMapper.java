@@ -97,6 +97,12 @@ public interface WuXingAttributeMapper {
   List<WuXingAttribute> selectByTier(@Param("elementTier") Integer elementTier);
 
   /**
+   * @description:
+   * 根据是商品spuID查询五行信息
+   **/
+  List<WuXingAttribute> selectBySpuID(@Param("spuid") String spuid);
+
+  /**
    * 根据主键集合批量删除五行属性
    *
    * @param ids 主键ID集合

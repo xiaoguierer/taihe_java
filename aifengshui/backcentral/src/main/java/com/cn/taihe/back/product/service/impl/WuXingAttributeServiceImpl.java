@@ -339,7 +339,6 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
       logger.warn("按层级查询五行属性 - 参数错误: elementTier为空");
       return null;
     }
-
     try {
       List<WuXingAttribute> result = wuXingAttributeMapper.selectByTier(elementTier);
       logger.info("按层级查询五行属性成功 - 操作人: {}, 参数: elementTier={}, 结果数量: {}",
@@ -504,5 +503,19 @@ public class WuXingAttributeServiceImpl implements WuXingAttributeService {
         OPERATOR, ids, status, e.getMessage(), e);
       throw new RuntimeException("批量更新状态失败", e);
     }
+  }
+
+   /**
+   * @description:
+   * 根据spuid查询所属五行信息
+   * @return: [java.lang.String]
+   **/
+   public List<WuXingAttribute> selectBySpuID(String spuid){
+     logger.info("按商品spu查询五行属性 - 操作人: {}, 参数: spuid={}", OPERATOR, spuid);
+
+     if (spuid == null) {
+       logger.warn("按层级查询五行属性 - 参数错误: elementTier为空");
+     }
+     return wuXingAttributeMapper.selectBySpuID(spuid);
   }
 }

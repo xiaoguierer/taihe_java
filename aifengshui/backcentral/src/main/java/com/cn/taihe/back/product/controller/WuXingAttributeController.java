@@ -439,4 +439,30 @@ public class WuXingAttributeController {
       return ResponseEntity.ok(Result.error("按元素键名查询失败"));
     }
   }
+  /**
+   * @description:
+   * 根据商品spu查询所属五行信息
+   **/
+
+  @GetMapping("/selectBySpuID/{productId}")
+  @ApiOperation(value = "商品spu id查询五行属性", notes = "商品spu id查询启用的五行属性")
+  public ResponseEntity<Object> selectBySpuID(
+    @ApiParam(value = "商品spu id", required = true)
+    @PathVariable String productId) {
+    logger.info("按商品spu id 查询五行属性 - 操作人: {}, 参数: productId={}", OPERATOR, productId);
+    if (productId == null) {
+      logger.warn("查询五行属性 - 参数错误: productId为空");
+      return ResponseEntity.ok(Result.error("productId不能为空"));
+    }
+    try {
+      List<WuXingAttribute> result = wuXingAttributeService.selectBySpuID(productId);
+      logger.info("查询五行属性成功 - 操作人: {}, 参数: productId={}, 结果数量: {}",
+        OPERATOR, productId, result.size());
+      return ResponseEntity.ok(Result.success(result));
+    } catch (Exception e) {
+      logger.error("查询五行属性异常 - 操作人: {}, 参数: productId={}, 异常信息: {}",
+        OPERATOR, productId, e.getMessage(), e);
+      return ResponseEntity.ok(Result.error("查询五行属性失败"));
+    }
+  }
 }
