@@ -186,9 +186,18 @@
       <if test="elementNameZh != null and elementNameZh != ''">
         AND element_name_zh LIKE CONCAT('%', #{elementNameZh}, '%')
       </if>
-      <if test="elementTier != null">
+        <!-- 修改：默认elementTier = 1 -->
+        <choose>
+            <when test="elementTier != null">
+                AND element_tier = #{elementTier}
+            </when>
+            <otherwise>
+                AND element_tier = 1
+            </otherwise>
+        </choose>
+      <!--<if test="elementTier != null">
         AND element_tier = #{elementTier}
-      </if>
+      </if>-->
       <if test="isActive != null">
         AND is_active = #{isActive}
       </if>
@@ -201,6 +210,7 @@
     SELECT
     <include refid="Base_Column_List"/>
     FROM wu_xing_attribute
+      WHERE element_tier = 1
     ORDER BY sort_order ASC, created_time DESC
   </select>
 
@@ -209,7 +219,7 @@
     SELECT
     <include refid="Base_Column_List"/>
     FROM wu_xing_attribute
-    WHERE is_active = 1
+    WHERE is_active = 1 AND  element_tier = 1
     ORDER BY sort_order ASC, element_tier ASC, created_time DESC
   </select>
 
@@ -230,9 +240,17 @@
       <if test="elementNameZh != null and elementNameZh != ''">
         AND element_name_zh LIKE CONCAT('%', #{elementNameZh}, '%')
       </if>
-      <if test="elementTier != null">
+        <choose>
+            <when test="elementTier != null">
+                AND element_tier = #{elementTier}
+            </when>
+            <otherwise>
+                AND element_tier = 1
+            </otherwise>
+        </choose>
+      <!--<if test="elementTier != null">
         AND element_tier = #{elementTier}
-      </if>
+      </if>-->
     </where>
     ORDER BY sort_order ASC, element_tier ASC
   </select>
@@ -242,7 +260,7 @@
     SELECT
     <include refid="Base_Column_List"/>
     FROM wu_xing_attribute
-    WHERE element_category = #{elementCategory} AND is_active = 1
+    WHERE element_category = #{elementCategory} AND is_active = 1 AND element_tier = 1
     ORDER BY sort_order ASC, created_time DESC
   </select>
 
@@ -264,7 +282,7 @@
              ROW_NUMBER() OVER (PARTITION BY wx.element_code ORDER BY wx.id) as rn
            FROM wu_xing_attribute wx
                   INNER JOIN product_spu_wuxing zj ON wx.id = zj.wu_xing_id
-           WHERE zj.spu_id = #{spuid}
+           WHERE zj.spu_id = #{spuid} AND element_tier = 1
          ) t
     WHERE rn = 1;
   </select>
@@ -290,7 +308,7 @@
     SELECT
     <include refid="Base_Column_List"/>
     FROM wu_xing_attribute
-    WHERE element_key = #{elementKey}
+    WHERE element_key = #{elementKey} AND element_tier = 1
   </select>
 
   <!-- 检查元素键名是否存在 -->
@@ -307,7 +325,7 @@
     SELECT
     <include refid="Key_Column_List"/>
     FROM wu_xing_attribute
-    WHERE is_active = 1
+    WHERE is_active = 1 AND element_tier = 1
     ORDER BY element_tier ASC, sort_order ASC
   </select>
 
