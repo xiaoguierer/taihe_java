@@ -51,6 +51,31 @@ public class UserController {
   Logger logger = LoggerFactory.getLogger(UserController.class);
 
   /**
+   * 用户登录
+   * POST /api/users/login
+   */
+  @AllowAnonymous
+  @PostMapping("/login")
+  public ResponseEntity<?> login(
+    @RequestParam String email,
+    @RequestParam String password) {
+    logger.info("..................用户登录信息验证........");
+    User user = userService.findByEmail(email);
+    if (user == null) {
+      throw new BusinessException("用户不存在");
+    }
+    if (!PasswordUtil.verifyPassword(password, user.getPasswordHash(), user.getSalt())) {
+      throw new BusinessException("密码错误");
+    }
+    User userOpt = userService.login(email, password);
+    // 生成JWT Token
+    String token = jwtUtil.generateToken(user.getId());
+    // 构建响应
+    UserResponse userResponse = new UserResponse(userOpt);
+    logger.info("登录生成的token 是：----------------",token);
+    return ResponseEntity.ok(buildSuccessResponse(token, userResponse));
+  }
+  /**
    * 用户注册新增
    * POST /api/users/register
    */
@@ -238,33 +263,6 @@ public class UserController {
     }
   }
 
-
-  /**
-   * ----------------------------------
-   * 用户登录
-   * POST /api/users/login
-   */
-  @AllowAnonymous
-  @PostMapping("/login")
-  public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
-    User user = userService.findByEmail(email);
-    if (user == null) {
-      throw new BusinessException("用户不存在");
-    }
-    if (!PasswordUtil.verifyPassword(password, user.getPasswordHash(), user.getSalt())) {
-      throw new BusinessException("密码错误");
-    }
-    User userOpt = userService.login(email, password);
-    // 生成JWT Token
-    String token = jwtUtil.generateToken(user.getId());
-    // 构建响应
-    UserResponse userResponse = new UserResponse(userOpt);
-    logger.info("登录生成的token 是：----------------",token);
-    if (userOpt != null) {
-      return ResponseEntity.ok(buildSuccessResponse(token, userResponse));
-    }
-    return ResponseEntity.status(401).body(buildErrorResponse("邮箱或密码错误"));
-  }
 
 
   /**

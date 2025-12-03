@@ -120,10 +120,10 @@ public class ShopingcartController {
   /**
    * 条件分页查询数据
    */
-  @PostMapping("/page")
+  @PostMapping("/pageLst")
   @ApiOperation(value = "分页查询购物车项", notes = "根据条件分页查询购物车项列表")
-  public ResponseEntity<Object> getByPage(
-    @ApiParam(value = "查询条件") @RequestBody(required = false) Shopingcart queryDTO,
+  public ResponseEntity<Object> pageLst(
+    @ApiParam(value = "查询条件") @RequestBody(required = true) Shopingcart queryDTO,
     @ApiParam(value = "页码", defaultValue = "1") @RequestParam(defaultValue = "1") Integer page,
     @ApiParam(value = "每页大小", defaultValue = "10") @RequestParam(defaultValue = "10") Integer size) {
     logger.info("分页查询购物车项接口开始 - 操作人: {}, 参数: queryDTO={}, page={}, size={}", OPERATOR, queryDTO, page, size);
